@@ -17,11 +17,12 @@ public:
 	virtual void setByte(int location, char value) = 0;
 	
 	virtual int peekDataStack(int ndx) = 0;
+	virtual void rollDataStack(int ndx) = 0;
 	virtual int popDataStack() = 0;
 	virtual void pushDataStack(int value) = 0;
 	
-	virtual int popReturnStack() = 0;
-	virtual void pushReturnStack(int value) = 0;
+	virtual int fromReturnStack() = 0;
+	virtual void toReturnStack(int value) = 0;
 	virtual int returnStackDepth() = 0;
 };
 

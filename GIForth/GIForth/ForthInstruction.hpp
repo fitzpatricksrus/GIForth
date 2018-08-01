@@ -39,17 +39,16 @@ enum ForthInstruction {
 	P_GREATER_THAN,
 	P_EQUAL,
 	
-	P_AND,
-	P_OR,
-	P_NOT,
-	P_XOR,
+	P_CONDITIONAL_AND,
+	P_CONDITIONAL_OR,
+	P_CONDITIONAL_NOT,
 	
 	P_JUMP,
 	P_JUMP_IF_FALSE,
 	P_PUSH_NEXT_CELL,
 
-
-	
+	P_RETURN,
+	P_UNKNOWN
 };
 
 #endif /* ForthInstruction_hpp */

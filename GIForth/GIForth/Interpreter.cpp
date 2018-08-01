@@ -46,31 +46,78 @@ void Interpreter::interpret() {
 			arch.pushDataStack(arch.popDataStack() + ndx * sizeof(int));
 			} break;
 		case P_TO_RETURN_STACK:
+			arch.toReturnStack(arch.popDataStack());
+			break;
 		case P_FROM_RETURN_STACK:
-		
+			arch.pushDataStack(arch.fromReturnStack());
+			break;
 		case P_PICK:	// ( a0 .. an n -- a0 .. an a0 )
+			arch.pushDataStack(arch.peekDataStack(arch.popDataStack()));
+			break;
 		case P_ROLL:	// ( a0 .. an n -- a1 .. an a0 )
+			arch.rollDataStack(arch.popDataStack());
+			break;
 		case P_DROP:
-		
+			arch.popDataStack();
+			break;
 		case P_ADD:
-		case P_SUBTRACT:
+			arch.pushDataStack(arch.popDataStack() + arch.popDataStack());
+			break;
+		case P_SUBTRACT: {	// x y -- x - y
+			int x = arch.popDataStack();
+			arch.pushDataStack(x - arch.popDataStack());
+			} break;
 		case P_MULTIPLY:
-		case P_DIVIDE:
-		case P_MOD:
-		
-		case P_LESS_THAN:
+			arch.pushDataStack(arch.popDataStack() * arch.popDataStack());
+			break;
+		case P_DIVIDE: {	// x y -- x / y
+			int x = arch.popDataStack();
+			arch.pushDataStack(x / arch.popDataStack());
+			} break;
+		case P_MOD: {	// x y -- x % y
+			int x = arch.popDataStack();
+			arch.pushDataStack(x % arch.popDataStack());
+			} break;
+		case P_LESS_THAN:	// x y -- x < y
+			arch.pushDataStack(arch.popDataStack() > arch.popDataStack());
+			break;
 		case P_GREATER_THAN:
+			arch.pushDataStack(arch.popDataStack() < arch.popDataStack());
+			break;
 		case P_EQUAL:
-		
-		case P_AND:
-		case P_OR:
-		case P_NOT:
-		case P_XOR:
-		
+			arch.pushDataStack(arch.popDataStack() != arch.popDataStack());
+			break;
+		case P_CONDITIONAL_AND:
+			arch.pushDataStack(arch.popDataStack() && arch.popDataStack());
+			break;
+		case P_CONDITIONAL_OR:
+			arch.pushDataStack(arch.popDataStack() || arch.popDataStack());
+			break;
+		case P_CONDITIONAL_NOT:
+			arch.pushDataStack(!arch.popDataStack());
+			break;
 		case P_JUMP:
+			arch.setIP(arch.getNextInstruction());
+			break;
 		case P_JUMP_IF_FALSE:
+			if (arch.popDataStack()) {
+				// just eat the next instruction
+				arch.getNextInstruction();
+			} else {
+				arch.setIP(arch.getNextInstruction());
+			}
+			break;
 		case P_PUSH_NEXT_CELL:
+			arch.pushDataStack(arch.getNextInstruction());
+			break;
+		case P_RETURN:
+			arch.setIP(arch.fromReturnStack());
+			break;
+		case P_UNKNOWN:
 		default:
+			// considered a composite word.
+			arch.toReturnStack(arch.getIP());
+			arch.setIP(ins);
 			break;
 		}
 	}
