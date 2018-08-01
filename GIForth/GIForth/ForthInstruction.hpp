@@ -17,8 +17,10 @@ enum ForthInstruction {
 	
 	P_CHAR_AT,
 	P_CHAR_PUT,
-	P_AT,
-	P_PUT,
+	P_CHAR_INDEX,
+	P_CELL_AT,
+	P_CELL_PUT,
+	P_CELL_INDEX,
 	
 	P_TO_RETURN_STACK,
 	P_FROM_RETURN_STACK,
@@ -27,9 +29,26 @@ enum ForthInstruction {
 	P_ROLL,	// ( a0 .. an n -- a1 .. an a0 )
 	P_DROP,
 	
+	P_ADD,
+	P_SUBTRACT,
+	P_MULTIPLY,
+	P_DIVIDE,
+	P_MOD,
+	
+	P_LESS_THAN,
+	P_GREATER_THAN,
+	P_EQUAL,
+	
+	P_AND,
+	P_OR,
+	P_NOT,
+	P_XOR,
+	
 	P_JUMP,
 	P_JUMP_IF_FALSE,
-	
+	P_PUSH_NEXT_CELL,
+
+
 	
 };
 

@@ -18,10 +18,11 @@ public:
 	
 	virtual int peekDataStack(int ndx) = 0;
 	virtual int popDataStack() = 0;
-	virtual void pushDataStack() = 0;
+	virtual void pushDataStack(int value) = 0;
 	
 	virtual int popReturnStack() = 0;
 	virtual void pushReturnStack(int value) = 0;
+	virtual int returnStackDepth() = 0;
 };
 
 #endif /* ForthMemory_hpp */
