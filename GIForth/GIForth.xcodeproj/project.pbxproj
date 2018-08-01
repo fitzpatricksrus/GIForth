@@ -1,0 +1,303 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0F78B82B2111690400CB5737 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0F78B82A2111690400CB5737 /* main.cpp */; };
+		0F78B83321116AD700CB5737 /* ForthMemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0F78B83121116AD700CB5737 /* ForthMemory.cpp */; };
+		0F78B83621116B0700CB5737 /* ForthExecutionContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0F78B83421116B0700CB5737 /* ForthExecutionContext.cpp */; };
+		0F78B83921116B2200CB5737 /* ForthArchitecture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0F78B83721116B2200CB5737 /* ForthArchitecture.cpp */; };
+		0F78B83C21116C3300CB5737 /* ForthInstruction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0F78B83A21116C3300CB5737 /* ForthInstruction.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0F78B8252111690400CB5737 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0F78B8272111690400CB5737 /* GIForth */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GIForth; sourceTree = BUILT_PRODUCTS_DIR; };
+		0F78B82A2111690400CB5737 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		0F78B83121116AD700CB5737 /* ForthMemory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ForthMemory.cpp; sourceTree = "<group>"; };
+		0F78B83221116AD700CB5737 /* ForthMemory.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ForthMemory.hpp; sourceTree = "<group>"; };
+		0F78B83421116B0700CB5737 /* ForthExecutionContext.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ForthExecutionContext.cpp; sourceTree = "<group>"; };
+		0F78B83521116B0700CB5737 /* ForthExecutionContext.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ForthExecutionContext.hpp; sourceTree = "<group>"; };
+		0F78B83721116B2200CB5737 /* ForthArchitecture.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ForthArchitecture.cpp; sourceTree = "<group>"; };
+		0F78B83821116B2200CB5737 /* ForthArchitecture.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ForthArchitecture.hpp; sourceTree = "<group>"; };
+		0F78B83A21116C3300CB5737 /* ForthInstruction.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ForthInstruction.cpp; sourceTree = "<group>"; };
+		0F78B83B21116C3300CB5737 /* ForthInstruction.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ForthInstruction.hpp; sourceTree = "<group>"; };
+		0F78B83D2111791400CB5737 /* Interp.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Interp.rtf; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0F78B8242111690400CB5737 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0F78B81E2111690400CB5737 = {
+			isa = PBXGroup;
+			children = (
+				0F78B8292111690400CB5737 /* GIForth */,
+				0F78B8282111690400CB5737 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0F78B8282111690400CB5737 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0F78B8272111690400CB5737 /* GIForth */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0F78B8292111690400CB5737 /* GIForth */ = {
+			isa = PBXGroup;
+			children = (
+				0F78B82A2111690400CB5737 /* main.cpp */,
+				0F78B83121116AD700CB5737 /* ForthMemory.cpp */,
+				0F78B83221116AD700CB5737 /* ForthMemory.hpp */,
+				0F78B83421116B0700CB5737 /* ForthExecutionContext.cpp */,
+				0F78B83521116B0700CB5737 /* ForthExecutionContext.hpp */,
+				0F78B83721116B2200CB5737 /* ForthArchitecture.cpp */,
+				0F78B83821116B2200CB5737 /* ForthArchitecture.hpp */,
+				0F78B83A21116C3300CB5737 /* ForthInstruction.cpp */,
+				0F78B83B21116C3300CB5737 /* ForthInstruction.hpp */,
+				0F78B83D2111791400CB5737 /* Interp.rtf */,
+			);
+			path = GIForth;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0F78B8262111690400CB5737 /* GIForth */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0F78B82E2111690400CB5737 /* Build configuration list for PBXNativeTarget "GIForth" */;
+			buildPhases = (
+				0F78B8232111690400CB5737 /* Sources */,
+				0F78B8242111690400CB5737 /* Frameworks */,
+				0F78B8252111690400CB5737 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GIForth;
+			productName = GIForth;
+			productReference = 0F78B8272111690400CB5737 /* GIForth */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0F78B81F2111690400CB5737 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = Dad;
+				TargetAttributes = {
+					0F78B8262111690400CB5737 = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
+				};
+			};
+			buildConfigurationList = 0F78B8222111690400CB5737 /* Build configuration list for PBXProject "GIForth" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 0F78B81E2111690400CB5737;
+			productRefGroup = 0F78B8282111690400CB5737 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0F78B8262111690400CB5737 /* GIForth */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0F78B8232111690400CB5737 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0F78B83921116B2200CB5737 /* ForthArchitecture.cpp in Sources */,
+				0F78B83321116AD700CB5737 /* ForthMemory.cpp in Sources */,
+				0F78B82B2111690400CB5737 /* main.cpp in Sources */,
+				0F78B83C21116C3300CB5737 /* ForthInstruction.cpp in Sources */,
+				0F78B83621116B0700CB5737 /* ForthExecutionContext.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		0F78B82C2111690400CB5737 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		0F78B82D2111690400CB5737 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		0F78B82F2111690400CB5737 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		0F78B8302111690400CB5737 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0F78B8222111690400CB5737 /* Build configuration list for PBXProject "GIForth" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0F78B82C2111690400CB5737 /* Debug */,
+				0F78B82D2111690400CB5737 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0F78B82E2111690400CB5737 /* Build configuration list for PBXNativeTarget "GIForth" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0F78B82F2111690400CB5737 /* Debug */,
+				0F78B8302111690400CB5737 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0F78B81F2111690400CB5737 /* Project object */;
+}
