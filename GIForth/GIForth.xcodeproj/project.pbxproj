@@ -14,6 +14,7 @@
 		0F78B83C21116C3300CB5737 /* ForthInstruction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0F78B83A21116C3300CB5737 /* ForthInstruction.cpp */; };
 		0F78B84021117C8800CB5737 /* Interpreter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0F78B83E21117C8800CB5737 /* Interpreter.cpp */; };
 		0F78B84321117D1700CB5737 /* ForthInterpreter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0F78B84121117D1700CB5737 /* ForthInterpreter.cpp */; };
+		0F78B8462112C7F300CB5737 /* ForthWord.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0F78B8442112C7F300CB5737 /* ForthWord.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -44,6 +45,8 @@
 		0F78B83F21117C8800CB5737 /* Interpreter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Interpreter.hpp; sourceTree = "<group>"; };
 		0F78B84121117D1700CB5737 /* ForthInterpreter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ForthInterpreter.cpp; sourceTree = "<group>"; };
 		0F78B84221117D1700CB5737 /* ForthInterpreter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ForthInterpreter.hpp; sourceTree = "<group>"; };
+		0F78B8442112C7F300CB5737 /* ForthWord.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ForthWord.cpp; sourceTree = "<group>"; };
+		0F78B8452112C7F300CB5737 /* ForthWord.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ForthWord.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +93,8 @@
 				0F78B83F21117C8800CB5737 /* Interpreter.hpp */,
 				0F78B84121117D1700CB5737 /* ForthInterpreter.cpp */,
 				0F78B84221117D1700CB5737 /* ForthInterpreter.hpp */,
+				0F78B8442112C7F300CB5737 /* ForthWord.cpp */,
+				0F78B8452112C7F300CB5737 /* ForthWord.hpp */,
 			);
 			path = GIForth;
 			sourceTree = "<group>";
@@ -155,6 +160,7 @@
 				0F78B84021117C8800CB5737 /* Interpreter.cpp in Sources */,
 				0F78B82B2111690400CB5737 /* main.cpp in Sources */,
 				0F78B83C21116C3300CB5737 /* ForthInstruction.cpp in Sources */,
+				0F78B8462112C7F300CB5737 /* ForthWord.cpp in Sources */,
 				0F78B83621116B0700CB5737 /* ForthExecutionContext.cpp in Sources */,
 				0F78B84321117D1700CB5737 /* ForthInterpreter.cpp in Sources */,
 			);
