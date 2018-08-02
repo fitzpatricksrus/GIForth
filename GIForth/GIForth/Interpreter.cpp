@@ -110,6 +110,11 @@ void Interpreter::interpret() {
 		case P_PUSH_NEXT_CELL:
 			arch.pushDataStack(arch.getNextInstruction());
 			break;
+		case P_PUSH_NEXT_CELL_ADDRESS:
+			// used as the sole/last instruction of a word, push the addr of the next word
+			// on the data stack and return
+			arch.pushDataStack(arch.getIP());
+			// fall through to P_RETURN
 		case P_RETURN:
 			arch.setIP(arch.fromReturnStack());
 			break;

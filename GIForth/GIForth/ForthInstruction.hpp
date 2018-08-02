@@ -46,7 +46,7 @@ enum ForthInstruction {
 	P_JUMP,
 	P_JUMP_IF_FALSE,
 	P_PUSH_NEXT_CELL,
-
+	P_PUSH_NEXT_CELL_ADDRESS,
 	P_RETURN,
 	P_UNKNOWN
 };
