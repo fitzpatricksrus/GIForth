@@ -8,3 +8,5 @@
 
 #include "ForthMemory.hpp"
 
+ForthMemory::~ForthMemory() {
+}

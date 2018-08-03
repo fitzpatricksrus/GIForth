@@ -12,8 +12,7 @@
 #include <stdio.h>
 #include "ForthInstruction.hpp"
 
-class ForthWord {
-public:
+struct ForthWord {
 	enum MODE {
 		PRIMITIVE,
 		COMPILE_ONLY,
@@ -21,12 +20,10 @@ public:
 		NORMAL
 	};
 	
-	// null terminated string
-	char* name;
-	ForthWord* previous;
+	// null terminated string name here
+	int nameIndex;
+	int previousWordIndex;
 	MODE mode;
-	ForthInstruction words[];
-
 };
 
 #endif /* ForthWord_hpp */

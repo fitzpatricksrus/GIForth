@@ -15,12 +15,15 @@ enum ForthInstruction {
 	P_CHAR_SIZE,
 	P_CELL_SIZE,
 	
-	P_CHAR_AT,
-	P_CHAR_PUT,
-	P_CHAR_INDEX,
-	P_CELL_AT,
-	P_CELL_PUT,
-	P_CELL_INDEX,
+	P_CHAR_AT,			// addr - char
+	P_CHAR_PUT,			// char addr --
+	P_CHAR_INDEX,		// ndx addr -- addr
+	P_CELL_AT,			// addr -- cell
+	P_CELL_PUT,			// value addr --
+	P_CELL_INDEX,		// ndx addr -- addr
+
+	P_ALLOCATE,			// size -- addr
+	P_FREE,				// addr --
 	
 	P_TO_RETURN_STACK,
 	P_FROM_RETURN_STACK,
@@ -46,7 +49,7 @@ enum ForthInstruction {
 	P_JUMP,
 	P_JUMP_IF_FALSE,
 	P_PUSH_NEXT_CELL,
-	P_PUSH_NEXT_CELL_ADDRESS,
+	P_PUSH_NEXT_CELL_ADDRESS_AND_RETURN,
 	P_RETURN,
 	P_UNKNOWN
 };
