@@ -10,12 +10,27 @@
 
 #define intPtr(x) ((int*)x)
 
+FMemory::FMemory(int memory, int data, int retrn) {
+	wordMemory = new char[memory];
+	firstFreeByte = 0;
+	dataStack = new int[data];
+	dsp = 0;
+	returnStack = new int[retrn];
+	rsp = 0;
+}
+
+FMemory::~FMemory() {
+	delete[] wordMemory;
+	delete[] dataStack;
+	delete[] returnStack;
+}
+
 int FMemory::getWord(int location) const {
-	return *intPtr(wordMemory + location*sizeof(int));
+	return *intPtr(wordMemory + location);
 }
 
 void FMemory::setWord(int location, int value) {
-	*intPtr(wordMemory + location*sizeof(int)) = value;
+	*intPtr(wordMemory + location) = value;
 }
 
 char FMemory::getByte(int location) const {
@@ -33,13 +48,13 @@ void* FMemory::getPointer(int location) const {
 int FMemory::allocateMemory(int size) {
 	int result = firstFreeByte;
 		//allocate word-sized chunks of memory
-	size = (size + sizeof(int) - 1) / sizeof(int) * sizeof(int);
+	size = (size + ForthMemory::CELL_SIZE - 1) / ForthMemory::CELL_SIZE * ForthMemory::CELL_SIZE;
 	firstFreeByte = firstFreeByte + size;
 	return result;
 }
 
 void FMemory::freeMemory(int location) {
-	firstFreeByte = location - sizeof(int);
+	firstFreeByte = location - ForthMemory::CELL_SIZE;
 }
 
 int FMemory::peekDataStack(int ndx) const {

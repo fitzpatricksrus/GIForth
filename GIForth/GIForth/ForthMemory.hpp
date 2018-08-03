@@ -11,6 +11,9 @@
 
 class ForthMemory {
 public:
+	static const int CELL_SIZE = sizeof(int);
+	typedef int CELL;
+
 	virtual ~ForthMemory();
 		// get the cell at the specified location
 	virtual int getWord(int location) = 0;

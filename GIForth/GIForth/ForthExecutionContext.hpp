@@ -11,6 +11,7 @@
 
 class ForthExecutionContext {
 public:
+	virtual ~ForthExecutionContext();
 	virtual int getIP() const = 0;
 		//IP = newIP
 	virtual void setIP(int newIP) = 0;

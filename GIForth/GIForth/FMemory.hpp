@@ -13,7 +13,7 @@
 
 class FMemory : public ForthMemory {
 public:
-	FMemory(int memory, int scratch, int data, int retrn);
+	FMemory(int memory, int data, int retrn);
 	virtual ~FMemory();
 	virtual int getWord(int location) const;
 	virtual void setWord(int location, int value);

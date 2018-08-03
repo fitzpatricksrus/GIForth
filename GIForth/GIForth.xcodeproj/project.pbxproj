@@ -17,6 +17,7 @@
 		0F78B8462112C7F300CB5737 /* ForthWord.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0F78B8442112C7F300CB5737 /* ForthWord.cpp */; };
 		0F78B84921138A3500CB5737 /* ForthDictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0F78B84721138A3500CB5737 /* ForthDictionary.cpp */; };
 		0F78B84C2113ED7F00CB5737 /* FMemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0F78B84A2113ED7F00CB5737 /* FMemory.cpp */; };
+		0F78B84F2114C79100CB5737 /* ExecutionContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0F78B84D2114C79100CB5737 /* ExecutionContext.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -53,6 +54,8 @@
 		0F78B84821138A3500CB5737 /* ForthDictionary.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ForthDictionary.hpp; sourceTree = "<group>"; };
 		0F78B84A2113ED7F00CB5737 /* FMemory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FMemory.cpp; sourceTree = "<group>"; };
 		0F78B84B2113ED7F00CB5737 /* FMemory.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FMemory.hpp; sourceTree = "<group>"; };
+		0F78B84D2114C79100CB5737 /* ExecutionContext.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ExecutionContext.cpp; sourceTree = "<group>"; };
+		0F78B84E2114C79100CB5737 /* ExecutionContext.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ExecutionContext.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +93,8 @@
 				0F78B83221116AD700CB5737 /* ForthMemory.hpp */,
 				0F78B83421116B0700CB5737 /* ForthExecutionContext.cpp */,
 				0F78B83521116B0700CB5737 /* ForthExecutionContext.hpp */,
+				0F78B84D2114C79100CB5737 /* ExecutionContext.cpp */,
+				0F78B84E2114C79100CB5737 /* ExecutionContext.hpp */,
 				0F78B83721116B2200CB5737 /* ForthArchitecture.cpp */,
 				0F78B83821116B2200CB5737 /* ForthArchitecture.hpp */,
 				0F78B83A21116C3300CB5737 /* ForthInstruction.cpp */,
@@ -174,6 +179,7 @@
 				0F78B8462112C7F300CB5737 /* ForthWord.cpp in Sources */,
 				0F78B84921138A3500CB5737 /* ForthDictionary.cpp in Sources */,
 				0F78B83621116B0700CB5737 /* ForthExecutionContext.cpp in Sources */,
+				0F78B84F2114C79100CB5737 /* ExecutionContext.cpp in Sources */,
 				0F78B84321117D1700CB5737 /* ForthInterpreter.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

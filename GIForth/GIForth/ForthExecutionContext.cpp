@@ -7,3 +7,6 @@
 //
 
 #include "ForthExecutionContext.hpp"
+
+ForthExecutionContext::~ForthExecutionContext() {
+}
