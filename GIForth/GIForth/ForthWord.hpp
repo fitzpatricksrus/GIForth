@@ -9,7 +9,6 @@
 #ifndef ForthWord_hpp
 #define ForthWord_hpp
 
-#include <stdio.h>
 #include "ForthInstruction.hpp"
 
 struct ForthWord {
