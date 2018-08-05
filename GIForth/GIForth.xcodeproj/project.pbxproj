@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F4FA99C21179BDA00C1A63A /* NativeOSFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0F4FA99A21179BDA00C1A63A /* NativeOSFunctions.cpp */; };
 		0F78B82B2111690400CB5737 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0F78B82A2111690400CB5737 /* main.cpp */; };
 		0F78B83321116AD700CB5737 /* ForthMemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0F78B83121116AD700CB5737 /* ForthMemory.cpp */; };
 		0F78B83621116B0700CB5737 /* ForthExecutionContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0F78B83421116B0700CB5737 /* ForthExecutionContext.cpp */; };
@@ -33,6 +34,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0F4FA99A21179BDA00C1A63A /* NativeOSFunctions.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NativeOSFunctions.cpp; sourceTree = "<group>"; };
+		0F4FA99B21179BDA00C1A63A /* NativeOSFunctions.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NativeOSFunctions.hpp; sourceTree = "<group>"; };
 		0F78B8272111690400CB5737 /* GIForth */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GIForth; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F78B82A2111690400CB5737 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		0F78B83121116AD700CB5737 /* ForthMemory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ForthMemory.cpp; sourceTree = "<group>"; };
@@ -110,6 +113,8 @@
 				0F78B84821138A3500CB5737 /* ForthDictionary.hpp */,
 				0F78B84A2113ED7F00CB5737 /* FMemory.cpp */,
 				0F78B84B2113ED7F00CB5737 /* FMemory.hpp */,
+				0F4FA99A21179BDA00C1A63A /* NativeOSFunctions.cpp */,
+				0F4FA99B21179BDA00C1A63A /* NativeOSFunctions.hpp */,
 			);
 			path = GIForth;
 			sourceTree = "<group>";
@@ -174,6 +179,7 @@
 				0F78B84C2113ED7F00CB5737 /* FMemory.cpp in Sources */,
 				0F78B83321116AD700CB5737 /* ForthMemory.cpp in Sources */,
 				0F78B84021117C8800CB5737 /* Interpreter.cpp in Sources */,
+				0F4FA99C21179BDA00C1A63A /* NativeOSFunctions.cpp in Sources */,
 				0F78B82B2111690400CB5737 /* main.cpp in Sources */,
 				0F78B83C21116C3300CB5737 /* ForthInstruction.cpp in Sources */,
 				0F78B8462112C7F300CB5737 /* ForthWord.cpp in Sources */,

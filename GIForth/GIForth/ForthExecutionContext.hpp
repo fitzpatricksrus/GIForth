@@ -26,6 +26,7 @@ public:
 	virtual char nextInputChar() = 0;
 		//print character to console
 	virtual void printChar(char c) const = 0;
+	virtual void flushInput() = 0;
 };
 
 #endif /* ForthExecutionContext_hpp */

@@ -32,10 +32,14 @@ public:
 	virtual char nextInputChar();
 		//print character to console
 	virtual void printChar(char c) const;
+	virtual void flushInput();
 	
 private:
 	int ip;
 	ForthMemory* memory;
+	char* inputLine;
+	int inputLength;
+	int inputPosition;
 };
 
 
