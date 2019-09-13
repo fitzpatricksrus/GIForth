@@ -9,13 +9,14 @@
 #ifndef ExecutionContext_hpp
 #define ExecutionContext_hpp
 
+#include <array>
 #include "ForthExecutionContext.hpp"
 
 class ForthMemory;
 
 class ExecutionContext : public ForthExecutionContext {
 public:
-	ExecutionContext(ForthMemory* memory);
+	ExecutionContext(ForthMemory& memory);
 	virtual ~ExecutionContext();
 
 	virtual int getIP() const;
@@ -35,13 +36,14 @@ public:
 	virtual void flushInput();
 	
 private:
+    static const int MAX_INPUT_LENGTH = 255;
+    void readAnotherInputLine();
+
 	int ip;
-	ForthMemory* memory;
-	char* inputLine;
+	ForthMemory& memory;
+	std::array<char, MAX_INPUT_LENGTH + 1> inputLine;
 	int inputLength;
 	int inputPosition;
 };
-
-
 
 #endif /* ExecutionContext_hpp */

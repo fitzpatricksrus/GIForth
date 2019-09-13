@@ -10,27 +10,20 @@
 
 #define intPtr(x) ((int*)x)
 
-FMemory::FMemory(int memory, int data, int retrn) {
-	wordMemory = new char[memory];
-	firstFreeByte = 0;
-	dataStack = new int[data];
-	dsp = 0;
-	returnStack = new int[retrn];
-	rsp = 0;
+FMemory::FMemory(int memory, int data, int retrn)
+: wordMemory(memory), firstFreeByte(0), dataStack(data), dsp(0), returnStack(retrn), rsp(0)
+{
 }
 
 FMemory::~FMemory() {
-	delete[] wordMemory;
-	delete[] dataStack;
-	delete[] returnStack;
 }
 
 int FMemory::getWord(int location) const {
-	return *intPtr(wordMemory + location);
+	return *intPtr(&wordMemory[location]);
 }
 
 void FMemory::setWord(int location, int value) {
-	*intPtr(wordMemory + location) = value;
+	*intPtr(&wordMemory[location]) = value;
 }
 
 char FMemory::getByte(int location) const {
@@ -42,7 +35,7 @@ void FMemory::setByte(int location, char value) {
 }
 
 void* FMemory::getPointer(int location) const {
-	return wordMemory + location;
+	return (void*)(&wordMemory[location]);
 }
 
 int FMemory::allocateMemory(int size) {

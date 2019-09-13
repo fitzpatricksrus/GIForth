@@ -9,6 +9,7 @@
 #ifndef FMemory_hpp
 #define FMemory_hpp
 
+#include <vector>
 #include "ForthMemory.hpp"
 
 class FMemory : public ForthMemory {
@@ -35,11 +36,11 @@ public:
 	virtual int returnStackDepth() const;
 	
 private:
-	char* wordMemory;
+    std::vector<char> wordMemory;
 	int firstFreeByte;
-	int* dataStack;
+	std::vector<int> dataStack;
 	int dsp;
-	int* returnStack;
+    std::vector<int> returnStack;
 	int rsp;
 };
 

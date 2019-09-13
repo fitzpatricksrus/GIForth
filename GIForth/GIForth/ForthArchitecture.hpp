@@ -13,7 +13,6 @@
 #include "ForthExecutionContext.hpp"
 
 class ForthArchitecture : public ForthMemory, public ForthExecutionContext {
-
 };
 
 #endif /* ForthArchitecture_hpp */

@@ -11,15 +11,13 @@
 #include "ForthMemory.hpp"
 #include "NativeOSFunctions.hpp"
 
-static const int MAX_INPUT_LENGTH = 255;
-
-ExecutionContext::ExecutionContext(ForthMemory* memoryIn)
-: ip(0), memory(memoryIn), inputLine(nullptr), inputLength(0), inputPosition(0) {
-	inputLine = new char[MAX_INPUT_LENGTH+1];
+ExecutionContext::ExecutionContext(ForthMemory& memoryIn)
+: ip(0), memory(memoryIn), inputLine(), inputLength(0), inputPosition(1) {
+    // the inputPosition of 1 will force a refill of the input buffer the
+    // first time it is used.  See peekInputChar
 }
 
 ExecutionContext::~ExecutionContext() {
-	delete[] inputLine;
 }
 
 int ExecutionContext::getIP() const {
@@ -35,17 +33,25 @@ void ExecutionContext::bumpIP(int offset) {
 }
 
 int ExecutionContext::getNextInstruction() {
-	int result = memory->getWord(ip);
+	int result = memory.getWord(ip);
 	ip += ForthMemory::CELL_SIZE;
 	return result;
 }
 
 char ExecutionContext::peekInputChar() const {
-	while (inputPosition == inputLength) {
-		const_cast<int&>(inputLength) = NativeOSFunctions::readALine(inputLine, MAX_INPUT_LENGTH) + 1;
-		// the +1 is so we include the terminating 0 as input.
+    // NOTE: changing this comparison requires changes to the constructor
+	while (inputPosition > inputLength) {
+	    // the const case here is because the input buffer storage is invisible
+	    // to the caller.
+        const_cast<ExecutionContext*>(this)->readAnotherInputLine();
 	}
 	return inputLine[inputPosition];
+}
+
+void ExecutionContext::readAnotherInputLine() {
+    inputPosition = 0;
+    inputLength = NativeOSFunctions::readALine(inputLine.data(), MAX_INPUT_LENGTH);
+    inputLine[inputLength] = ' ';
 }
 
 char ExecutionContext::nextInputChar() {
