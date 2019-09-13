@@ -61,12 +61,16 @@ int FMemory::peekDataStack(int ndx) const {
 	return dataStack[dsp+ndx];
 }
 
-void FMemory::rollDataStack(int ndx) {
+void FMemory::pokeDataStack(int ndx, int value) {
+	dataStack[dsp+ndx] = value;
+}
+
+void FMemory::rollDataStack(int count) {
 	int a0 = dataStack[dsp];
-	for (int i = dsp; i > dsp - ndx; i++) {
+	for (int i = dsp; i > dsp - count; i++) {
 		dataStack[i] = dataStack[i+1];
 	}
-	dataStack[dsp - ndx] = a0;
+	dataStack[dsp - count] = a0;
 }
 
 int FMemory::popDataStack() {

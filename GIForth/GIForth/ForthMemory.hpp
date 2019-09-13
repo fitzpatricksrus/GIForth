@@ -34,7 +34,8 @@ public:
 	virtual void freeMemory(int location) = 0;
 	
 	virtual int peekDataStack(int ndx) = 0;
-	virtual void rollDataStack(int ndx) = 0;
+	virtual void pokeDataStack(int ndx, int value) = 0;
+	virtual void rollDataStack(int count) = 0;
 	virtual int popDataStack() = 0;
 	virtual void pushDataStack(int value) = 0;
 	

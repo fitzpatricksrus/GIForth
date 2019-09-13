@@ -10,6 +10,7 @@
 #include <string>
 #include <iostream>
 #include <algorithm>
+#include <cstring>
 
 int NativeOSFunctions::readALine(char* buffer, int maxLength) {
 	std::string s;
