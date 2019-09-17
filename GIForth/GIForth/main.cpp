@@ -7,9 +7,17 @@
 //
 
 #include <iostream>
+#include <runtime/CompositeForthWord.h>
+#include <runtime/ForthThread.h>
+#include <words/HelloWorldWord.h>
+
 
 int main(int argc, const char * argv[]) {
-	// insert code here...
-	std::cout << "Hello, World!\n";
+    CompositeForthWord comp;
+    HelloWorldWord hw;
+    comp.appendCell(ForthCell(&hw));
+    ForthExecutionFrame frame(&comp);
+    ForthThread thread(frame);
+    thread.join();
 	return 0;
 }
