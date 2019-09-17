@@ -10,12 +10,8 @@
 #include <string>
 #include <iostream>
 
-static std::string inputBuffer = "";
-static int inputPos = 0;
-
-void NativeOSFunctions::printChar(char c) {
-	std::cout << c;
-}
+std::string NativeOSFunctions::inputBuffer;     // initializes to empty string
+int NativeOSFunctions::inputPos = 0;
 
 char NativeOSFunctions::peekNextChar() {
     if (inputPos >= inputBuffer.size()) {
@@ -34,4 +30,8 @@ char NativeOSFunctions::nextChar() {
     char result = peekNextChar();
     inputPos++;
     return result;
+}
+
+void NativeOSFunctions::printChar(char c) {
+    std::cout << c;
 }
