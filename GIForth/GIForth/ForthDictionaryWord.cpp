@@ -6,4 +6,4 @@
 //  Copyright © 2018 Dad. All rights reserved.
 //
 
-#include "ForthWord.hpp"
+#include "ForthDictionaryWord.hpp"

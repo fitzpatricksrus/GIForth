@@ -6,18 +6,18 @@
 //  Copyright © 2018 Dad. All rights reserved.
 //
 
-#include "Interpreter.hpp"
-#include "ForthInstruction.hpp"
-
-Interpreter::Interpreter(ForthArchitecture& architecture)
+/*
+ForthInterpreter::ForthInterpreter(ForthArchitecture& architecture)
 : arch(architecture)
 {
 }
 
-void Interpreter::interpret() {
+void ForthInterpreter::interpret() {
 	while (arch.returnStackDepth() != 0) {
 		int ins = arch.getNextInstruction();
 		switch (ins) {
+		case P_NOP:
+		    break;
 		case P_CHAR_SIZE:
 			arch.pushDataStack(sizeof(char));
 			break;
@@ -47,10 +47,10 @@ void Interpreter::interpret() {
 			break;
 			
 		case P_ALLOCATE:
-			arch.pushDataStack(arch.allocateMemory(arch.popDataStack()));
+			arch.pushDataStack(arch.allocateWords(arch.popDataStack()));
 			break;
 		case P_FREE:
-			arch.freeMemory(arch.popDataStack());
+            arch.freeWords(arch.popDataStack());
 			break;
 
 		case P_TO_RETURN_STACK:
@@ -132,7 +132,16 @@ void Interpreter::interpret() {
 		case P_RETURN:
 			arch.setIP(arch.fromReturnStack());
 			break;
-		case P_UNKNOWN:
+		case P_PEEK_NEXT_INPUT_CHAR:
+		    arch.pushDataStack(arch.peekInputChar());
+		    break;
+		case P_GET_NEXT_INPUT_CHAR:
+		    arch.pushDataStack(arch.nextInputChar());
+		    break;
+        case P_PRINT_CHAR:
+            arch.printChar(static_cast<char>(arch.popDataStack()));
+            break;
+        case P_UNKNOWN:
 		default:
 			// considered a composite word.
 			arch.toReturnStack(arch.getIP());
@@ -141,3 +150,5 @@ void Interpreter::interpret() {
 		}
 	}
 }
+
+ */

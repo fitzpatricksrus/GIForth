@@ -5,13 +5,13 @@
 //  Created by Dad on 8/1/18.
 //  Copyright © 2018 Dad. All rights reserved.
 //
-
+/*
 #ifndef ForthWord_hpp
 #define ForthWord_hpp
 
-#include "ForthInstruction.hpp"
+#include "runtime/ForthInstruction.hpp"
 
-struct ForthWord {
+struct ForthDictionaryWord {
 	enum MODE {
 		PRIMITIVE,
 		COMPILE_ONLY,

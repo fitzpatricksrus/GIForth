@@ -1,17 +1,9 @@
-//
-//  ForthInstruction.hpp
-//  GIForth
-//
-//  Created by Dad on 7/31/18.
-//  Copyright © 2018 Dad. All rights reserved.
-//
-
-#ifndef ForthInstruction_hpp
-#define ForthInstruction_hpp
-
+/*
 // http://wiki.laptop.org/go/Forth_stack_operators
 
 enum ForthInstruction {
+    P_NOP,
+
 	P_CHAR_SIZE,
 	P_CELL_SIZE,
 	
@@ -51,7 +43,11 @@ enum ForthInstruction {
 	P_PUSH_NEXT_CELL,
 	P_PUSH_NEXT_CELL_ADDRESS_AND_RETURN,
 	P_RETURN,
+
+	P_PEEK_NEXT_INPUT_CHAR,
+	P_GET_NEXT_INPUT_CHAR,
+	P_PRINT_CHAR,
+
 	P_UNKNOWN
 };
-
-#endif /* ForthInstruction_hpp */
+*/
