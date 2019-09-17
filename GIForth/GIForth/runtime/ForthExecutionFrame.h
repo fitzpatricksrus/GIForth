@@ -10,7 +10,8 @@ class CompositeForthWord;
 class ForthExecutionFrame {
 public:
     ForthExecutionFrame();
-    ForthExecutionFrame(CompositeForthWord* wordIn, int ndx = 0);
+    ForthExecutionFrame(CompositeForthWord* wordIn);
+    ForthExecutionFrame(CompositeForthWord* wordIn, int ndx);
     ForthExecutionFrame(const ForthExecutionFrame& other) = default;
     ~ForthExecutionFrame() = default;
     ForthExecutionFrame& operator=(const ForthExecutionFrame& other);
@@ -22,7 +23,12 @@ public:
 };
 
 inline ForthExecutionFrame::ForthExecutionFrame()
-: ndx(0), word(nullptr)
+: ForthExecutionFrame(nullptr, 0)
+{
+}
+
+inline ForthExecutionFrame::ForthExecutionFrame(CompositeForthWord* wordIn)
+: ForthExecutionFrame(wordIn, 0)
 {
 }
 

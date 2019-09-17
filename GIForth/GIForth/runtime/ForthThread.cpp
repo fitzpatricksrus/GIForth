@@ -5,6 +5,8 @@
 #include "ForthThread.h"
 #include "CompositeForthWord.h"
 
+const ForthThread::ReturnStackFrame ForthThread::DEAD_FRAME(ForthExecutionFrame(nullptr));
+
 ForthThread::ForthThread(const ForthExecutionFrame& start)
 : dataStack(), returnStack(), ip(start)
 {
@@ -81,7 +83,7 @@ int ForthThread::getDataStackSize() const {
 ForthThread::ReturnStackFrame ForthThread::fromReturnStack() {
     if (returnStack.empty()) {
         // this will return a frame with a nullptr word which will cause the thread to exit/join
-        return {nullptr};
+        return DEAD_FRAME;
     } else {
         ReturnStackFrame result = returnStack.top();
         returnStack.pop();
@@ -98,13 +100,13 @@ int ForthThread::returnStackDepth() const {
 }
 
 bool ForthThread::execute() {
-    if (!ip.isDeadFrame()) {
-        ip.word->execute(*this);
-    }
+    ip.word->execute(*this);
     return !ip.isDeadFrame();
 }
 
 void ForthThread::join() {
-    while (execute()) {};
+    if (!ip.isDeadFrame()) {
+        while (execute()) {};
+    }
 }
 

@@ -15,4 +15,4 @@ add_executable(GIForth
         GIForth/runtime/ForthWord.cpp
         GIForth/runtime/CompositeForthWord.cpp
         GIForth/words/HelloWorldWord.cpp
-        )
+        GIForth/runtime/tests/CompositeForthWordTest.cpp GIForth/runtime/tests/CompositeForthWordTest.h)

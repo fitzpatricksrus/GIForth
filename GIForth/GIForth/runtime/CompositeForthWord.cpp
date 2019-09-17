@@ -5,6 +5,9 @@
 #include "CompositeForthWord.h"
 #include "ForthThread.h"
 
+#undef OPTIMIZE_DISPATCH
+
+#ifndef OPTIMIZE_DISPATCH
 void CompositeForthWord::execute(ForthThread& thread) {
     if (thread.getCurrentWord() != this) {
         // first time called, so make a new stack frame
@@ -19,6 +22,28 @@ void CompositeForthWord::execute(ForthThread& thread) {
         thread.popFrame();
     }
 }
+
+#else
+
+void CompositeForthWord::execute(ForthThread& thread) {
+    if (thread.getCurrentWord() != this) {
+        // first time called, so make a new stack frame
+        thread.pushFrame(this);
+    }
+    int ndx = thread.getIndex();
+    if (ndx < body.size()) {
+        ForthWord* word = body[ndx].word;
+        thread.setIndex(ndx + 1);
+        word->execute(thread);
+    } else {
+        thread.popFrame();
+    }
+}
+
+
+
+
+#endif
 
 int CompositeForthWord::size() const {
     return body.size();

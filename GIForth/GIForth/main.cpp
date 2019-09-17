@@ -6,18 +6,12 @@
 //  Copyright © 2018 Dad. All rights reserved.
 //
 
-#include <iostream>
 #include <runtime/CompositeForthWord.h>
 #include <runtime/ForthThread.h>
 #include <words/HelloWorldWord.h>
-
+#include <runtime/tests/CompositeForthWordTest.h>
 
 int main(int argc, const char * argv[]) {
-    CompositeForthWord comp;
-    HelloWorldWord hw;
-    comp.appendCell(ForthCell(&hw));
-    ForthExecutionFrame frame(&comp);
-    ForthThread thread(frame);
-    thread.join();
+    CompositeForthWordTest::test();
 	return 0;
 }

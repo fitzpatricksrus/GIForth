@@ -10,10 +10,13 @@ class ForthWord;
 typedef union ForthCell {
     ForthCell() = default;
     ~ForthCell() = default;
-    explicit ForthCell(ForthWord* wordIn) : word(wordIn) {}
+    ForthCell(ForthWord* wordIn) : word(wordIn) {}
+    explicit ForthCell(void* ptrIn) : pointer(ptrIn) {}
     explicit ForthCell(int intIn) : integer(intIn) {}
     explicit ForthCell(char charIn) : character(charIn) {}
+
     ForthWord* word;
+    void* pointer;
     int integer;
     char character;
 } ForthCell;

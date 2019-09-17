@@ -20,6 +20,8 @@ public:
         ForthCell cell;
     } ReturnStackFrame;
 
+    static const ReturnStackFrame DEAD_FRAME;
+
     ForthThread(const ForthExecutionFrame& start);
     ~ForthThread() = default;
 
