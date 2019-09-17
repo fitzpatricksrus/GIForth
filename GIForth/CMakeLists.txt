@@ -7,11 +7,10 @@ include_directories(GIForth)
 
 add_executable(GIForth
         GIForth/ForthDictionary.cpp
-        GIForth/oldruntime/ForthExecutionContext.cpp
         GIForth/ForthDictionaryWord.cpp
         GIForth/oldruntime/Interpreter.cpp
         GIForth/main.cpp
-        GIForth/oldruntime/NativeOSFunctions.cpp
+        GIForth/utils/NativeOSFunctions.cpp
         GIForth/runtime/ForthThread.cpp
         GIForth/runtime/ForthWord.cpp
         GIForth/runtime/CompositeForthWord.cpp

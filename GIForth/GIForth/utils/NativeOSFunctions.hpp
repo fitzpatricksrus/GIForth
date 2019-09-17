@@ -11,8 +11,10 @@
 
 class NativeOSFunctions {
 public:
-	static int readALine(char* buffer, int maxLength);
-	static void printChar(char c);
+	static char peekNextChar();
+	static char nextChar();
+
+    static void printChar(char c);
 };
 
 #endif /* NativeOSFunctions_hpp */
