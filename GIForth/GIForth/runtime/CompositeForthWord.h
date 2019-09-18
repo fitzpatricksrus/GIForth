@@ -18,10 +18,31 @@ public:
     int size() const;
     const ForthCell& operator[](int ndx) const;
     ForthCell& operator[](int ndx);
-    void appendCell(const ForthCell& cell);
+    CompositeForthWord& appendCell(const ForthCell& cell);
 
 private:
     std::vector<ForthCell> body;
 };
+
+inline int CompositeForthWord::size() const {
+    return body.size();
+}
+
+inline const ForthCell& CompositeForthWord::operator[](int ndx) const {
+    return body[ndx];
+}
+
+inline ForthCell& CompositeForthWord::operator[](int ndx) {
+    return body[ndx];
+}
+
+inline CompositeForthWord& CompositeForthWord::appendCell(const ForthCell& cell) {
+    body.push_back(cell);
+    return *this;
+}
+
+inline CompositeForthWord& operator<<(CompositeForthWord& us, ForthCell const& cell) {
+    return us.appendCell(cell);
+}
 
 #endif //GIFORTH_COMPOSITEFORTHWORD_H

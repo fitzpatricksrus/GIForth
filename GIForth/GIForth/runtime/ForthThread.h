@@ -27,12 +27,12 @@ public:
 
     // data stack operations
     ForthCell peekDataStack(int ndx) const;
+    ForthCell& operator[](int ndx);
     void pokeDataStack(int ndx, const ForthCell& value);
     void rollDataStack(int count);
     ForthCell popDataStack();
     void pushDataStack(const ForthCell& value);
     const ForthCell& operator[](int ndx) const;
-    ForthCell& operator[](int ndx);
     int getDataStackSize() const;
 
     // return stack operation

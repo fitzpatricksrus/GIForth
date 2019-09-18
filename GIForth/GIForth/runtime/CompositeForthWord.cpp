@@ -44,20 +44,3 @@ void CompositeForthWord::execute(ForthThread& thread) {
 
 
 #endif
-
-int CompositeForthWord::size() const {
-    return body.size();
-}
-
-const ForthCell& CompositeForthWord::operator[](int ndx) const {
-    return body[ndx];
-}
-
-ForthCell& CompositeForthWord::operator[](int ndx) {
-    return body[ndx];
-}
-
-void CompositeForthWord::appendCell(const ForthCell& cell) {
-    body.push_back(cell);
-}
-

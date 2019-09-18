@@ -25,17 +25,14 @@ void CompositeForthWordTest::test() {
     PrintStringWord world("World");
     PrintStringWord space(" ");
     PrintStringWord cr("\n");
+
     CompositeForthWord helloSpace;
-    helloSpace.appendCell(&hello);
-    helloSpace.appendCell(&space);
+    helloSpace << &hello << &space;
     CompositeForthWord worldCr;
-    worldCr.appendCell(&world);
-    worldCr.appendCell(&cr);
+    worldCr << &world << &cr;
     CompositeForthWord message;
-    message.appendCell(&helloSpace);
-    message.appendCell(&worldCr);
-    message.appendCell(&helloSpace);
-    message.appendCell(&worldCr);
+    message << &helloSpace << &worldCr << &hello << &space << &helloSpace << &worldCr;
+
     ForthThread thread(&message);
     thread.join();
 }
