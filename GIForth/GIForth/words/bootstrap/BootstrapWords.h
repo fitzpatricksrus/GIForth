@@ -9,6 +9,9 @@
 
 class BootstrapWords {
 public:
+    // --
+    static PrimativeForthWordFunction NOP;
+
     // -- stringAddr
     static PrimativeForthWordFunction NEXT_TOKEN;
 
@@ -37,6 +40,7 @@ public:
     static PrimativeForthWordFunction PRINT_CHAR;
 
 private:
+    static void F_NOP(ForthThread &thread);
     static void F_NEXT_TOKEN(ForthThread& thread);
     static void F_FIND_WORD(ForthThread& thread);
     static void F_JUMP_IF_FALSE(ForthThread& thread);

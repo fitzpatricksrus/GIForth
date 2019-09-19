@@ -40,6 +40,7 @@ inline ForthExecutionFrame::ForthExecutionFrame(CompositeForthWord* wordIn, int 
 inline ForthExecutionFrame& ForthExecutionFrame::operator=(const ForthExecutionFrame& other) {
     ndx = other.ndx;
     word = other.word;
+    return *this;
 }
 
 inline bool ForthExecutionFrame::isDeadFrame() const {

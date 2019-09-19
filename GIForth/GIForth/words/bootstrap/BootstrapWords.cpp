@@ -7,10 +7,13 @@
 #include "utils/NativeOSFunctions.hpp"
 #include "runtime/ForthThread.h"
 
-static constexpr int MAX_TOKEN_SIZE = 80;
+PrimativeForthWordFunction BootstrapWords::NOP(&BootstrapWords::F_NOP);
+void BootstrapWords::F_NOP(ForthThread &thread) {
+}
 
 PrimativeForthWordFunction BootstrapWords::NEXT_TOKEN(&BootstrapWords::F_NEXT_TOKEN);
 void BootstrapWords::F_NEXT_TOKEN(ForthThread& thread) {
+    static constexpr int MAX_TOKEN_SIZE = 80;
     static std::array<char, MAX_TOKEN_SIZE> token;
 
     int ndx = 0;

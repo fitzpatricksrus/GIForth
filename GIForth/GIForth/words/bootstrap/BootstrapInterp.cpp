@@ -52,10 +52,10 @@ CompositeForthWord* BootstrapInterp::getInstance() {
         INSTANCE << static_cast<ForthCell::INT_TYPE>(19);   //11
         INSTANCE << &BootstrapWords::PRINT_STRING;          //12
         INSTANCE << &BootstrapWords::CONSTANT;              //13
-        INSTANCE << &static_cast<ForthCell::INT_TYPE>(63);  //14
+        INSTANCE << static_cast<ForthCell::INT_TYPE>(63);  //14
         INSTANCE << &BootstrapWords::PRINT_CHAR;            //15
         INSTANCE << &BootstrapWords::CONSTANT;              //16
-        INSTANCE << &static_cast<ForthCell::INT_TYPE>(13);  //17
+        INSTANCE << static_cast<ForthCell::INT_TYPE>(13);  //17
         INSTANCE << &BootstrapWords::PRINT_CHAR;            //18
     }
     return &INSTANCE;
