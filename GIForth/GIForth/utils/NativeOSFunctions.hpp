@@ -17,6 +17,7 @@ public:
 	static char nextChar();
 
     static void printChar(char c);
+    static void printString(const char* string);
 
 private:
     static std::string inputBuffer;

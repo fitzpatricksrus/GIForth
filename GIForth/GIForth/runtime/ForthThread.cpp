@@ -24,6 +24,10 @@ void ForthThread::setIndex(int newIndex) {
     ip.ndx = newIndex;
 }
 
+ForthCell& ForthThread::getNextCell() {
+    return (*ip.word)[ip.ndx++];
+}
+
 void ForthThread::pushFrame(CompositeForthWord* word, int ndx) {
     toReturnStack(ip);
     ip = ForthExecutionFrame(word, ndx);

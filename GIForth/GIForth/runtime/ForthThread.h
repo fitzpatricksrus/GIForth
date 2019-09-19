@@ -44,6 +44,7 @@ public:
     CompositeForthWord* getCurrentWord() const;
     int getIndex() const;
     void setIndex(int ndx);
+    ForthCell& getNextCell();
     void pushFrame(CompositeForthWord* word, int ndx = 0);
     void popFrame();
 

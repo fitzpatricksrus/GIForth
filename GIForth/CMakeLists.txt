@@ -6,8 +6,6 @@ set(CMAKE_CXX_STANDARD 14)
 include_directories(GIForth)
 
 add_executable(GIForth
-        GIForth/ForthDictionary.cpp
-        GIForth/ForthDictionaryWord.cpp
         GIForth/main.cpp
         GIForth/utils/NativeOSFunctions.cpp
         GIForth/runtime/ForthThread.cpp
@@ -21,4 +19,4 @@ add_executable(GIForth
         GIForth/utils/PrimativeForthWordFunction.h
         GIForth/words/CoreForthWords.cpp
         GIForth/words/CoreForthWords.h
-        )
+        GIForth/words/bootstrap/BootstrapWords.cpp GIForth/words/bootstrap/BootstrapWords.h GIForth/runtime/tests/BootstrapWordsTest.cpp GIForth/runtime/tests/BootstrapWordsTest.h)

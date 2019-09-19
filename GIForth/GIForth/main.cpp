@@ -7,8 +7,10 @@
 //
 
 #include <runtime/tests/CompositeForthWordTest.h>
+#include <runtime/tests/BootstrapWordsTest.h>
 
 int main(int argc, const char * argv[]) {
     CompositeForthWordTest::test();
+    BootstrapWordsTest::testNextToken();
 	return 0;
 }
