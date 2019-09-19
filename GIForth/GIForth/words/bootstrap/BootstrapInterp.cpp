@@ -3,20 +3,21 @@
 //
 /*
 : interp
+0       do
 0         nextToken                  // -- stringAddr
 1         findWord                   // stringAddr -- [ wordAddr true | stringAddr false ]
-2         if1                        // bool --
+2         (jump_if_false)            // bool --
 3         (7)
                                      // found the word.  Execute it
 4             execute                // wordAddr --
-5         else1
+5         (jump)
 6         (19)
              // may be a number
 7            parseNumber             // stringAddr -- [ value true | string addr false ]
-8            if2                     //
+8            (jump_if_false)
 9            (12)
                                      // it's a number and it's on the stack.  We're done
-10            else2
+10            (jump)
 11            (19)
 12                printString         // stringAddr
 13                (constant)
@@ -25,8 +26,13 @@
 16                (constant)
 17                13
 18                printChar        // '\n'
-19            endif
-19        endif
+              endif
+          endif
+19      (constant)
+20      (false)
+21      (jump_if_false)
+22      (0)
+
 ;
 */
 #include "BootstrapInterp.h"
@@ -52,11 +58,15 @@ CompositeForthWord* BootstrapInterp::getInstance() {
         INSTANCE << static_cast<ForthCell::INT_TYPE>(19);   //11
         INSTANCE << &BootstrapWords::PRINT_STRING;          //12
         INSTANCE << &BootstrapWords::CONSTANT;              //13
-        INSTANCE << static_cast<ForthCell::INT_TYPE>(63);  //14
+		INSTANCE << static_cast<ForthCell::INT_TYPE>(63);   //14
         INSTANCE << &BootstrapWords::PRINT_CHAR;            //15
         INSTANCE << &BootstrapWords::CONSTANT;              //16
-        INSTANCE << static_cast<ForthCell::INT_TYPE>(13);  //17
+		INSTANCE << static_cast<ForthCell::INT_TYPE>(13);   //17
         INSTANCE << &BootstrapWords::PRINT_CHAR;            //18
+		INSTANCE << &BootstrapWords::CONSTANT;                //19
+		INSTANCE << static_cast<ForthCell::BOOL_TYPE>(false);//20
+		INSTANCE << &BootstrapWords::JUMP_IF_FALSE;         //21
+		INSTANCE << static_cast<ForthCell::INT_TYPE>(0);    //22
     }
     return &INSTANCE;
 }

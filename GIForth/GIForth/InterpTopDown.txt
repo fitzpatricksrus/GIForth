@@ -7,26 +7,28 @@
 : (jump)
 : parseNumber   // stringAddr -- [ value true | string addr false ]
 : printString   // stringAddr --
-: (integerConstant) // -- value
+: (constant)    // -- value
 : printChar     // char --
 
 : interp
-    nextToken                   // -- stringAddr
-    findWord                    // stringAddr -- [ wordAddr true | stringAddr false ]
-    if                          // bool --
-        // found the word.  Execute it
-        execute                 // wordAddr --
-    else
-        // may be a number
-        parseNumber             // stringAddr -- [ value true | string addr false ]
-        if                      //
-            // it's a number and it's on the stack.  We're done
+    do
+        nextToken                   // -- stringAddr
+        findWord                    // stringAddr -- [ wordAddr true | stringAddr false ]
+        if                          // bool --
+            // found the word.  Execute it
+            execute                 // wordAddr --
         else
-            printString         // stringAddr
-            63 printChar        // '?'
-            13 printChar        // '\n'
+            // may be a number
+            parseNumber             // stringAddr -- [ value true | string addr false ]
+            if                      //
+                // it's a number and it's on the stack.  We're done
+            else
+                printString         // stringAddr
+                63 printChar        // '?'
+                13 printChar        // '\n'
+            endif
         endif
-    endif
+    false until
 ;
 
 

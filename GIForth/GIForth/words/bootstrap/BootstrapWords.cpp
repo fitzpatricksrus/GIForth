@@ -43,7 +43,7 @@ void BootstrapWords::F_NEXT_TOKEN(ForthThread& thread) {
 
 PrimativeForthWordFunction BootstrapWords::FIND_WORD(&BootstrapWords::F_FIND_WORD);
 void BootstrapWords::F_FIND_WORD(ForthThread& thread) {
-
+	thread.pushDataStack(static_cast<ForthCell::BOOL_TYPE>(false));
 }
 
 // bool --   if the tos is false, the next cell is set as the ip.ndx else it's just skipped

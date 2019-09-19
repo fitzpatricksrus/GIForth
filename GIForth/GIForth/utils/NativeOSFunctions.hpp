@@ -15,6 +15,7 @@ class NativeOSFunctions {
 public:
 	static char peekNextChar();
 	static char nextChar();
+	static void flushInput();
 
     static void printChar(char c);
     static void printString(const char* string);

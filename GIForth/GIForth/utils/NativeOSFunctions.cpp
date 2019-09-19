@@ -25,6 +25,7 @@ char NativeOSFunctions::peekNextChar() {
 char NativeOSFunctions::nextChar() {
     if (inputPos > inputBuffer.size()) {
         do {
+			std::cout << "> ";
             std::getline(std::cin, inputBuffer);
         } while (inputBuffer.empty());
         inputPos = 1;
@@ -36,6 +37,12 @@ char NativeOSFunctions::nextChar() {
         return inputBuffer[inputPos++];
     }
 }
+
+void NativeOSFunctions::flushInput() {
+	inputBuffer = "";
+	inputPos = 0;
+}
+
 
 void NativeOSFunctions::printChar(char c) {
     std::cout << c;
