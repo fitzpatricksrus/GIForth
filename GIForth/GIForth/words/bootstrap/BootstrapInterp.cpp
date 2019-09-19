@@ -49,11 +49,7 @@ CompositeForthWord* BootstrapInterp::getInstance() {
         INSTANCE << static_cast<ForthCell::INT_TYPE>(12);   //9
         INSTANCE << &BootstrapWords::JUMP;                  //10
         INSTANCE << static_cast<ForthCell::INT_TYPE>(15);   //11
-        INSTANCE << &BootstrapWords::PRINT_STRING           //12
-
-
-
-
+        INSTANCE << &BootstrapWords::PRINT_STRING;          //12
     }
     return &INSTANCE;
 }
