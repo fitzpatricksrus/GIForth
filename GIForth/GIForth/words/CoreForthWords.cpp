@@ -11,6 +11,38 @@ PrimativeForthWordFunction CoreForthWords::NOP(&CoreForthWords::F_NOP);
 void CoreForthWords::F_NOP(ForthThread& thread) {
 }
 
+PrimativeForthWordFunction CoreForthWords::JUMP(&CoreForthWords::F_JUMP);
+void CoreForthWords::F_JUMP(ForthThread &thread) {
+	thread.setIndex(thread.getNextCell().integer);
+}
+
+// bool --   if the tos is false, the next cell is set as the ip.ndx else it's just skipped
+PrimativeForthWordFunction CoreForthWords::JUMP_IF_FALSE(&CoreForthWords::F_JUMP_IF_FALSE);
+void CoreForthWords::F_JUMP_IF_FALSE(ForthThread &thread) {
+	int newNdx = thread.getNextCell().integer;  // consume next cell always
+	if (!thread.popDataStack().boolean) {
+		thread.setIndex(newNdx);
+	}
+}
+
+PrimativeForthWordFunction CoreForthWords::RETURN(&CoreForthWords::F_RETURN);
+void CoreForthWords::F_RETURN(ForthThread &thread) {
+	thread.popFrame();
+}
+
+PrimativeForthWordFunction CoreForthWords::EXECUTE(&CoreForthWords::F_EXECUTE);
+void CoreForthWords::F_EXECUTE(ForthThread &thread) {
+	// hey jf - will this actually work for both primitive and composite words?
+	ForthWord *word = thread.popDataStack().word;
+	word->execute(thread);
+}
+
+// -- value ; pushes next cell in word onto data stack
+PrimativeForthWordFunction CoreForthWords::PUSH_NEXT_CELL(&CoreForthWords::F_PUSH_NEXT_CELL);
+void CoreForthWords::F_PUSH_NEXT_CELL(ForthThread &thread) {
+	thread.pushDataStack(thread.getNextCell());
+}
+
 PrimativeForthWordFunction CoreForthWords::CHAR_SIZE(&CoreForthWords::F_CHAR_SIZE);
 void CoreForthWords::F_CHAR_SIZE(ForthThread& thread) {
     thread.pushDataStack((ForthCell::INT_TYPE)sizeof(ForthCell::character));
@@ -214,31 +246,6 @@ void CoreForthWords::F_CONDITIONAL_OR(ForthThread& thread) {
 PrimativeForthWordFunction CoreForthWords::CONDITIONAL_NOT(&CoreForthWords::F_CONDITIONAL_NOT);
 void CoreForthWords::F_CONDITIONAL_NOT(ForthThread& thread) {
     thread.pushDataStack(!thread.popDataStack().boolean);
-}
-
-PrimativeForthWordFunction CoreForthWords::JUMP(&CoreForthWords::F_JUMP);
-void CoreForthWords::F_JUMP(ForthThread& thread) {
-    thread.setIndex((*thread.getCurrentWord())[thread.getIndex()].integer);
-}
-
-PrimativeForthWordFunction CoreForthWords::JUMP_IF_FALSE(&CoreForthWords::F_JUMP_IF_FALSE);
-void CoreForthWords::F_JUMP_IF_FALSE(ForthThread& thread) {
-    if (!thread.popDataStack().boolean) {
-        thread.setIndex((*thread.getCurrentWord())[thread.getIndex()].integer);
-    } else {
-        thread.setIndex(thread.getIndex()+1);
-    }
-}
-
-PrimativeForthWordFunction CoreForthWords::PUSH_NEXT_CELL(&CoreForthWords::F_PUSH_NEXT_CELL);
-void CoreForthWords::F_PUSH_NEXT_CELL(ForthThread& thread) {
-    thread.pushDataStack((*thread.getCurrentWord())[thread.getIndex()]);
-    thread.setIndex(thread.getIndex()+1);
-}
-
-PrimativeForthWordFunction CoreForthWords::RETURN(&CoreForthWords::F_RETURN);
-void CoreForthWords::F_RETURN(ForthThread& thread) {
-    thread.popFrame();
 }
 
 PrimativeForthWordFunction CoreForthWords::PEEK_NEXT_INPUT_CHAR(&CoreForthWords::F_PEEK_NEXT_INPUT_CHAR);
