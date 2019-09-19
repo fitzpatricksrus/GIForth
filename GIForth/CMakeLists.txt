@@ -19,4 +19,4 @@ add_executable(GIForth
         GIForth/utils/PrimativeForthWordFunction.h
         GIForth/words/CoreForthWords.cpp
         GIForth/words/CoreForthWords.h
-        GIForth/words/bootstrap/BootstrapWords.cpp GIForth/words/bootstrap/BootstrapWords.h GIForth/runtime/tests/BootstrapWordsTest.cpp GIForth/runtime/tests/BootstrapWordsTest.h)
+        GIForth/words/bootstrap/BootstrapWords.cpp GIForth/words/bootstrap/BootstrapWords.h GIForth/runtime/tests/BootstrapWordsTest.cpp GIForth/runtime/tests/BootstrapWordsTest.h GIForth/words/bootstrap/BootstrapInterp.cpp GIForth/words/bootstrap/BootstrapInterp.h)
