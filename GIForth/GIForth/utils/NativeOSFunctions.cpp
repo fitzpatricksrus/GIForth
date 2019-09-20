@@ -51,3 +51,14 @@ void NativeOSFunctions::printChar(char c) {
 void NativeOSFunctions::printString(const char *string) {
     std::cout << string;
 }
+
+/*
+ ACCEPT( addr u1 — u2 )
+ Receives u1 characters (or until carriage return) from the terminal keyboard
+ and stores them, starting at the address. The count of received characters is returned.
+
+ WORD( char — addr )
+ Parses one word from the input stream, using the character (usually blank) as a delimiter.
+ Moves the string to the address HERE with the count in the first byte, leaving the address
+ on the stack.
+ */
