@@ -8,6 +8,7 @@
 #undef OPTIMIZE_DISPATCH
 
 #ifndef OPTIMIZE_DISPATCH
+
 void CompositeForthWord::execute(ForthThread& thread) {
     if (thread.getCurrentWord() != this) {
         // first time called, so make a new stack frame
@@ -44,3 +45,16 @@ void CompositeForthWord::execute(ForthThread& thread) {
 
 
 #endif
+
+std::string CompositeForthWord::disassemble(ForthThread &thread) {
+    return name;
+}
+
+void CompositeForthWord::disassemble(ForthThread &thread, std::vector<std::string>& contents) {
+    while (!thread.currentWordComplete()) {
+        ForthCell cell = thread.getNextCell();
+        contents.push_back(cell.word->disassemble(thread));
+    }
+}
+
+

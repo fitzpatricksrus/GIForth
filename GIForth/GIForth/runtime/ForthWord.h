@@ -7,11 +7,20 @@
 
 class ForthThread;
 
+#include <string>
+#include <vector>
+
 class ForthWord {
 public:
+    void invoke(ForthThread& thread);
     virtual void execute(ForthThread& thread) = 0;
-	// virtual void trace(ForthThread& thread, string& msgOut) = 0;
-	// virtual int disassemble(ForthThread& thread, std::vector<string>& msgOut) = 0;
+
+    virtual std::string disassemble(ForthThread &thread) = 0;
+    virtual void disassemble(ForthThread &thread, std::vector<std::string>& contents);
 };
+
+inline void ForthWord::invoke(ForthThread& thread) {
+    execute(thread);
+}
 
 #endif //GIFORTH_FORTHWORD_H

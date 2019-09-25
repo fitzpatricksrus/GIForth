@@ -16,6 +16,10 @@ public:
         std::cout << msg;
     }
 
+    std::string disassemble(ForthThread &thread) override {
+        return std::string("PrintStringWord(\"") + msg + "\")";
+    };
+
 private:
     std::string msg;
 };
@@ -26,11 +30,11 @@ void CompositeForthWordTest::test() {
     PrintStringWord space(" ");
     PrintStringWord cr("\n");
 
-    CompositeForthWord helloSpace;
+    CompositeForthWord helloSpace("helloSpace");
     helloSpace << &hello << &space;
-    CompositeForthWord worldCr;
+    CompositeForthWord worldCr("worldCr");
     worldCr << &world << &cr;
-    CompositeForthWord message;
+    CompositeForthWord message("message");
     message << &helloSpace << &worldCr << &hello << &space << &helloSpace << &worldCr;
 
     ForthThread thread(&message);

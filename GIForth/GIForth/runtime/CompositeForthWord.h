@@ -6,6 +6,7 @@
 #define GIFORTH_COMPOSITEFORTHWORD_H
 
 #include <vector>
+#include <string>
 #include "ForthWord.h"
 #include "ForthCell.h"
 
@@ -13,7 +14,11 @@ class ForthThread;
 
 class CompositeForthWord : public ForthWord {
 public:
+    CompositeForthWord(const std::string& name);
+    virtual ~CompositeForthWord() = default;
     void execute(ForthThread& thread) override;
+    std::string disassemble(ForthThread &thread) override;
+    void disassemble(ForthThread &thread, std::vector<std::string>& contents) override;
 
     int size() const;
     const ForthCell& operator[](int ndx) const;
@@ -22,7 +27,13 @@ public:
 
 private:
     std::vector<ForthCell> body;
+    std::string name;
 };
+
+inline CompositeForthWord::CompositeForthWord(const std::string& nameIn)
+: body(), name(nameIn)
+{
+}
 
 inline int CompositeForthWord::size() const {
     return body.size();

@@ -12,6 +12,7 @@ ForthThread::ForthThread(const ForthExecutionFrame& start)
 {
 }
 
+
 CompositeForthWord* ForthThread::getCurrentWord() const {
     return ip.word;
 }
@@ -24,8 +25,16 @@ void ForthThread::setIndex(int newIndex) {
     ip.ndx = newIndex;
 }
 
+void ForthThread::offsetIndex(int offset) {
+    ip.ndx += offset;
+}
+
 ForthCell& ForthThread::getNextCell() {
     return (*ip.word)[ip.ndx++];
+}
+
+bool ForthThread::currentWordComplete() const {
+    return ip.ndx >= (*ip.word).size();
 }
 
 void ForthThread::pushFrame(CompositeForthWord* word, int ndx) {

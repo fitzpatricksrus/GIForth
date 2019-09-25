@@ -41,7 +41,7 @@
 #include "runtime/ForthCell.h"
 
 CompositeForthWord* BootstrapInterp::getInstance() {
-    static CompositeForthWord INSTANCE;
+    static CompositeForthWord INSTANCE("BootstrapInterp::INSTANCE");
     static bool firstTime = true;
     if (firstTime) {
         firstTime = false;
