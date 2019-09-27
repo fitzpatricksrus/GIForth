@@ -15,8 +15,11 @@ public:
     void invoke(ForthThread& thread);
     virtual void execute(ForthThread& thread) = 0;
 
-    virtual std::string disassemble(ForthThread &thread) = 0;
-    virtual void disassemble(ForthThread &thread, std::vector<std::string>& contents);
+    std::string getDisassembly(const ForthThread& thread) const;
+    virtual int getDisassemblyParamCount() const = 0;
+
+protected:
+    virtual std::string doDisassembly(const ForthThread& thread) const = 0;
 };
 
 inline void ForthWord::invoke(ForthThread& thread) {

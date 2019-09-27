@@ -45,6 +45,8 @@ public:
     int getIndex() const;
     void setIndex(int ndx);
     void offsetIndex(int offset);
+    const ForthCell& getCellAt(int ndx) const;
+    ForthCell& getCellAt(int ndx);
     ForthCell& getNextCell();
     bool currentWordComplete() const;
     void pushFrame(CompositeForthWord* word, int ndx = 0);

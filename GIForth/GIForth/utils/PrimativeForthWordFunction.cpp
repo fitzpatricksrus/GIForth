@@ -2,6 +2,7 @@
 // Created by Dad on 9/17/19.
 //
 
+#include <sstream>
 #include "PrimativeForthWordFunction.h"
 #include "runtime/ForthThread.h"
 
@@ -22,30 +23,43 @@ void PrimativeForthWordFunction::execute(ForthThread& thread) {
     (*func)(thread);
 }
 
-std::string PrimativeForthWordFunction::disassemble(ForthThread &thread) {
-    std::string result = name + "( ";
-    for (ParamType t : args) {
-        ForthCell cell = thread.getNextCell();
-        switch (t) {
-            case ParamType::INT:
-                result += cell.integer;
-                break;
-            case ParamType::BOOL:
-                result += cell.boolean;
-                break;
-            case ParamType::CELL:
-                result += cell.word->disassemble(thread);
-                break;
-            case ParamType::CHAR:
-                result += cell.character;
-                break;
-            case ParamType::PTR:
-                result += (long)cell.pointer;
-                break;
-            default:
-                break;
+std::string PrimativeForthWordFunction::doDisassembly(const ForthThread &thread) const {
+    if (args.empty()) {
+        return name;
+    } else {
+        std::string result = name + "( ";
+        int argNumber = 0;
+        for (ParamType t : args) {
+            ForthCell cell = thread.getCellAt(thread.getIndex() + argNumber);
+            switch (t) {
+                case ParamType::INT:
+                    result += std::to_string(cell.integer);
+                    break;
+                case ParamType::BOOL:
+                    result += std::to_string(cell.boolean);
+                    break;
+                case ParamType::CELL:
+                    result += cell.word->getDisassembly(thread);
+                    break;
+                case ParamType::CHAR:
+                    result += std::to_string(cell.character);
+                    break;
+                case ParamType::PTR: {
+                    std::stringstream ss;
+                    ss << cell.pointer;
+                    result += ss.str();
+                    break;
+                }
+                default:
+                    break;
+            }
+            result += " ";
+            argNumber++;
         }
-        result += " ";
+        return result + ")";
     }
-    return result + ")";
+}
+
+int PrimativeForthWordFunction::getDisassemblyParamCount() const {
+    return args.size();
 }

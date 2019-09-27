@@ -46,15 +46,12 @@ void CompositeForthWord::execute(ForthThread& thread) {
 
 #endif
 
-std::string CompositeForthWord::disassemble(ForthThread &thread) {
+std::string CompositeForthWord::doDisassembly(const ForthThread& thread) const {
     return name;
 }
 
-void CompositeForthWord::disassemble(ForthThread &thread, std::vector<std::string>& contents) {
-    while (!thread.currentWordComplete()) {
-        ForthCell cell = thread.getNextCell();
-        contents.push_back(cell.word->disassemble(thread));
-    }
+int CompositeForthWord::getDisassemblyParamCount() const {
+    return 0;
 }
 
 

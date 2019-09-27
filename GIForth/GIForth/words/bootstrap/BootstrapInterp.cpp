@@ -45,7 +45,7 @@ CompositeForthWord* BootstrapInterp::getInstance() {
     static bool firstTime = true;
     if (firstTime) {
         firstTime = false;
-        INSTANCE << &BootstrapWords::NEXT_TOKEN;            //0
+/*        INSTANCE << &BootstrapWords::NEXT_TOKEN;            //0
         INSTANCE << &BootstrapWords::FIND_WORD;             //1
 		INSTANCE << &CoreForthWords::JUMP_IF_FALSE;         //2
         INSTANCE << static_cast<ForthCell::INT_TYPE>(7);    //3
@@ -64,10 +64,29 @@ CompositeForthWord* BootstrapInterp::getInstance() {
 		INSTANCE << &CoreForthWords::PUSH_NEXT_CELL;        //16
 		INSTANCE << static_cast<ForthCell::INT_TYPE>(13);   //17
 		INSTANCE << &CoreForthWords::PRINT_CHAR;            //18
-		INSTANCE << &CoreForthWords::PUSH_NEXT_CELL;        //19
-		INSTANCE << static_cast<ForthCell::BOOL_TYPE>(false);//20
-		INSTANCE << &CoreForthWords::JUMP_IF_FALSE;         //21
-		INSTANCE << static_cast<ForthCell::INT_TYPE>(0);    //22
+        INSTANCE << &CoreForthWords::JUMP;                  //19
+        INSTANCE << static_cast<ForthCell::INT_TYPE>(0);    //20 */
+
+        INSTANCE << &BootstrapWords::NEXT_TOKEN;            //0
+        INSTANCE << &BootstrapWords::FIND_WORD;             //1
+		INSTANCE << &CoreForthWords::JUMP_IF_FALSE;         //2
+        INSTANCE << static_cast<ForthCell::INT_TYPE>(7);    //3
+		INSTANCE << &CoreForthWords::EXECUTE;               //4
+		INSTANCE << &CoreForthWords::JUMP;                  //5
+        INSTANCE << static_cast<ForthCell::INT_TYPE>(0);    //6
+        INSTANCE << &BootstrapWords::PARSE_NUMBER;          //7
+        INSTANCE << &CoreForthWords::CONDITIONAL_NOT;       //8
+		INSTANCE << &CoreForthWords::JUMP_IF_FALSE;         //9
+        INSTANCE << static_cast<ForthCell::INT_TYPE>(0);    //10
+        INSTANCE << &BootstrapWords::PRINT_STRING;          //11
+		INSTANCE << &CoreForthWords::PUSH_NEXT_CELL;        //12
+		INSTANCE << static_cast<ForthCell::INT_TYPE>(63);   //13
+		INSTANCE << &CoreForthWords::PRINT_CHAR;            //14
+		INSTANCE << &CoreForthWords::PUSH_NEXT_CELL;        //15
+		INSTANCE << static_cast<ForthCell::INT_TYPE>(13);   //16
+		INSTANCE << &CoreForthWords::PRINT_CHAR;            //17
+        INSTANCE << &CoreForthWords::JUMP;                  //18
+        INSTANCE << static_cast<ForthCell::INT_TYPE>(0);    //19
     }
     return &INSTANCE;
 }

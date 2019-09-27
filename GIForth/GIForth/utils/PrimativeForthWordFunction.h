@@ -25,7 +25,9 @@ public:
     PrimativeForthWordFunction& operator=(const PrimativeForthWordFunction& other) = default;
     void execute(ForthThread& thread) override;
 
-    std::string disassemble(ForthThread &thread) override;
+protected:
+    std::string doDisassembly(const ForthThread &thread) const override;
+    int getDisassemblyParamCount() const override;
 
 private:
     Function func;

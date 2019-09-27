@@ -17,13 +17,15 @@ public:
     CompositeForthWord(const std::string& name);
     virtual ~CompositeForthWord() = default;
     void execute(ForthThread& thread) override;
-    std::string disassemble(ForthThread &thread) override;
-    void disassemble(ForthThread &thread, std::vector<std::string>& contents) override;
 
     int size() const;
     const ForthCell& operator[](int ndx) const;
     ForthCell& operator[](int ndx);
     CompositeForthWord& appendCell(const ForthCell& cell);
+
+protected:
+    std::string doDisassembly(const ForthThread& thread) const override;
+    int getDisassemblyParamCount() const override;
 
 private:
     std::vector<ForthCell> body;

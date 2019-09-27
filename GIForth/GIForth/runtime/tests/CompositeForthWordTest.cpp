@@ -16,9 +16,14 @@ public:
         std::cout << msg;
     }
 
-    std::string disassemble(ForthThread &thread) override {
+    std::string doDisassembly(const ForthThread& thread) const override {
         return std::string("PrintStringWord(\"") + msg + "\")";
     };
+
+    int getDisassemblyParamCount() const override {
+        return 0;
+    }
+
 
 private:
     std::string msg;
