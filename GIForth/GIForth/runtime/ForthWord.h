@@ -12,7 +12,6 @@ class ForthThread;
 
 class ForthWord {
 public:
-    void invoke(ForthThread& thread);
     virtual void execute(ForthThread& thread) = 0;
 
     std::string getDisassembly(const ForthThread& thread) const;
@@ -21,9 +20,5 @@ public:
 protected:
     virtual std::string doDisassembly(const ForthThread& thread) const = 0;
 };
-
-inline void ForthWord::invoke(ForthThread& thread) {
-    execute(thread);
-}
 
 #endif //GIFORTH_FORTHWORD_H

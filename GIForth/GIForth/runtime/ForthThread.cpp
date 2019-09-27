@@ -130,4 +130,3 @@ void ForthThread::join() {
         while (execute()) {};
     }
 }
-

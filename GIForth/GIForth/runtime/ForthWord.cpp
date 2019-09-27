@@ -4,6 +4,8 @@
 
 #include "ForthWord.h"
 #include "ForthThread.h"
+#include <utils/NativeOSFunctions.hpp>
+
 
 static constexpr int INDENT = 2;
 static const std::string SPACES = "                                        ";

@@ -4,8 +4,20 @@
 
 #include "CompositeForthWord.h"
 #include "ForthThread.h"
+#include "utils/NativeOSFunctions.hpp"
+
 
 #undef OPTIMIZE_DISPATCH
+
+bool CompositeForthWord::trace = false;
+
+void CompositeForthWord::enableTrace(bool enable) {
+    trace = enable;
+}
+
+bool CompositeForthWord::isTraceEnabled() {
+    return trace;
+}
 
 #ifndef OPTIMIZE_DISPATCH
 
@@ -18,6 +30,10 @@ void CompositeForthWord::execute(ForthThread& thread) {
     if (ndx < body.size()) {
         ForthWord* word = body[ndx].word;
         thread.setIndex(ndx + 1);
+        if (isTraceEnabled()) {
+            NativeOSFunctions::printString(word->getDisassembly(thread));
+            NativeOSFunctions::printChar('\n');
+        }
         word->execute(thread);
     } else {
         thread.popFrame();
@@ -53,5 +69,4 @@ std::string CompositeForthWord::doDisassembly(const ForthThread& thread) const {
 int CompositeForthWord::getDisassemblyParamCount() const {
     return 0;
 }
-
 

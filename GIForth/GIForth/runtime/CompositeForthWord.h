@@ -14,6 +14,9 @@ class ForthThread;
 
 class CompositeForthWord : public ForthWord {
 public:
+    static void enableTrace(bool enable);
+    static bool isTraceEnabled();
+
     CompositeForthWord(const std::string& name);
     virtual ~CompositeForthWord() = default;
     void execute(ForthThread& thread) override;
@@ -28,6 +31,7 @@ protected:
     int getDisassemblyParamCount() const override;
 
 private:
+    static bool trace;
     std::vector<ForthCell> body;
     std::string name;
 };

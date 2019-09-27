@@ -7,18 +7,19 @@
 #include "words/bootstrap/BootstrapInterp.h"
 #include "runtime/ForthThread.h"
 
-#define ENDLESSX
+#define ENDLESS
 
 void BootstrapInterpTest::test() {
 	CompositeForthWord *interp = BootstrapInterp::getInstance();
-	ForthThread disassemblyThread1(interp);
+/*	ForthThread disassemblyThread1(interp);
 	while (!disassemblyThread1.currentWordComplete()) {
 	    ForthCell cell = disassemblyThread1.getNextCell();
 	    std::cout << cell.word->getDisassembly(disassemblyThread1) << std::endl;
 	    disassemblyThread1.offsetIndex(cell.word->getDisassemblyParamCount());
 	}
-
+*/
     ForthThread thread(interp);
+	CompositeForthWord::enableTrace(true);
 #ifdef ENDLESS
 	thread.join();
 #else
