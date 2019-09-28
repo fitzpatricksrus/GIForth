@@ -30,8 +30,8 @@ inline ForthExecutionFrame::ForthExecutionFrame(CompositeForthWord *wordIn)
 		: ForthExecutionFrame(wordIn, 0) {
 }
 
-inline ForthExecutionFrame::ForthExecutionFrame(CompositeForthWord *wordIn, int ndxIn)
-		: ndx(ndxIn), word(wordIn) {
+inline ForthExecutionFrame::ForthExecutionFrame(CompositeForthWord *wordIn, int ndx)
+		: ndx(ndx), word(wordIn) {
 }
 
 inline ForthExecutionFrame &ForthExecutionFrame::operator=(const ForthExecutionFrame &other) {

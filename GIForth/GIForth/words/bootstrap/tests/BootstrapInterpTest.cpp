@@ -11,13 +11,10 @@
 
 void BootstrapInterpTest::test() {
 	CompositeForthWord *interp = BootstrapInterp::getInstance();
-/*	ForthThread disassemblyThread1(interp);
-	while (!disassemblyThread1.currentWordComplete()) {
-	    ForthCell cell = disassemblyThread1.getNextCell();
-	    std::cout << cell.word->getDisassembly(disassemblyThread1) << std::endl;
-	    disassemblyThread1.offsetIndex(cell.word->getDisassemblyParamCount());
+	for (std::string s : interp->getDisassembly()) {
+	    std::cout << s << std::endl;
 	}
-*/
+
     ForthThread thread(interp);
 	CompositeForthWord::enableTrace(true);
 #ifdef ENDLESS

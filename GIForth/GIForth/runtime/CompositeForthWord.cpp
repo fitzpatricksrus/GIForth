@@ -62,6 +62,17 @@ void CompositeForthWord::execute(ForthThread& thread) {
 
 #endif
 
+std::vector<std::string> CompositeForthWord::getDisassembly() const {
+    std::vector<std::string> result(size());
+    ForthThread disassemblyThread(const_cast<CompositeForthWord*>(this));
+    while (!disassemblyThread.currentWordComplete()) {
+        ForthCell cell = disassemblyThread.getNextCell();
+        result.push_back(cell.word->getDisassembly(disassemblyThread));
+        disassemblyThread.offsetIndex(cell.word->getDisassemblyParamCount());
+    }
+    return result;
+}
+
 std::string CompositeForthWord::doDisassembly(const ForthThread& thread) const {
     return name;
 }

@@ -26,6 +26,8 @@ public:
     ForthCell& operator[](int ndx);
     CompositeForthWord& appendCell(const ForthCell& cell);
 
+    std::vector<std::string> getDisassembly() const;
+
 protected:
     std::string doDisassembly(const ForthThread& thread) const override;
     int getDisassemblyParamCount() const override;
