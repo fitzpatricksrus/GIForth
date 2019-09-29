@@ -36,13 +36,13 @@ std::string PrimativeForthWordFunction::doDisassembly(const ForthThread &thread)
                     result += std::to_string(cell.integer);
                     break;
                 case ParamType::BOOL:
-                    result += std::to_string(cell.boolean);
+                    result += std::to_string(static_cast<bool>(cell.integer));
                     break;
                 case ParamType::CELL:
                     result += cell.word->getDisassembly(thread);
                     break;
                 case ParamType::CHAR:
-                    result += std::to_string(cell.character);
+                    result += std::to_string(static_cast<char>(cell.integer));
                     break;
                 case ParamType::PTR: {
                     std::stringstream ss;

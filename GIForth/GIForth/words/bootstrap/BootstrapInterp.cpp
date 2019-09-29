@@ -35,7 +35,7 @@
 
 ;
 */
-#include <words/CoreForthWords.h>
+#include <words/PrimitiveForthWords.h>
 #include "BootstrapInterp.h"
 #include "BootstrapWords.h"
 #include "runtime/ForthCell.h"
@@ -45,48 +45,48 @@ CompositeForthWord* BootstrapInterp::getInstance() {
     static bool firstTime = true;
     if (firstTime) {
         firstTime = false;
-/*        INSTANCE << &BootstrapWords::NEXT_TOKEN;            //0
-        INSTANCE << &BootstrapWords::FIND_WORD;             //1
-		INSTANCE << &CoreForthWords::JUMP_IF_FALSE;         //2
-        INSTANCE << static_cast<ForthCell::INT_TYPE>(7);    //3
-		INSTANCE << &CoreForthWords::EXECUTE;               //4
-		INSTANCE << &CoreForthWords::JUMP;                  //5
-        INSTANCE << static_cast<ForthCell::INT_TYPE>(19);   //6
-        INSTANCE << &BootstrapWords::PARSE_NUMBER;          //7
-		INSTANCE << &CoreForthWords::JUMP_IF_FALSE;         //8
-        INSTANCE << static_cast<ForthCell::INT_TYPE>(12);   //9
-		INSTANCE << &CoreForthWords::JUMP;                  //10
-        INSTANCE << static_cast<ForthCell::INT_TYPE>(19);   //11
-        INSTANCE << &BootstrapWords::PRINT_STRING;          //12
-		INSTANCE << &CoreForthWords::PUSH_NEXT_CELL;        //13
-		INSTANCE << static_cast<ForthCell::INT_TYPE>(63);   //14
-		INSTANCE << &CoreForthWords::PRINT_CHAR;            //15
-		INSTANCE << &CoreForthWords::PUSH_NEXT_CELL;        //16
-		INSTANCE << static_cast<ForthCell::INT_TYPE>(13);   //17
-		INSTANCE << &CoreForthWords::PRINT_CHAR;            //18
-        INSTANCE << &CoreForthWords::JUMP;                  //19
-        INSTANCE << static_cast<ForthCell::INT_TYPE>(0);    //20 */
+/*        INSTANCE.appendCell(&BootstrapWords::NEXT_TOKEN);            //0
+        INSTANCE.appendCell(&BootstrapWords::FIND_WORD);             //1
+		INSTANCE.appendCell(&CoreForthWords::JUMP_IF_FALSE);         //2
+        INSTANCE.appendCell(static_cast<ForthCell::INT_TYPE>(7));    //3
+		INSTANCE.appendCell(&CoreForthWords::EXECUTE);               //4
+		INSTANCE.appendCell(&CoreForthWords::JUMP);                  //5
+        INSTANCE.appendCell(static_cast<ForthCell::INT_TYPE>(19));   //6
+        INSTANCE.appendCell(&BootstrapWords::PARSE_NUMBER);          //7
+		INSTANCE.appendCell(&CoreForthWords::JUMP_IF_FALSE);         //8
+        INSTANCE.appendCell(static_cast<ForthCell::INT_TYPE>(12));   //9
+		INSTANCE.appendCell(&CoreForthWords::JUMP);                  //10
+        INSTANCE.appendCell(static_cast<ForthCell::INT_TYPE>(19));   //11
+        INSTANCE.appendCell(&BootstrapWords::PRINT_STRING);          //12
+		INSTANCE.appendCell(&CoreForthWords::PUSH_NEXT_CELL);        //13
+		INSTANCE.appendCell(static_cast<ForthCell::INT_TYPE>(63));   //14
+		INSTANCE.appendCell(&CoreForthWords::PRINT_CHAR);            //15
+		INSTANCE.appendCell(&CoreForthWords::PUSH_NEXT_CELL);        //16
+		INSTANCE.appendCell(static_cast<ForthCell::INT_TYPE>(13));   //17
+		INSTANCE.appendCell(&CoreForthWords::PRINT_CHAR);            //18
+        INSTANCE.appendCell(&CoreForthWords::JUMP);                  //19
+        INSTANCE.appendCell(static_cast<ForthCell::INT_TYPE>(0));    //20 */
 
-        INSTANCE << &BootstrapWords::NEXT_TOKEN;            //0
-        INSTANCE << &BootstrapWords::FIND_WORD;             //1
-		INSTANCE << &CoreForthWords::JUMP_IF_FALSE;         //2
-        INSTANCE << static_cast<ForthCell::INT_TYPE>(7);    //3
-		INSTANCE << &CoreForthWords::EXECUTE;               //4
-		INSTANCE << &CoreForthWords::JUMP;                  //5
-        INSTANCE << static_cast<ForthCell::INT_TYPE>(0);    //6
-        INSTANCE << &BootstrapWords::PARSE_NUMBER;          //7
-        INSTANCE << &CoreForthWords::CONDITIONAL_NOT;       //8
-		INSTANCE << &CoreForthWords::JUMP_IF_FALSE;         //9
-        INSTANCE << static_cast<ForthCell::INT_TYPE>(0);    //10
-        INSTANCE << &BootstrapWords::PRINT_STRING;          //11
-		INSTANCE << &CoreForthWords::PUSH_NEXT_CELL;        //12
-		INSTANCE << static_cast<ForthCell::INT_TYPE>(63);   //13
-		INSTANCE << &CoreForthWords::PRINT_CHAR;            //14
-		INSTANCE << &CoreForthWords::PUSH_NEXT_CELL;        //15
-		INSTANCE << static_cast<ForthCell::INT_TYPE>(13);   //16
-		INSTANCE << &CoreForthWords::PRINT_CHAR;            //17
-        INSTANCE << &CoreForthWords::JUMP;                  //18
-        INSTANCE << static_cast<ForthCell::INT_TYPE>(0);    //19
+        INSTANCE.appendCell(&BootstrapWords::NEXT_TOKEN);            //0
+        INSTANCE.appendCell(&BootstrapWords::FIND_WORD);             //1
+		INSTANCE.appendCell(&PrimitiveForthWords::JUMP_IF_FALSE);         //2
+        INSTANCE.appendCell(static_cast<ForthCell::INT_TYPE>(7));    //3
+		INSTANCE.appendCell(&PrimitiveForthWords::EXECUTE);               //4
+		INSTANCE.appendCell(&PrimitiveForthWords::JUMP);                  //5
+        INSTANCE.appendCell(static_cast<ForthCell::INT_TYPE>(0));    //6
+        INSTANCE.appendCell(&BootstrapWords::PARSE_NUMBER);          //7
+        INSTANCE.appendCell(&PrimitiveForthWords::CONDITIONAL_NOT);       //8
+		INSTANCE.appendCell(&PrimitiveForthWords::JUMP_IF_FALSE);         //9
+        INSTANCE.appendCell(static_cast<ForthCell::INT_TYPE>(0));    //10
+        INSTANCE.appendCell(&BootstrapWords::PRINT_STRING);          //11
+		INSTANCE.appendCell(&PrimitiveForthWords::PUSH_NEXT_CELL);        //12
+		INSTANCE.appendCell(static_cast<ForthCell::INT_TYPE>(63));   //13
+		INSTANCE.appendCell(&PrimitiveForthWords::PRINT_CHAR);            //14
+		INSTANCE.appendCell(&PrimitiveForthWords::PUSH_NEXT_CELL);        //15
+		INSTANCE.appendCell(static_cast<ForthCell::INT_TYPE>(13));   //16
+		INSTANCE.appendCell(&PrimitiveForthWords::PRINT_CHAR);            //17
+        INSTANCE.appendCell(&PrimitiveForthWords::JUMP);                  //18
+        INSTANCE.appendCell(static_cast<ForthCell::INT_TYPE>(0));    //19
     }
     return &INSTANCE;
 }

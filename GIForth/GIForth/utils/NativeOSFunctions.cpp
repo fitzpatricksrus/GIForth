@@ -10,6 +10,18 @@
 #include <string>
 #include <iostream>
 
+int NativeOSFunctions::accept(char* buffer, int size) {
+    std::string buff;
+    std::getline(std::cin, buff);
+    while (buff.size() > size) {
+        std::cout << "WARNING: Input exceeded maximum length of " << std::to_string(size) << " characters.  Ignored." << std::endl;
+        std::getline(std::cin, buff);
+    }
+    strcpy(buffer, buff.c_str());
+    return buff.size();
+}
+
+
 std::string NativeOSFunctions::inputBuffer;     // initializes to empty string
 int NativeOSFunctions::inputPos = 0;
 

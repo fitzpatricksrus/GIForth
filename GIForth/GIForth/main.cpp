@@ -9,10 +9,12 @@
 #include <runtime/tests/CompositeForthWordTest.h>
 #include <words/bootstrap/tests/BootstrapWordsTest.h>
 #include <words/bootstrap/tests/BootstrapInterpTest.h>
+#include "words/tests/CoreForthWordsTest.h"
 
 int main(int argc, const char * argv[]) {
 //    CompositeForthWordTest::test();
 //    BootstrapWordsTest::testNextToken();
-	BootstrapInterpTest::test();
+//	BootstrapInterpTest::test();
+	CoreForthWordsTest::testParseNumber();
 	return 0;
 }

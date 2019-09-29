@@ -13,6 +13,9 @@
 
 class NativeOSFunctions {
 public:
+
+    static int accept(char* buffer, int size);
+
 	static char peekNextChar();
 	static char nextChar();
 	static void flushInput();

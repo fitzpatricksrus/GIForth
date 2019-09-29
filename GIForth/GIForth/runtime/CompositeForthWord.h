@@ -16,15 +16,19 @@ class CompositeForthWord : public ForthWord {
 public:
     static void enableTrace(bool enable);
     static bool isTraceEnabled();
-
-    CompositeForthWord(const std::string& name);
+	
+	CompositeForthWord(const std::string& name);
+	CompositeForthWord(const CompositeForthWord& other);
     virtual ~CompositeForthWord() = default;
+	CompositeForthWord& operator=(const CompositeForthWord& other) = default;
+    
     void execute(ForthThread& thread) override;
 
     int size() const;
     const ForthCell& operator[](int ndx) const;
     ForthCell& operator[](int ndx);
-    CompositeForthWord& appendCell(const ForthCell& cell);
+    int appendCell(const ForthCell& cell);
+    int nextAppendNdx() const;
 
     std::vector<std::string> getDisassembly() const;
 
@@ -39,7 +43,12 @@ private:
 };
 
 inline CompositeForthWord::CompositeForthWord(const std::string& nameIn)
-: body(), name(nameIn)
+		: body(), name(nameIn)
+{
+}
+
+inline CompositeForthWord::CompositeForthWord(const CompositeForthWord& other)
+		: body(other.body), name(other.name)
 {
 }
 
@@ -55,13 +64,14 @@ inline ForthCell& CompositeForthWord::operator[](int ndx) {
     return body[ndx];
 }
 
-inline CompositeForthWord& CompositeForthWord::appendCell(const ForthCell& cell) {
+inline int CompositeForthWord::appendCell(const ForthCell& cell) {
+	int result = body.size();
     body.push_back(cell);
-    return *this;
+    return result;
 }
 
-inline CompositeForthWord& operator<<(CompositeForthWord& us, ForthCell const& cell) {
-    return us.appendCell(cell);
+inline int CompositeForthWord::nextAppendNdx() const {
+	return body.size();
 }
 
 #endif //GIFORTH_COMPOSITEFORTHWORD_H

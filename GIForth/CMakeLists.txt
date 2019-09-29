@@ -16,8 +16,8 @@ add_executable(GIForth
         GIForth/utils/PrimativeForthWordMemberFunction.cpp
         GIForth/words/bootstrap/BootstrapInterp.cpp
         GIForth/words/bootstrap/BootstrapWords.cpp
-        GIForth/words/CoreForthWords.cpp
+        GIForth/words/PrimitiveForthWords.cpp
         GIForth/main.cpp
         CMakeLists.txt
         GIForth/words/bootstrap/tests/BootstrapInterpTest.cpp
-        )
+        GIForth/words/CoreForthWords.cpp GIForth/words/CoreForthWords.h GIForth/words/bootstrap/CompositeForthWordBuilder.cpp GIForth/words/bootstrap/CompositeForthWordBuilder.h GIForth/words/tests/CoreForthWordsTest.cpp GIForth/words/tests/CoreForthWordsTest.h)

@@ -12,10 +12,10 @@
 void BootstrapInterpTest::test() {
 	CompositeForthWord *interp = BootstrapInterp::getInstance();
 	for (std::string s : interp->getDisassembly()) {
-	    std::cout << s << std::endl;
+		std::cout << s << std::endl;
 	}
 
-    ForthThread thread(interp);
+	ForthThread thread(interp);
 	CompositeForthWord::enableTrace(true);
 #ifdef ENDLESS
 	thread.join();
