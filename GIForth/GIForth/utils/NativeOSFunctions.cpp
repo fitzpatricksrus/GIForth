@@ -9,6 +9,7 @@
 #include "NativeOSFunctions.hpp"
 #include <string>
 #include <iostream>
+#include <cstring>
 
 int NativeOSFunctions::accept(char* buffer, int size) {
     std::string buff;
@@ -17,7 +18,7 @@ int NativeOSFunctions::accept(char* buffer, int size) {
         std::cout << "WARNING: Input exceeded maximum length of " << std::to_string(size) << " characters.  Ignored." << std::endl;
         std::getline(std::cin, buff);
     }
-    strcpy(buffer, buff.c_str());
+    std::strcpy(buffer, buff.c_str());
     return buff.size();
 }
 
