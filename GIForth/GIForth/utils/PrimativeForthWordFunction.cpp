@@ -60,6 +60,10 @@ std::string PrimativeForthWordFunction::doDisassembly(const ForthThread &thread)
     }
 }
 
+std::string PrimativeForthWordFunction::getName() const {
+	return name;
+}
+
 int PrimativeForthWordFunction::getDisassemblyParamCount() const {
     return args.size();
 }

@@ -23,7 +23,7 @@
  ;
  */
 CompositeForthWord CoreForthWords::PARSE_DIGIT(
-		CompositeForthWordBuilder("PARSE_DIGIT")
+		CompositeForthWordBuilder("CoreForthWords::PARSE_DIGIT")
 			.append(&PrimitiveForthWords::DUP)
 			.compileConstant(static_cast<ForthCell::CHAR_TYPE>('0'))
 			.append(&PrimitiveForthWords::LESS_THAN)
@@ -68,7 +68,7 @@ CompositeForthWord CoreForthWords::PARSE_DIGIT(
  	R> drop					// value true (drop original strAddr)
  */
 CompositeForthWord CoreForthWords::PARSE_NUMBER(
-		CompositeForthWordBuilder("PARSE_NUMBER")
+		CompositeForthWordBuilder("CoreForthWords::PARSE_NUMBER")
 		.append(&PrimitiveForthWords::DUP)
 				.append(&PrimitiveForthWords::TO_RETURN_STACK)
 				.append(&PrimitiveForthWords::PUSH_NEXT_CELL)

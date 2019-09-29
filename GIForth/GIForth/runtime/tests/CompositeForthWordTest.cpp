@@ -20,6 +20,10 @@ public:
         return std::string("PrintStringWord(\"") + msg + "\")";
     };
 
+    std::string getName() const override {
+    	return "PrintStringWord";
+    }
+    
     int getDisassemblyParamCount() const override {
         return 0;
     }

@@ -33,22 +33,24 @@ public:
     std::vector<std::string> getDisassembly() const;
 
 protected:
+	std::string getName() const override;
     std::string doDisassembly(const ForthThread& thread) const override;
     int getDisassemblyParamCount() const override;
 
 private:
     static bool trace;
+    int traceDepth;
     std::vector<ForthCell> body;
     std::string name;
 };
 
 inline CompositeForthWord::CompositeForthWord(const std::string& nameIn)
-		: body(), name(nameIn)
+		: traceDepth(0), body(), name(nameIn)
 {
 }
 
 inline CompositeForthWord::CompositeForthWord(const CompositeForthWord& other)
-		: body(other.body), name(other.name)
+		: traceDepth(0), body(other.body), name(other.name)
 {
 }
 

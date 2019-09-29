@@ -4,21 +4,16 @@
 
 #include "ForthWord.h"
 #include "ForthThread.h"
-#include <utils/NativeOSFunctions.hpp>
+#include "utils/StringUtils.h"
 
 
-static constexpr int INDENT = 2;
-static const std::string SPACES = "                                        ";
+static constexpr int INDENT = 4;
 
 std::string ForthWord::getDisassembly(const ForthThread& thread) const {
-    int depth = thread.returnStackDepth();
-    std::string line = SPACES.substr(0, depth * INDENT);
-    std::string ndx = std::to_string(thread.getIndex() - 1);
-    if (ndx.size() < 2) {
-        ndx = SPACES.substr(0, 2 - ndx.size()) + ndx;
-    }
-    std::string dis = doDisassembly(thread);
-    line.append("[").append(ndx).append("] ").append(dis);
+    std::string line("[") ;
+    StringUtils::rightTabTo(line, std::to_string(thread.getIndex() - 1), INDENT);
+    line += " ] ";
+    line += doDisassembly(thread);
     return line;
 }
 

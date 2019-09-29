@@ -18,6 +18,7 @@ public:
     virtual int getDisassemblyParamCount() const = 0;
 
 protected:
+	virtual std::string getName() const = 0;
     virtual std::string doDisassembly(const ForthThread& thread) const = 0;
 };
 
