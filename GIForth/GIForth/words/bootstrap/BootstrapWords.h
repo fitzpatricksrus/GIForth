@@ -5,21 +5,21 @@
 #ifndef GIFORTH_BOOTSTRAPWORDS_H
 #define GIFORTH_BOOTSTRAPWORDS_H
 
-#include <utils/PrimativeForthWordFunction.h>
+#include <utils/PrimitiveForthWordFunction.h>
 
 class BootstrapWords {
 public:
     // -- stringAddr
-    static PrimativeForthWordFunction NEXT_TOKEN;
+    static PrimitiveForthWordFunction NEXT_TOKEN;
 
     // stringAddr -- [ wordAddr true | stringAddr false ]
-    static PrimativeForthWordFunction FIND_WORD;
+    static PrimitiveForthWordFunction FIND_WORD;
 
     // stringAddr -- [ value true | string addr false ]
-    static PrimativeForthWordFunction PARSE_NUMBER;
+    static PrimitiveForthWordFunction PARSE_NUMBER;
 
     // stringAddr --
-    static PrimativeForthWordFunction PRINT_STRING;
+    static PrimitiveForthWordFunction PRINT_STRING;
 
 private:
     static void F_NEXT_TOKEN(ForthThread& thread);

@@ -112,6 +112,10 @@ ForthThread::ReturnStackFrame ForthThread::fromReturnStack() {
     }
 }
 
+const ForthThread::ReturnStackFrame &ForthThread::topOfReturnStack() const {
+    return returnStack.top();
+}
+
 void ForthThread::toReturnStack(const ReturnStackFrame& value) {
     returnStack.push(value);
 }
@@ -130,3 +134,4 @@ void ForthThread::join() {
         while (execute()) {};
     }
 }
+

@@ -7,7 +7,7 @@
 #include "utils/NativeOSFunctions.hpp"
 #include "runtime/ForthThread.h"
 
-PrimativeForthWordFunction BootstrapWords::NEXT_TOKEN(&BootstrapWords::F_NEXT_TOKEN, "BootstrapWords::NEXT_TOKEN");
+PrimitiveForthWordFunction BootstrapWords::NEXT_TOKEN(&BootstrapWords::F_NEXT_TOKEN, "BootstrapWords::NEXT_TOKEN");
 void BootstrapWords::F_NEXT_TOKEN(ForthThread& thread) {
     static constexpr int MAX_TOKEN_SIZE = 80;
     static std::array<char, MAX_TOKEN_SIZE> token;
@@ -37,13 +37,13 @@ void BootstrapWords::F_NEXT_TOKEN(ForthThread& thread) {
     thread.pushDataStack(static_cast<ForthCell::PTR_TYPE>(token.data()));
 }
 
-PrimativeForthWordFunction BootstrapWords::FIND_WORD(&BootstrapWords::F_FIND_WORD, "BootstrapWords::FIND_WORD");
+PrimitiveForthWordFunction BootstrapWords::FIND_WORD(&BootstrapWords::F_FIND_WORD, "BootstrapWords::FIND_WORD");
 void BootstrapWords::F_FIND_WORD(ForthThread& thread) {
 	thread.pushDataStack(static_cast<ForthCell::BOOL_TYPE>(false));
 }
 
 // stringAddr -- [ value true | stringAddr false ]
-PrimativeForthWordFunction BootstrapWords::PARSE_NUMBER(&BootstrapWords::F_PARSE_NUMBER, "BootstrapWords::PARSE_NUMBER");
+PrimitiveForthWordFunction BootstrapWords::PARSE_NUMBER(&BootstrapWords::F_PARSE_NUMBER, "BootstrapWords::PARSE_NUMBER");
 void BootstrapWords::F_PARSE_NUMBER(ForthThread& thread) {
     ForthCell::INT_TYPE resultValue = 0;
     char* data = static_cast<char*>(thread.popDataStack().pointer);
@@ -64,7 +64,7 @@ void BootstrapWords::F_PARSE_NUMBER(ForthThread& thread) {
 }
 
 // stringAddr --
-PrimativeForthWordFunction BootstrapWords::PRINT_STRING(&BootstrapWords::F_PRINT_STRING, "BootstrapWords::PRINT_STRING");
+PrimitiveForthWordFunction BootstrapWords::PRINT_STRING(&BootstrapWords::F_PRINT_STRING, "BootstrapWords::PRINT_STRING");
 void BootstrapWords::F_PRINT_STRING(ForthThread& thread) {
     NativeOSFunctions::printString(static_cast<char*>(thread.popDataStack().pointer));
 }

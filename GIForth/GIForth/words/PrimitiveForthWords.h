@@ -5,72 +5,81 @@
 #ifndef GIFORTH_PRIMITIVEFORTHWORDS_H
 #define GIFORTH_PRIMITIVEFORTHWORDS_H
 
-#include <utils/PrimativeForthWordFunction.h>
+#include <utils/PrimitiveForthWordFunction.h>
 
 class PrimitiveForthWords {
 public:
-    static PrimativeForthWordFunction NOP;
+    static PrimitiveForthWordFunction NOP;
 
 	// --
-	static PrimativeForthWordFunction JUMP;
+	static PrimitiveForthWordFunction JUMP;
 
 	// bool --   if the tos is false, the next cell is set as the ip.ndx else it's just skipped
-	static PrimativeForthWordFunction JUMP_IF_FALSE;
+	static PrimitiveForthWordFunction JUMP_IF_FALSE;
 
 	// --
-	static PrimativeForthWordFunction RETURN;
+	static PrimitiveForthWordFunction RETURN;
 
 	// wordAddr --
-	static PrimativeForthWordFunction EXECUTE;
+	static PrimitiveForthWordFunction EXECUTE;
 
 	// -- value ; pushes next cell in word onto data stack
-	static PrimativeForthWordFunction PUSH_NEXT_CELL;
+	static PrimitiveForthWordFunction PUSH_NEXT_CELL;
 
-	static PrimativeForthWordFunction CHAR_SIZE;
-    static PrimativeForthWordFunction INT_SIZE;
-    static PrimativeForthWordFunction PTR_SIZE;
-    static PrimativeForthWordFunction WORD_SIZE;
+	static PrimitiveForthWordFunction CHAR_SIZE;
+    static PrimitiveForthWordFunction INT_SIZE;
+    static PrimitiveForthWordFunction PTR_SIZE;
+    static PrimitiveForthWordFunction WORD_SIZE;
 
-    static PrimativeForthWordFunction ALLOC;
-    static PrimativeForthWordFunction FREE;
+    static PrimitiveForthWordFunction ALLOC;
+    static PrimitiveForthWordFunction FREE;
 
-    static PrimativeForthWordFunction CHAR_AT;          // addr - char
-    static PrimativeForthWordFunction CHAR_PUT;         // char addr --
-    static PrimativeForthWordFunction CHAR_INDEX;       // ndx addr -- addr
-    static PrimativeForthWordFunction INT_AT;          // addr - char
-    static PrimativeForthWordFunction INT_PUT;         // char addr --
-    static PrimativeForthWordFunction INT_INDEX;       // ndx addr -- addr
-    static PrimativeForthWordFunction CELL_AT;          // addr -- cell
-    static PrimativeForthWordFunction CELL_PUT;         // value addr --
-    static PrimativeForthWordFunction CELL_INDEX;       // ndx addr -- addr
+    static PrimitiveForthWordFunction CHAR_AT;          // addr - char
+    static PrimitiveForthWordFunction CHAR_PUT;         // char addr --
+    static PrimitiveForthWordFunction CHAR_INDEX;       // ndx addr -- addr
+    static PrimitiveForthWordFunction INT_AT;          // addr - char
+    static PrimitiveForthWordFunction INT_PUT;         // char addr --
+    static PrimitiveForthWordFunction INT_INDEX;       // ndx addr -- addr
+    static PrimitiveForthWordFunction CELL_AT;          // addr -- cell
+    static PrimitiveForthWordFunction CELL_PUT;         // value addr --
+    static PrimitiveForthWordFunction CELL_INDEX;       // ndx addr -- addr
 
-    static PrimativeForthWordFunction TO_RETURN_STACK;
-    static PrimativeForthWordFunction FROM_RETURN_STACK;
+    static PrimitiveForthWordFunction TO_RETURN_STACK;  // >R
+    static PrimitiveForthWordFunction FROM_RETURN_STACK; // R>
+    static PrimitiveForthWordFunction AT_RETURN_STACK;  // R> dup >R
 
-    static PrimativeForthWordFunction PICK;	// ( a0 .. an n -- a0 .. an a0 )
-    static PrimativeForthWordFunction ROLL;	// ( a0 .. an n -- a1 .. an a0 )
-    static PrimativeForthWordFunction DROP;
-    static PrimativeForthWordFunction DUP;
+    static PrimitiveForthWordFunction PICK;	// ( a0 .. an n -- a0 .. an a0 )
+    static PrimitiveForthWordFunction ROLL;	// ( a0 .. an n -- a1 .. an a0 )
+    static PrimitiveForthWordFunction DROP;
+    static PrimitiveForthWordFunction DUP;
 
-    static PrimativeForthWordFunction ADD;
-    static PrimativeForthWordFunction SUBTRACT;
-    static PrimativeForthWordFunction MULTIPLY;
-    static PrimativeForthWordFunction DIVIDE;
-    static PrimativeForthWordFunction MOD;
+    static PrimitiveForthWordFunction ADD;
+    static PrimitiveForthWordFunction SUBTRACT;
+    static PrimitiveForthWordFunction MULTIPLY;
+    static PrimitiveForthWordFunction DIVIDE;
+    static PrimitiveForthWordFunction MOD;
 
-    static PrimativeForthWordFunction LESS_THAN;
-    static PrimativeForthWordFunction GREATER_THAN;
-    static PrimativeForthWordFunction EQUAL;
+    static PrimitiveForthWordFunction LESS_THAN;
+    static PrimitiveForthWordFunction GREATER_THAN;
+    static PrimitiveForthWordFunction EQUAL;
 
-    static PrimativeForthWordFunction CONDITIONAL_AND;
-    static PrimativeForthWordFunction CONDITIONAL_OR;
-    static PrimativeForthWordFunction CONDITIONAL_NOT;
+    static PrimitiveForthWordFunction CONDITIONAL_AND;
+    static PrimitiveForthWordFunction CONDITIONAL_OR;
+    static PrimitiveForthWordFunction CONDITIONAL_NOT;
 
-    static PrimativeForthWordFunction ACCEPT_INPUT;     // charPtr size -- inputSize
-    static PrimativeForthWordFunction PEEK_NEXT_INPUT_CHAR;
-    static PrimativeForthWordFunction GET_NEXT_INPUT_CHAR;
-    static PrimativeForthWordFunction PRINT_CHAR;
-    
+    static PrimitiveForthWordFunction ACCEPT_INPUT;     // charPtr size -- inputSize
+    static PrimitiveForthWordFunction PEEK_NEXT_INPUT_CHAR;
+    static PrimitiveForthWordFunction GET_NEXT_INPUT_CHAR;
+    static PrimitiveForthWordFunction PRINT_CHAR;
+
+    static PrimitiveForthWordFunction FALSE;
+    static PrimitiveForthWordFunction TRUE;
+    static PrimitiveForthWordFunction ZERO;
+    static PrimitiveForthWordFunction ONE;
+    static PrimitiveForthWordFunction NEGATIVE_ONE;
+    static PrimitiveForthWordFunction ADD_ONE;
+    static PrimitiveForthWordFunction SUBTRACT_ONE;
+
 private:
     static void F_NOP(ForthThread& thread);
 
@@ -88,9 +97,9 @@ private:
     static void F_ALLOC(ForthThread& thread);
     static void F_FREE(ForthThread& thread);
 
-    static void F_CHAR_AT(ForthThread& thread);
-    static void F_CHAR_PUT(ForthThread& thread);
-    static void F_CHAR_INDEX(ForthThread& thread);
+    static void F_CHAR_AT(ForthThread& thread);         // ptr -- char
+    static void F_CHAR_PUT(ForthThread& thread);        // value ptr --
+    static void F_CHAR_INDEX(ForthThread& thread);      // ndx ptr -- ptr
 
     static void F_INT_AT(ForthThread& thread);
     static void F_INT_PUT(ForthThread& thread);
@@ -102,6 +111,7 @@ private:
 
     static void F_TO_RETURN_STACK(ForthThread& thread);
     static void F_FROM_RETURN_STACK(ForthThread& thread);
+    static void F_AT_RETURN_STACK(ForthThread& thread);
 
     static void F_PICK(ForthThread& thread);
     static void F_ROLL(ForthThread& thread);
@@ -126,6 +136,14 @@ private:
     static void F_PEEK_NEXT_INPUT_CHAR(ForthThread& thread);
     static void F_GET_NEXT_INPUT_CHAR(ForthThread& thread);
     static void F_PRINT_CHAR(ForthThread& thread);
+
+    static void F_FALSE(ForthThread& thread);
+    static void F_TRUE(ForthThread& thread);
+    static void F_ZERO(ForthThread& thread);
+    static void F_ONE(ForthThread& thread);
+    static void F_NEGATIVE_ONE(ForthThread& thread);
+    static void F_ADD_ONE(ForthThread& thread);
+    static void F_SUBTRACT_ONE(ForthThread& thread);
 };
 
 #endif //GIFORTH_PRIMITIVEFORTHWORDS_H

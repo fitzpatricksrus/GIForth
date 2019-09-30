@@ -3,15 +3,15 @@
 //
 
 #include <sstream>
-#include "PrimativeForthWordFunction.h"
+#include "PrimitiveForthWordFunction.h"
 #include "runtime/ForthThread.h"
 
-PrimativeForthWordFunction::PrimativeForthWordFunction(Function funcIn, const std::string& nameIn)
+PrimitiveForthWordFunction::PrimitiveForthWordFunction(Function funcIn, const std::string& nameIn)
         : func(funcIn), name(nameIn), args()
 {
 }
 
-PrimativeForthWordFunction::PrimativeForthWordFunction(Function funcIn, const std::string& nameIn, std::initializer_list<ParamType> params)
+PrimitiveForthWordFunction::PrimitiveForthWordFunction(Function funcIn, const std::string& nameIn, std::initializer_list<ParamType> params)
         : func(funcIn), name(nameIn), args()
 {
     for (ParamType t : params) {
@@ -19,11 +19,11 @@ PrimativeForthWordFunction::PrimativeForthWordFunction(Function funcIn, const st
     }
 }
 
-void PrimativeForthWordFunction::execute(ForthThread& thread) {
+void PrimitiveForthWordFunction::execute(ForthThread& thread) {
     (*func)(thread);
 }
 
-std::string PrimativeForthWordFunction::doDisassembly(const ForthThread &thread) const {
+std::string PrimitiveForthWordFunction::doDisassembly(const ForthThread &thread) const {
     if (args.empty()) {
         return name;
     } else {
@@ -60,10 +60,10 @@ std::string PrimativeForthWordFunction::doDisassembly(const ForthThread &thread)
     }
 }
 
-std::string PrimativeForthWordFunction::getName() const {
+std::string PrimitiveForthWordFunction::getName() const {
 	return name;
 }
 
-int PrimativeForthWordFunction::getDisassemblyParamCount() const {
+int PrimitiveForthWordFunction::getDisassemblyParamCount() const {
     return args.size();
 }

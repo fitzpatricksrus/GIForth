@@ -38,6 +38,7 @@ public:
     // return stack operation
     ReturnStackFrame fromReturnStack();
     void toReturnStack(const ReturnStackFrame& value);
+    const ReturnStackFrame& topOfReturnStack() const;
     int returnStackDepth() const;
 
     // execution operations

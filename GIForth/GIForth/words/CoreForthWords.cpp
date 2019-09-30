@@ -8,6 +8,36 @@
 #include "PrimitiveForthWords.h"
 
 /*
+: strlen                ( char* -- len )
+ 0 >R
+ while dup c@ do
+    R> 1 + >R
+    1 +
+ endwhile
+ drop
+ R>
+ ;
+*/
+CompositeForthWord CoreForthWords::STRLEN(
+        CompositeForthWordBuilder("CoreForthWords::STRLEN")
+                .append(&PrimitiveForthWords::ZERO)
+                .append(&PrimitiveForthWords::TO_RETURN_STACK)
+                .compileWhileLink()
+                .append(&PrimitiveForthWords::DUP)
+                .append(&PrimitiveForthWords::CHAR_AT)
+                .compileDoLink()
+                .append(&PrimitiveForthWords::FROM_RETURN_STACK)
+                .append(&PrimitiveForthWords::ADD_ONE)
+                .append(&PrimitiveForthWords::TO_RETURN_STACK)
+                .append(&PrimitiveForthWords::ADD_ONE)
+                .compileEndWhileLink()
+                .append(&PrimitiveForthWords::DROP)
+                .append(&PrimitiveForthWords::FROM_RETURN_STACK)
+                .build()
+);
+
+
+/*
 : parse_digit				( char -- value | -1 )
  	dup '0' < if
  		drop
@@ -29,14 +59,14 @@ CompositeForthWord CoreForthWords::PARSE_DIGIT(
 			.append(&PrimitiveForthWords::LESS_THAN)
 			.compileIfLink()
 				.append(&PrimitiveForthWords::DROP)
-				.compileConstant(static_cast<ForthCell::INT_TYPE>(-1))
+				.append(&PrimitiveForthWords::NEGATIVE_ONE)
 			.compileElseLink()
 				.append(&PrimitiveForthWords::DUP)
 				.compileConstant(static_cast<ForthCell::CHAR_TYPE>('9'))
 				.append(&PrimitiveForthWords::GREATER_THAN)
 				.compileIfLink()
 					.append(&PrimitiveForthWords::DROP)
-					.compileConstant(static_cast<ForthCell::INT_TYPE>(-1))
+					.append(&PrimitiveForthWords::NEGATIVE_ONE)
 				.compileElseLink()
 					.compileConstant(static_cast<ForthCell::CHAR_TYPE>('0'))
 					.append(&PrimitiveForthWords::SUBTRACT)
@@ -70,9 +100,8 @@ CompositeForthWord CoreForthWords::PARSE_DIGIT(
 CompositeForthWord CoreForthWords::PARSE_NUMBER(
 		CompositeForthWordBuilder("CoreForthWords::PARSE_NUMBER")
 		.append(&PrimitiveForthWords::DUP)
-				.append(&PrimitiveForthWords::TO_RETURN_STACK)
-				.append(&PrimitiveForthWords::PUSH_NEXT_CELL)
-		.append(ForthCell(static_cast<ForthCell::INT_TYPE>(0)))
+		.append(&PrimitiveForthWords::TO_RETURN_STACK)
+		.append(&PrimitiveForthWords::ZERO)
 		.append(&PrimitiveForthWords::TO_RETURN_STACK)
 		.compileWhileLink()
 				.append(&PrimitiveForthWords::DUP)
@@ -82,8 +111,7 @@ CompositeForthWord CoreForthWords::PARSE_NUMBER(
 				.append(&PrimitiveForthWords::CHAR_AT)
 				.append(&PARSE_DIGIT)
 				.append(&PrimitiveForthWords::DUP)
-				.append(&PrimitiveForthWords::PUSH_NEXT_CELL)
-				.append(ForthCell(static_cast<ForthCell::INT_TYPE>(0)))
+				.append(&PrimitiveForthWords::ZERO)
 				.append(&PrimitiveForthWords::LESS_THAN)
 				.compileIfLink()
 						.append(&PrimitiveForthWords::DROP)
@@ -91,8 +119,7 @@ CompositeForthWord CoreForthWords::PARSE_NUMBER(
 						.append(&PrimitiveForthWords::FROM_RETURN_STACK)
 						.append(&PrimitiveForthWords::DROP)
 						.append(&PrimitiveForthWords::FROM_RETURN_STACK)
-						.append(&PrimitiveForthWords::PUSH_NEXT_CELL)
-						.append(ForthCell(static_cast<ForthCell::BOOL_TYPE>(false)))
+						.append(&PrimitiveForthWords::FALSE)
 						.append(&PrimitiveForthWords::RETURN)
 				.compileElseLink()
 						.append(&PrimitiveForthWords::FROM_RETURN_STACK)
@@ -101,16 +128,67 @@ CompositeForthWord CoreForthWords::PARSE_NUMBER(
 						.append(&PrimitiveForthWords::MULTIPLY)
 						.append(&PrimitiveForthWords::ADD)
 						.append(&PrimitiveForthWords::TO_RETURN_STACK)
-						.append(&PrimitiveForthWords::PUSH_NEXT_CELL)
-						.append(ForthCell(static_cast<ForthCell::INT_TYPE>(1)))
+						.append(&PrimitiveForthWords::ONE)
 						.append(&PrimitiveForthWords::ADD)
 				.compileEndIfLink()
 		.compileEndWhileLink()
 		.append(&PrimitiveForthWords::DROP)
 		.append(&PrimitiveForthWords::FROM_RETURN_STACK)
-		.append(&PrimitiveForthWords::PUSH_NEXT_CELL)
-		.append(ForthCell(static_cast<ForthCell::BOOL_TYPE>(true)))
+		.append(&PrimitiveForthWords::TRUE)
 		.append(&PrimitiveForthWords::FROM_RETURN_STACK)
 		.append(&PrimitiveForthWords::DROP)
 		.build()
 );
+
+
+
+/*
+: reverseString         ( char* -- )
+
+: NUMBER_TO_CHARS       ( value char* -- )
+    dup >R >R           ( value )
+    dup                 ( value value )
+    not if              ( value )
+        '0'             ( '0' )
+        R@ c!           ( )
+        R> 1 + >R       ( )
+    else                ( value )
+        dup 0 < if      ( value )
+            '-'         ( value '-' )
+            R@ c!       ( value )
+            R> 1 + >R   ( value )
+            -1 *        ( -value )
+        endif           ( value )
+        begin           ( value )
+            dup         ( value value )
+        while           ( value )
+            dup         ( value value )
+            10 mod      ( value value%10 )
+            '0' +       ( value char )
+            r@ c!       ( value )
+            r> 1 + R>   ( value ) ( increment address )
+            10 /        ( remain /= 10 )
+        endwhile        ( remaining )
+        drop            ( )
+    endif               ( )
+    0 r> c!             ( null terminate string )
+    r> reverseString
+;
+
+
+
+
+
+
+
+
+            R>
+            1 +
+            >R
+
+
+ */
+CompositeForthWord CoreForthWords::NUMBER_TO_CHARACERS(
+        CompositeForthWordBuilder("CoreForthWords::NUMBER_TO_CHARACERS")
+        .build());
+
