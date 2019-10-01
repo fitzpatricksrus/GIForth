@@ -164,6 +164,12 @@ void PrimitiveForthWords::F_PICK(ForthThread& thread) {
     thread.pushDataStack(thread[thread.popDataStack().integer]);
 }
 
+// ( a0 .. an n -- a0 .. an a0 )
+PrimitiveForthWordFunction PrimitiveForthWords::OVER(&PrimitiveForthWords::F_OVER, "CoreForthWords::OVER");
+void PrimitiveForthWords::F_OVER(ForthThread& thread) {
+    thread.pushDataStack(thread[1]);
+}
+
 // ( a0 .. an n -- a1 .. an a0 )
 PrimitiveForthWordFunction PrimitiveForthWords::ROLL(&PrimitiveForthWords::F_ROLL, "CoreForthWords::ROLL");
 void PrimitiveForthWords::F_ROLL(ForthThread& thread) {

@@ -18,7 +18,7 @@
  R>
  ;
 */
-CompositeForthWord CoreForthWords::STRLEN(
+CompositeForthWord CoreForthWords::STRLEN(  // char* -- len
         CompositeForthWordBuilder("CoreForthWords::STRLEN")
                 .append(&PrimitiveForthWords::ZERO)
                 .append(&PrimitiveForthWords::TO_RETURN_STACK)
@@ -36,6 +36,30 @@ CompositeForthWord CoreForthWords::STRLEN(
                 .build()
 );
 
+CompositeForthWord CoreForthWords::STRCPY(  // src* dest* --
+        CompositeForthWordBuilder("CoreForthWords::STRCPY")
+        .build()
+);
+
+/**
+src* dest* len --
+    >R                  ( src* dest* ) ( len )
+    swap                ( dest* src* ) ( len )
+    while R> dup 0 > do ( dest* src* len ) ( )
+        - 1 >R          ( dest* src* ) ( len )
+        dup >R c@       ( dest* char) ( len src* )
+        over c!         ( dest* ) ( len src* )
+        1 +             ( dest* ) ( len src* )
+        R>              ( dest* src* ) ( len )
+        1 +             ( dest* src* ) ( len )
+    endwhile            ( desr* src* len )
+    drop drop drop      ( )
+ */
+CompositeForthWord CoreForthWords::STRNCPY(  // src start len dest
+        CompositeForthWordBuilder("CoreForthWords::STRNCPY")
+
+        .build()
+);
 
 /*
 : parse_digit				( char -- value | -1 )
