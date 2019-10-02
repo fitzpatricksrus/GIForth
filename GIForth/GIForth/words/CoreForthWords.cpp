@@ -36,8 +36,21 @@ CompositeForthWord CoreForthWords::STRLEN(  // char* -- len
                 .build()
 );
 
+/*
+: STRCPY                ( src* dest* -- )
+    swap                ( dest* src* )
+    while dup c@ do {   ( dest* src* )
+        dup c@          ( dest* src* char )
+        swap >R         ( dest* char ) ( src* )
+        over c!         ( dest* ) ( src * )
+        1 +             ( dest*+1 ) ( src* )
+        R> 1 +          ( dest*+1 src*+1 )
+    endwhile
+    drop drop
+ */
 CompositeForthWord CoreForthWords::STRCPY(  // src* dest* --
         CompositeForthWordBuilder("CoreForthWords::STRCPY")
+
         .build()
 );
 
@@ -46,7 +59,7 @@ src* dest* len --
     >R                  ( src* dest* ) ( len )
     swap                ( dest* src* ) ( len )
     while R> dup 0 > do ( dest* src* len ) ( )
-        - 1 >R          ( dest* src* ) ( len )
+        1 - >R          ( dest* src* ) ( len )
         dup >R c@       ( dest* char) ( len src* )
         over c!         ( dest* ) ( len src* )
         1 +             ( dest* ) ( len src* )
@@ -57,7 +70,31 @@ src* dest* len --
  */
 CompositeForthWord CoreForthWords::STRNCPY(  // src start len dest
         CompositeForthWordBuilder("CoreForthWords::STRNCPY")
-
+        .append(&PrimitiveForthWords::TO_RETURN_STACK)
+        .append(&PrimitiveForthWords::SWAP)
+        .compileWhileLink()
+            .append(&PrimitiveForthWords::FROM_RETURN_STACK)
+            .append(&PrimitiveForthWords::DUP)
+            .append(&PrimitiveForthWords::ZERO)
+            .append(&PrimitiveForthWords::GREATER_THAN)
+        .compileDoLink()
+            .append(&PrimitiveForthWords::ONE)
+            .append(&PrimitiveForthWords::SUBTRACT)
+            .append(&PrimitiveForthWords::TO_RETURN_STACK)
+            .append(&PrimitiveForthWords::DUP)
+            .append(&PrimitiveForthWords::TO_RETURN_STACK)
+            .append(&PrimitiveForthWords::CHAR_AT)
+            .append(&PrimitiveForthWords::OVER)
+            .append(&PrimitiveForthWords::CHAR_PUT)
+            .append(&PrimitiveForthWords::ONE)
+            .append(&PrimitiveForthWords::ADD)
+            .append(&PrimitiveForthWords::TO_RETURN_STACK)
+            .append(&PrimitiveForthWords::ONE)
+            .append(&PrimitiveForthWords::ADD)
+        .compileEndWhileLink()
+        .append(&PrimitiveForthWords::DROP)
+        .append(&PrimitiveForthWords::DROP)
+        .append(&PrimitiveForthWords::DROP)
         .build()
 );
 

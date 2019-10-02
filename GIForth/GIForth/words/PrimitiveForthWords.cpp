@@ -158,6 +158,14 @@ void PrimitiveForthWords::F_AT_RETURN_STACK(ForthThread &thread) {
     thread.pushDataStack(thread.topOfReturnStack().cell);
 }
 
+PrimitiveForthWordFunction PrimitiveForthWords::SWAP(&PrimitiveForthWords::F_SWAP, "CoreForthWords::SWAP");
+void PrimitiveForthWords::F_SWAP(ForthThread& thread) {
+    ForthCell v1 = thread.popDataStack();
+    ForthCell v2 = thread.popDataStack();
+    thread.pushDataStack(v1);
+    thread.pushDataStack(v2);
+}
+
 // ( a0 .. an n -- a0 .. an a0 )
 PrimitiveForthWordFunction PrimitiveForthWords::PICK(&PrimitiveForthWords::F_PICK, "CoreForthWords::PICK");
 void PrimitiveForthWords::F_PICK(ForthThread& thread) {

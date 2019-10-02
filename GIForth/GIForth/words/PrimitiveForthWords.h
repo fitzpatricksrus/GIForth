@@ -48,6 +48,7 @@ public:
     static PrimitiveForthWordFunction FROM_RETURN_STACK; // R>
     static PrimitiveForthWordFunction AT_RETURN_STACK;  // R> dup >R
 
+    static PrimitiveForthWordFunction SWAP;	// ( a b -- b a )
     static PrimitiveForthWordFunction PICK;	// ( a0 .. an x -- a0 .. an ax )
     static PrimitiveForthWordFunction OVER;	// ( a b -- a b a )
     static PrimitiveForthWordFunction ROLL;	// ( a0 .. an n -- a1 .. an a0 )
@@ -114,6 +115,7 @@ private:
     static void F_FROM_RETURN_STACK(ForthThread& thread);
     static void F_AT_RETURN_STACK(ForthThread& thread);
 
+    static void F_SWAP(ForthThread& thread);
     static void F_PICK(ForthThread& thread);
     static void F_OVER(ForthThread& thread);
     static void F_ROLL(ForthThread& thread);
