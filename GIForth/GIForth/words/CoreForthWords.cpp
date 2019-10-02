@@ -50,7 +50,23 @@ CompositeForthWord CoreForthWords::STRLEN(  // char* -- len
  */
 CompositeForthWord CoreForthWords::STRCPY(  // src* dest* --
         CompositeForthWordBuilder("CoreForthWords::STRCPY")
-
+        .append(&PrimitiveForthWords::SWAP)
+        .compileWhileLink()
+                .append(&PrimitiveForthWords::DUP)
+                .append(&PrimitiveForthWords::CHAR_AT)
+        .compileDoLink()
+                .append(&PrimitiveForthWords::DUP)
+                .append(&PrimitiveForthWords::CHAR_AT)
+                .append(&PrimitiveForthWords::SWAP)
+                .append(&PrimitiveForthWords::TO_RETURN_STACK)
+                .append(&PrimitiveForthWords::OVER)
+                .append(&PrimitiveForthWords::CHAR_PUT)
+                .append(&PrimitiveForthWords::ADD_ONE)
+                .append(&PrimitiveForthWords::FROM_RETURN_STACK)
+                .append(&PrimitiveForthWords::ADD_ONE)
+        .compileEndWhileLink()
+        .append(&PrimitiveForthWords::DROP)
+        .append(&PrimitiveForthWords::DROP)
         .build()
 );
 
@@ -86,11 +102,9 @@ CompositeForthWord CoreForthWords::STRNCPY(  // src start len dest
             .append(&PrimitiveForthWords::CHAR_AT)
             .append(&PrimitiveForthWords::OVER)
             .append(&PrimitiveForthWords::CHAR_PUT)
-            .append(&PrimitiveForthWords::ONE)
-            .append(&PrimitiveForthWords::ADD)
+            .append(&PrimitiveForthWords::ADD_ONE)
             .append(&PrimitiveForthWords::TO_RETURN_STACK)
-            .append(&PrimitiveForthWords::ONE)
-            .append(&PrimitiveForthWords::ADD)
+            .append(&PrimitiveForthWords::ADD_ONE)
         .compileEndWhileLink()
         .append(&PrimitiveForthWords::DROP)
         .append(&PrimitiveForthWords::DROP)
@@ -204,8 +218,23 @@ CompositeForthWord CoreForthWords::PARSE_NUMBER(
 
 
 /*
-: reverseString         ( char* -- )
+: reverseString         ( str* -- )
+    dup                 ( str* str* )
+    0 >R                ( str* str* ) ( 0 )
+    while dup c@ do     ( str* str* )
+        dup c@ >R       ( str* str* ) ( char 0 )
+        1 +             ( str* str*+1 ) ( char 0 )
+    endwhile            ( str* str*+n ) ( char .. char 0 )
+    drop                ( str* ) ( char .. char 0 )
+    while R> dup do     ( str* char ) ( char .. char 0 )
+        over c!         ( str* ) ( char .. char 0 )
+        1 +             ( str*+1 ) ( char .. char 0 )
+    endwhile            ( str*+n ) ( )
+    drop                ( ) ( )
+;
+*/
 
+/*
 : NUMBER_TO_CHARS       ( value char* -- )
     dup >R >R           ( value )
     dup                 ( value value )
@@ -235,19 +264,6 @@ CompositeForthWord CoreForthWords::PARSE_NUMBER(
     0 r> c!             ( null terminate string )
     r> reverseString
 ;
-
-
-
-
-
-
-
-
-            R>
-            1 +
-            >R
-
-
  */
 CompositeForthWord CoreForthWords::NUMBER_TO_CHARACERS(
         CompositeForthWordBuilder("CoreForthWords::NUMBER_TO_CHARACERS")
