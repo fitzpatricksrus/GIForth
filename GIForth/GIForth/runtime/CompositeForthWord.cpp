@@ -10,16 +10,6 @@
 
 #undef OPTIMIZE_DISPATCH
 
-bool CompositeForthWord::trace = false;
-
-void CompositeForthWord::enableTrace(bool enable) {
-    trace = enable;
-}
-
-bool CompositeForthWord::isTraceEnabled() {
-    return trace;
-}
-
 #ifndef OPTIMIZE_DISPATCH
 
 static std::string shortStackDump(const ForthThread& thread) {
@@ -46,28 +36,28 @@ void CompositeForthWord::execute(ForthThread& thread) {
 	if (thread.getCurrentWord() != this) {
         // first time called, so make a new stack frame
         thread.pushFrame(this);
-        traceDepth++;
+        thread.setTraceDepth(thread.getTraceDepth() + 1);
     }
     int ndx = thread.getIndex();
     if (ndx < body.size()) {
         ForthWord* word = body[ndx].word;
         thread.setIndex(ndx + 1);
-        if (isTraceEnabled()) {
+        if (thread.isTraceEnabled()) {
         	std::string line(getName());
         	StringUtils::tabTo(line, FIRST_TAB_POSITION);
 	        line += " ( ";
 	        line += shortStackDump(thread);
 	        line += " )";
-	        StringUtils::tabTo(line, SECOND_TAB_POSITION + traceDepth * 2);
+	        StringUtils::tabTo(line, SECOND_TAB_POSITION + thread.getTraceDepth() * 2);
 	        line += word->getDisassembly(thread);
 	        NativeOSFunctions::printString(line);
-	        NativeOSFunctions::printChar('\n');
+	        NativeOSFunctions::endLine();
         }
 	    
         word->execute(thread);
     } else {
         thread.popFrame();
-	    traceDepth--;
+	    thread.setTraceDepth(thread.getTraceDepth() - 1);
     }
 }
 

@@ -8,7 +8,7 @@
 const ForthThread::ReturnStackFrame ForthThread::DEAD_FRAME(ForthExecutionFrame(nullptr));
 
 ForthThread::ForthThread(const ForthExecutionFrame& start)
-: dataStack(), returnStack(), ip(start)
+: dataStack(), returnStack(), ip(start), trace(false), traceDepth(0)
 {
 }
 
@@ -133,5 +133,21 @@ void ForthThread::join() {
     if (!ip.isDeadFrame()) {
         while (execute()) {};
     }
+}
+
+void ForthThread::enableTrace(bool enable) {
+    trace = enable;
+}
+
+bool ForthThread::isTraceEnabled() {
+    return trace;
+}
+
+int ForthThread::getTraceDepth() {
+    return traceDepth;
+}
+
+void ForthThread::setTraceDepth(int depth) {
+    traceDepth = depth;
 }
 

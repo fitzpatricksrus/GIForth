@@ -16,7 +16,7 @@ void BootstrapInterpTest::test() {
 	}
 
 	ForthThread thread(interp);
-	CompositeForthWord::enableTrace(true);
+	thread.enableTrace(true);
 #ifdef ENDLESS
 	thread.join();
 #else

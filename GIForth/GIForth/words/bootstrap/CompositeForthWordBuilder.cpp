@@ -26,13 +26,13 @@ CompositeForthWordBuilder& CompositeForthWordBuilder::compileConstant(const Fort
 	return *this;
 }
 
-CompositeForthWordBuilder& CompositeForthWordBuilder::compileIfLink() {
+CompositeForthWordBuilder& CompositeForthWordBuilder::compileIf() {
 	word.appendCell(&PrimitiveForthWords::JUMP_IF_FALSE);
 	ifStack.push(word.appendCell(static_cast<ForthCell::INT_TYPE>(0)));
 	return *this;
 }
 
-CompositeForthWordBuilder& CompositeForthWordBuilder::compileElseLink() {
+CompositeForthWordBuilder& CompositeForthWordBuilder::compileElse() {
 	word.appendCell(&PrimitiveForthWords::JUMP);
 	int nextPatch = word.appendCell(static_cast<ForthCell::INT_TYPE>(0));
 	int ifNdx = ifStack.top();
@@ -42,34 +42,45 @@ CompositeForthWordBuilder& CompositeForthWordBuilder::compileElseLink() {
 	return *this;
 }
 
-CompositeForthWordBuilder& CompositeForthWordBuilder::compileEndIfLink() {
+CompositeForthWordBuilder& CompositeForthWordBuilder::compileEndIf() {
 	int ifElseNdx = ifStack.top();
 	ifStack.pop();
 	word[ifElseNdx] = static_cast<ForthCell::INT_TYPE>(word.nextAppendNdx());
 	return *this;
 }
 
-CompositeForthWordBuilder& CompositeForthWordBuilder::compileWhileLink() {
+CompositeForthWordBuilder& CompositeForthWordBuilder::compileWhile() {
 	ifStack.push(word.nextAppendNdx());
 	return *this;
 }
 
-CompositeForthWordBuilder& CompositeForthWordBuilder::compileDoLink() {
+CompositeForthWordBuilder& CompositeForthWordBuilder::compileDo() {
 	word.appendCell(&PrimitiveForthWords::JUMP_IF_FALSE);
 	ifStack.push(word.appendCell(static_cast<ForthCell::INT_TYPE>(0)));
 	return *this;
 }
 
-CompositeForthWordBuilder& CompositeForthWordBuilder::compileEndWhileLink() {
-	int doNdx = ifStack.top();
-	ifStack.pop();
-	int whileNdx = ifStack.top();
-	ifStack.pop();
-	
-	word.appendCell(&PrimitiveForthWords::JUMP);
-	word.appendCell(static_cast<ForthCell::INT_TYPE>(whileNdx));
-	word[doNdx] = static_cast<ForthCell::INT_TYPE>(word.nextAppendNdx());
-	return *this;
+CompositeForthWordBuilder& CompositeForthWordBuilder::compileEndWhile() {
+    int doNdx = ifStack.top();
+    ifStack.pop();
+    int whileNdx = ifStack.top();
+    ifStack.pop();
+
+    word.appendCell(&PrimitiveForthWords::JUMP);
+    word.appendCell(static_cast<ForthCell::INT_TYPE>(whileNdx));
+    word[doNdx] = static_cast<ForthCell::INT_TYPE>(word.nextAppendNdx());
+    return *this;
+}
+
+CompositeForthWordBuilder& CompositeForthWordBuilder::compileRepeat() {
+    ifStack.push(word.nextAppendNdx());
+    return *this;
+}
+
+CompositeForthWordBuilder& CompositeForthWordBuilder::compileForever() {
+    word.appendCell(&PrimitiveForthWords::JUMP);
+    word.appendCell(static_cast<ForthCell::INT_TYPE>(ifStack.top()));
+    ifStack.pop();
 }
 
 CompositeForthWord CompositeForthWordBuilder::build() {

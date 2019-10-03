@@ -10,7 +10,8 @@ class CoreForthWords {
 public:
     static CompositeForthWord STRLEN;               // char* -- len
     static CompositeForthWord STRCPY;               // src* dest* --
-    static CompositeForthWord STRNCPY;               // src* dest* len --
+    static CompositeForthWord STRNCPY;              // src* dest* len --
+    static CompositeForthWord STRREVERSE;           // src*
 
 	static CompositeForthWord PARSE_DIGIT;          // char -- [ value | -1 ]
 	static CompositeForthWord PARSE_NUMBER;         // stringAddr -- [ value true | stringAddr false ]

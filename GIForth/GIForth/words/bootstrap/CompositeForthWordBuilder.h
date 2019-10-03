@@ -14,12 +14,15 @@ public:
 	CompositeForthWordBuilder& operator+=(const ForthCell& cell);
 	CompositeForthWordBuilder& append(const ForthCell& cell);
 	CompositeForthWordBuilder& compileConstant(const ForthCell& cell);
-	CompositeForthWordBuilder& compileIfLink();
-	CompositeForthWordBuilder& compileElseLink();
-	CompositeForthWordBuilder& compileEndIfLink();
-	CompositeForthWordBuilder& compileWhileLink();
-	CompositeForthWordBuilder& compileDoLink();
-	CompositeForthWordBuilder& compileEndWhileLink();
+	CompositeForthWordBuilder& compileIf();
+	CompositeForthWordBuilder& compileElse();
+	CompositeForthWordBuilder& compileEndIf();
+	CompositeForthWordBuilder& compileWhile();
+	CompositeForthWordBuilder& compileDo();
+    CompositeForthWordBuilder& compileEndWhile();
+    CompositeForthWordBuilder& compileRepeat();
+    CompositeForthWordBuilder& compileForever();
+
 	
 	CompositeForthWord build();
 	

@@ -16,14 +16,13 @@ static void testParseDigitWith(char c) {
 					.append(&CoreForthWords::PARSE_DIGIT)
 					.build());
 	ForthThread thread(&word);
+	thread.enableTrace(true);
 	thread.join();
 	std::cout << "'" << c << "' CoreForthWords::PARSE_DIGIT . " << std::endl;
 	std::cout << thread.popDataStack().integer << std::endl;
 }
 
 void CoreForthWordsTest::testParseDigit() {
-	CompositeForthWord::enableTrace(true);
-	
 	testParseDigitWith('0');
 	testParseDigitWith('9');
 	testParseDigitWith(static_cast<char>('0' - 1));
@@ -37,6 +36,7 @@ static void testParseNUmberWith(const char* c) {
 			                        .append(&CoreForthWords::PARSE_NUMBER)
 			                        .build());
 	ForthThread thread(&word);
+	thread.enableTrace(true);
 	thread.join();
 	std::cout << "'" << c << "' CoreForthWords::PARSE_NUMBER . . " << std::endl;
 	std::cout << thread.popDataStack().integer << "  " << thread.popDataStack().integer << std::endl;
@@ -44,8 +44,6 @@ static void testParseNUmberWith(const char* c) {
 
 void CoreForthWordsTest::testParseNumber() {
 	// stringAddr -- [ value true | stringAddr false ]
-	CompositeForthWord::enableTrace(true);
-	
 	testParseNUmberWith("1234");
 	testParseNUmberWith("1");
 	testParseNUmberWith("999");

@@ -23,6 +23,7 @@ public:
     static void printChar(char c);
     static void printString(const char* string);
     static void printString(const std::string& string);
+    static void endLine();
 
 private:
     static std::string inputBuffer;

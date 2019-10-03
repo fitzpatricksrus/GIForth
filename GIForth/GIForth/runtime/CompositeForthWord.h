@@ -14,9 +14,6 @@ class ForthThread;
 
 class CompositeForthWord : public ForthWord {
 public:
-    static void enableTrace(bool enable);
-    static bool isTraceEnabled();
-	
 	CompositeForthWord(const std::string& name);
 	CompositeForthWord(const CompositeForthWord& other);
     virtual ~CompositeForthWord() = default;
@@ -38,19 +35,17 @@ protected:
     int getDisassemblyParamCount() const override;
 
 private:
-    static bool trace;
-    int traceDepth;
     std::vector<ForthCell> body;
     std::string name;
 };
 
 inline CompositeForthWord::CompositeForthWord(const std::string& nameIn)
-		: traceDepth(0), body(), name(nameIn)
+		: body(), name(nameIn)
 {
 }
 
 inline CompositeForthWord::CompositeForthWord(const CompositeForthWord& other)
-		: traceDepth(0), body(other.body), name(other.name)
+		: body(other.body), name(other.name)
 {
 }
 

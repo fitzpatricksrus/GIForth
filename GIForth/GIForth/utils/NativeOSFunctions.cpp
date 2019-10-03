@@ -69,6 +69,10 @@ void NativeOSFunctions::printString(const std::string& string) {
     std::cout << string;
 }
 
+void NativeOSFunctions::endLine() {
+    std::cout << std::endl;
+}
+
 /*
  ACCEPT( addr u1 — u2 )
  Receives u1 characters (or until carriage return) from the terminal keyboard

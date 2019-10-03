@@ -56,7 +56,15 @@ public:
     bool execute();
     void join();
 
+    void enableTrace(bool enable);
+    bool isTraceEnabled();
+    int getTraceDepth();
+    void setTraceDepth(int depth);
+
 private:
+    bool trace;
+    int traceDepth;
+
     ForthExecutionFrame ip;
     std::stack<ReturnStackFrame> returnStack;
     std::vector<ForthCell> dataStack;
