@@ -11,6 +11,7 @@
 #include "ForthCell.h"
 
 class ForthThread;
+class CompositeForthWordProxy;
 
 class CompositeForthWord : public ForthWord {
 public:
@@ -30,11 +31,13 @@ public:
     std::vector<std::string> getDisassembly() const;
 
 protected:
-	std::string getName() const override;
-    std::string doDisassembly(const ForthThread& thread) const override;
+    void trace(const ForthThread& thread, ForthWord* word) const;
+	std::string getDisassemblyName() const override;
+    std::string getTraceDetail(const ForthThread& thread) const override;
     int getDisassemblyParamCount() const override;
 
 private:
+    friend CompositeForthWordProxy;
     std::vector<ForthCell> body;
     std::string name;
 };

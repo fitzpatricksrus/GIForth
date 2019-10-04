@@ -14,12 +14,12 @@ class ForthWord {
 public:
     virtual void execute(ForthThread& thread) = 0;
 
-    std::string getDisassembly(const ForthThread& thread) const;
+    std::string getTrace(const ForthThread& thread) const;
     virtual int getDisassemblyParamCount() const = 0;
 
 protected:
-	virtual std::string getName() const = 0;
-    virtual std::string doDisassembly(const ForthThread& thread) const = 0;
+	virtual std::string getDisassemblyName() const = 0;
+    virtual std::string getTraceDetail(const ForthThread& thread) const = 0;
 };
 
 #endif //GIFORTH_FORTHWORD_H

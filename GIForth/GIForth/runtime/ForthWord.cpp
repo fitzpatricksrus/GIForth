@@ -9,11 +9,11 @@
 
 static constexpr int INDENT = 4;
 
-std::string ForthWord::getDisassembly(const ForthThread& thread) const {
+std::string ForthWord::getTrace(const ForthThread& thread) const {
     std::string line("[") ;
     StringUtils::rightTabTo(line, std::to_string(thread.getIndex() - 1), INDENT);
     line += " ] ";
-    line += doDisassembly(thread);
+    line += getTraceDetail(thread);
     return line;
 }
 

@@ -84,5 +84,6 @@ CompositeForthWordBuilder& CompositeForthWordBuilder::compileForever() {
 }
 
 CompositeForthWord CompositeForthWordBuilder::build() {
+    append(&PrimitiveForthWords::RETURN);
 	return word;
 }

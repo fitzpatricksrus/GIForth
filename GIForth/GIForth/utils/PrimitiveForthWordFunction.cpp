@@ -23,7 +23,7 @@ void PrimitiveForthWordFunction::execute(ForthThread& thread) {
     (*func)(thread);
 }
 
-std::string PrimitiveForthWordFunction::doDisassembly(const ForthThread &thread) const {
+std::string PrimitiveForthWordFunction::getTraceDetail(const ForthThread &thread) const {
     if (args.empty()) {
         return name;
     } else {
@@ -39,7 +39,7 @@ std::string PrimitiveForthWordFunction::doDisassembly(const ForthThread &thread)
                     result += std::to_string(static_cast<bool>(cell.integer));
                     break;
                 case ParamType::CELL:
-                    result += cell.word->getDisassembly(thread);
+                    result += cell.word->getTrace(thread);
                     break;
                 case ParamType::CHAR:
                     result += std::to_string(static_cast<char>(cell.integer));
@@ -60,7 +60,7 @@ std::string PrimitiveForthWordFunction::doDisassembly(const ForthThread &thread)
     }
 }
 
-std::string PrimitiveForthWordFunction::getName() const {
+std::string PrimitiveForthWordFunction::getDisassemblyName() const {
 	return name;
 }
 

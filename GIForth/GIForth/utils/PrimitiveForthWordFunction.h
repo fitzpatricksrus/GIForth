@@ -26,8 +26,8 @@ public:
     void execute(ForthThread& thread) override;
 
 protected:
-	std::string doDisassembly(const ForthThread &thread) const override;
-	std::string getName() const override;
+	std::string getTraceDetail(const ForthThread &thread) const override;
+	std::string getDisassemblyName() const override;
     int getDisassemblyParamCount() const override;
 
 private:

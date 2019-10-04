@@ -139,11 +139,11 @@ void ForthThread::enableTrace(bool enable) {
     trace = enable;
 }
 
-bool ForthThread::isTraceEnabled() {
+bool ForthThread::isTraceEnabled() const {
     return trace;
 }
 
-int ForthThread::getTraceDepth() {
+int ForthThread::getTraceDepth() const {
     return traceDepth;
 }
 

@@ -57,8 +57,8 @@ public:
     void join();
 
     void enableTrace(bool enable);
-    bool isTraceEnabled();
-    int getTraceDepth();
+    bool isTraceEnabled() const;
+    int getTraceDepth() const;
     void setTraceDepth(int depth);
 
 private:

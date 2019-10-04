@@ -30,6 +30,7 @@ void PrimitiveForthWords::F_JUMP_IF_FALSE(ForthThread &thread) {
 PrimitiveForthWordFunction PrimitiveForthWords::RETURN(&PrimitiveForthWords::F_RETURN, "CoreForthWords::RETURN");
 void PrimitiveForthWords::F_RETURN(ForthThread &thread) {
 	thread.popFrame();
+    thread.setTraceDepth(thread.getTraceDepth() - 1);
 }
 
 PrimitiveForthWordFunction PrimitiveForthWords::EXECUTE(&PrimitiveForthWords::F_EXECUTE, "CoreForthWords::EXECUTE");

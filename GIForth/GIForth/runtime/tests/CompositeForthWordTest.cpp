@@ -16,11 +16,11 @@ public:
         std::cout << msg;
     }
 
-    std::string doDisassembly(const ForthThread& thread) const override {
+    std::string getTraceDetail(const ForthThread& thread) const override {
         return std::string("PrintStringWord(\"") + msg + "\")";
     };
 
-    std::string getName() const override {
+    std::string getDisassemblyName() const override {
     	return "PrintStringWord";
     }
     
