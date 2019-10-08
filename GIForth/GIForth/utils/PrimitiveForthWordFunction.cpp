@@ -23,7 +23,7 @@ void PrimitiveForthWordFunction::execute(ForthThread& thread) {
     (*func)(thread);
 }
 
-std::string PrimitiveForthWordFunction::getTraceDetail(const ForthThread &thread) const {
+std::string PrimitiveForthWordFunction::getDisassemblyDetail(const ForthThread &thread) const {
     if (args.empty()) {
         return name;
     } else {

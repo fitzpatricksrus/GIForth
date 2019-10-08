@@ -19,7 +19,7 @@ public:
 
 protected:
 	virtual std::string getDisassemblyName() const = 0;
-    virtual std::string getTraceDetail(const ForthThread& thread) const = 0;
+    virtual std::string getDisassemblyDetail(const ForthThread& thread) const = 0;
 };
 
 #endif //GIFORTH_FORTHWORD_H

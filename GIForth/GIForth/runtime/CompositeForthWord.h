@@ -33,7 +33,7 @@ public:
 protected:
     void trace(const ForthThread& thread, ForthWord* word) const;
 	std::string getDisassemblyName() const override;
-    std::string getTraceDetail(const ForthThread& thread) const override;
+    std::string getDisassemblyDetail(const ForthThread& thread) const override;
     int getDisassemblyParamCount() const override;
 
 private:

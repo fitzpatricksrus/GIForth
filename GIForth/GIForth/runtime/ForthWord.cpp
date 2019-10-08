@@ -13,7 +13,7 @@ std::string ForthWord::getTrace(const ForthThread& thread) const {
     std::string line("[") ;
     StringUtils::rightTabTo(line, std::to_string(thread.getIndex() - 1), INDENT);
     line += " ] ";
-    line += getTraceDetail(thread);
+    line += getDisassemblyDetail(thread);
     return line;
 }
 

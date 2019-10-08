@@ -12,7 +12,7 @@
 #include "words/tests/CoreForthWordsTest.h"
 
 int main(int argc, const char * argv[]) {
-//    CompositeForthWordTest::test();
+    CompositeForthWordTest::test();
 //    BootstrapWordsTest::testNextToken();
 //	BootstrapInterpTest::test();
 	CoreForthWordsTest::testParseNumber();

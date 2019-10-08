@@ -8,6 +8,7 @@
 #include <iostream>
 #include <runtime/CompositeForthWord.h>
 #include <runtime/ForthThread.h>
+#include <words/bootstrap/CompositeForthWordBuilder.h>
 
 class PrintStringWord : public ForthWord {
 public:
@@ -16,7 +17,7 @@ public:
         std::cout << msg;
     }
 
-    std::string getTraceDetail(const ForthThread& thread) const override {
+    std::string getDisassemblyDetail(const ForthThread& thread) const override {
         return std::string("PrintStringWord(\"") + msg + "\")";
     };
 
@@ -39,20 +40,27 @@ void CompositeForthWordTest::test() {
     PrintStringWord space(" ");
     PrintStringWord cr("\n");
 
-    CompositeForthWord helloSpace("helloSpace");
-    helloSpace.appendCell(&hello);
-    helloSpace.appendCell(&space);
-    CompositeForthWord worldCr("worldCr");
-    worldCr.appendCell(&world);
-	worldCr.appendCell(&cr);
-    CompositeForthWord message("message");
-    message.appendCell(&helloSpace);
-	message.appendCell(&worldCr);
-	message.appendCell(&hello);
-	message.appendCell(&space);
-	message.appendCell(&helloSpace);
-	message.appendCell(&worldCr);
+    CompositeForthWord helloSpace(
+            CompositeForthWordBuilder("helloSpace")
+            .append(&hello)
+            .append(&space)
+            .build());
+    CompositeForthWord worldCr(
+            CompositeForthWordBuilder("worldCr")
+            .append(&world)
+	        .append(&cr)
+	        .build());
+    CompositeForthWord message(
+            CompositeForthWordBuilder("message")
+            .append(&helloSpace)
+        	.append(&worldCr)
+        	.append(&hello)
+        	.append(&space)
+        	.append(&helloSpace)
+        	.append(&worldCr)
+        	.build());
 
     ForthThread thread(&message);
+    thread.enableTrace(true);
     thread.join();
 }

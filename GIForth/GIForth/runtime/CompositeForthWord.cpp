@@ -136,7 +136,7 @@ std::string CompositeForthWord::getDisassemblyName() const {
 	return name;
 }
 
-std::string CompositeForthWord::getTraceDetail(const ForthThread& thread) const {
+std::string CompositeForthWord::getDisassemblyDetail(const ForthThread& thread) const {
     return name;
 }
 
