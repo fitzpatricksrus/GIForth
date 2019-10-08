@@ -125,7 +125,9 @@ int ForthThread::returnStackDepth() const {
 }
 
 bool ForthThread::execute() {
+	currentThread = this;
     ip.word->execute(*this);
+    currentThread = nullptr;
     return !ip.isDeadFrame();
 }
 
@@ -133,6 +135,10 @@ void ForthThread::join() {
     if (!ip.isDeadFrame()) {
         while (execute()) {};
     }
+}
+
+const ForthThread* ForthThread::getCurrentThread() {
+	return currentThread;
 }
 
 void ForthThread::enableTrace(bool enable) {
@@ -150,4 +156,6 @@ int ForthThread::getTraceDepth() const {
 void ForthThread::setTraceDepth(int depth) {
     traceDepth = depth;
 }
+
+thread_local ForthThread* ForthThread::currentThread = nullptr;
 

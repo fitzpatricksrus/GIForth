@@ -7,6 +7,7 @@
 
 #include <stack>
 #include <vector>
+#include <map>
 #include "ForthCell.h"
 #include "ForthExecutionFrame.h"
 
@@ -55,13 +56,16 @@ public:
 
     bool execute();
     void join();
+	static const ForthThread* getCurrentThread();
 
-    void enableTrace(bool enable);
+	void enableTrace(bool enable);
     bool isTraceEnabled() const;
     int getTraceDepth() const;
     void setTraceDepth(int depth);
 
 private:
+	static thread_local ForthThread* currentThread;
+
     bool trace;
     int traceDepth;
 

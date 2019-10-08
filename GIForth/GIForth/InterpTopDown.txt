@@ -7,7 +7,7 @@
 : (jump)
 : parseNumber   // stringAddr -- [ value true | string addr false ]
 : printString   // stringAddr --
-: (constant)    // -- value
+: (pusHNextCell) // -- value
 : printChar     // char --
 
 : interp

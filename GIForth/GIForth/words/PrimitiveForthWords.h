@@ -5,7 +5,7 @@
 #ifndef GIFORTH_PRIMITIVEFORTHWORDS_H
 #define GIFORTH_PRIMITIVEFORTHWORDS_H
 
-#include <utils/PrimitiveForthWordFunction.h>
+#include "utils/PrimitiveForthWordFunction.h"
 
 class PrimitiveForthWords {
 public:
