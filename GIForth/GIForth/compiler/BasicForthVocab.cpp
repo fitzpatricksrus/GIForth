@@ -3,6 +3,7 @@
 //
 
 #include "BasicForthVocab.h"
+#include "runtime/ForthWord.h"
 
 BasicForthVocab::BasicForthVocab(ForthVocab *next)
 : ForthVocab(next), words()
@@ -12,4 +13,12 @@ BasicForthVocab::BasicForthVocab(ForthVocab *next)
 ForthWord *BasicForthVocab::doFindWord(const char *strAddr) {
 	std::string str(strAddr);
 	return words[str];
+}
+
+void BasicForthVocab::add(ForthWord *word) {
+	(*this)[word->getName()] = word;
+}
+
+ForthWord*& BasicForthVocab::operator[](const std::string& ndx) {
+	return words[ndx];
 }

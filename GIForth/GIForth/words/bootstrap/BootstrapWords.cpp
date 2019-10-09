@@ -7,6 +7,15 @@
 #include "utils/NativeOSFunctions.hpp"
 #include "runtime/ForthThread.h"
 
+BootstrapWords::BootstrapWords(ForthVocab* next)
+: BasicForthVocab(next)
+{
+	add(&NEXT_TOKEN);
+	add(&FIND_WORD);
+	add(&PARSE_NUMBER);
+	add(&PRINT_STRING);
+}
+
 PrimitiveForthWordFunction BootstrapWords::NEXT_TOKEN(&BootstrapWords::F_NEXT_TOKEN, "BootstrapWords::NEXT_TOKEN");
 void BootstrapWords::F_NEXT_TOKEN(ForthThread& thread) {
     static constexpr int MAX_TOKEN_SIZE = 80;
@@ -68,3 +77,4 @@ PrimitiveForthWordFunction BootstrapWords::PRINT_STRING(&BootstrapWords::F_PRINT
 void BootstrapWords::F_PRINT_STRING(ForthThread& thread) {
     NativeOSFunctions::printString(static_cast<char*>(thread.popDataStack().pointer));
 }
+

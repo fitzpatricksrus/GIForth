@@ -17,6 +17,16 @@ std::string ForthWord::getTrace(const ForthThread& thread) const {
     return line;
 }
 
+std::string ForthWord::getName() const {
+	std::string name(getDisassemblyName());
+	size_t pos = name.find("::");
+	if (pos == std::string::npos) {
+		return name;
+	} else {
+		return name.substr(pos);
+	}
+}
+
 /*
 int ForthWord::disassemblyParamCount() const {
     return 0;

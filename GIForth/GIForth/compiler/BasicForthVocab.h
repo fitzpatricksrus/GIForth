@@ -1,7 +1,3 @@
-//
-// Created by stuff on 10/8/2019.
-//
-
 #ifndef GIFORTH_BASICFORTHVOCAB_H
 #define GIFORTH_BASICFORTHVOCAB_H
 
@@ -12,6 +8,9 @@ public:
 	BasicForthVocab(ForthVocab* next);
 	BasicForthVocab(const BasicForthVocab& other) = default;
 	virtual ~BasicForthVocab() = default;
+
+	void add(ForthWord* word);
+	ForthWord*& operator[](const std::string& name);
 
 protected:
 	virtual ForthWord* doFindWord(const char* strAddr);

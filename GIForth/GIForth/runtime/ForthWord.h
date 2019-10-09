@@ -16,6 +16,7 @@ public:
 
     std::string getTrace(const ForthThread& thread) const;
     virtual int getDisassemblyParamCount() const = 0;
+    virtual std::string getName() const;
 
 protected:
 	virtual std::string getDisassemblyName() const = 0;
