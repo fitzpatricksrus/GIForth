@@ -7,6 +7,18 @@
 #include "CoreForthWords.h"
 #include "PrimitiveForthWords.h"
 
+CoreForthWords::CoreForthWords(ForthVocab *next)
+		: BasicForthVocab(next)
+{
+	add(&STRLEN);
+	add(&STRCPY);
+	add(&STRNCPY);
+	add(&STRREVERSE);
+	add(&PARSE_DIGIT);
+	add(&PARSE_NUMBER);
+	add(&NUMBER_TO_CHARACERS);
+}
+
 /*
 : strlen                ( char* -- len )
  0 >R

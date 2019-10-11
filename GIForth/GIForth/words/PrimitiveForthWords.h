@@ -5,10 +5,15 @@
 #ifndef GIFORTH_PRIMITIVEFORTHWORDS_H
 #define GIFORTH_PRIMITIVEFORTHWORDS_H
 
+#include "compiler/BasicForthVocab.h"
 #include "utils/PrimitiveForthWordFunction.h"
 
-class PrimitiveForthWords {
+class PrimitiveForthWords : public BasicForthVocab {
 public:
+	PrimitiveForthWords(ForthVocab* next);
+	PrimitiveForthWords(const PrimitiveForthWords& other) = default;
+	virtual ~PrimitiveForthWords() = default;
+
     static PrimitiveForthWordFunction NOP;
 
 	// --

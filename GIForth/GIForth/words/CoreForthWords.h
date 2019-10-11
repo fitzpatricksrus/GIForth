@@ -6,8 +6,14 @@
 #define GIFORTH_COREFORTHWORDS_H
 
 
-class CoreForthWords {
+#include "compiler/BasicForthVocab.h"
+
+class CoreForthWords : public BasicForthVocab {
 public:
+	CoreForthWords(ForthVocab* next);
+	CoreForthWords(const CoreForthWords& other) = default;
+	~CoreForthWords() = default;
+
     static CompositeForthWord STRLEN;               // char* -- len
     static CompositeForthWord STRCPY;               // src* dest* --
     static CompositeForthWord STRNCPY;              // src* dest* len --

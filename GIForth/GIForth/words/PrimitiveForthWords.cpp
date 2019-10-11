@@ -7,6 +7,63 @@
 #include "runtime/CompositeForthWord.h"
 #include "utils/NativeOSFunctions.hpp"
 
+PrimitiveForthWords::PrimitiveForthWords(ForthVocab *next)
+	: BasicForthVocab(next)
+{
+	add(&NOP);
+	add(&JUMP);
+	add(&JUMP_IF_FALSE);
+	add(&RETURN);
+	add(&EXECUTE);
+	add(&PUSH_NEXT_CELL);
+	add(&CHAR_SIZE);
+	add(&INT_SIZE);
+	add(&PTR_SIZE);
+	add(&WORD_SIZE);
+	add(&ALLOC);
+	add(&FREE);
+	add(&CHAR_AT);
+	add(&CHAR_PUT);
+	add(&CHAR_INDEX);
+	add(&INT_AT);
+	add(&INT_PUT);
+	add(&INT_INDEX);
+	add(&CELL_AT);
+	add(&CELL_PUT);
+	add(&CELL_INDEX);
+	add(&TO_RETURN_STACK);
+	add(&FROM_RETURN_STACK);
+	add(&AT_RETURN_STACK);
+	add(&SWAP);
+	add(&PICK);
+	add(&OVER);
+	add(&ROLL);
+	add(&DROP);
+	add(&DUP);
+	add(&ADD);
+	add(&SUBTRACT);
+	add(&MULTIPLY);
+	add(&DIVIDE);
+	add(&MOD);
+	add(&LESS_THAN);
+	add(&GREATER_THAN);
+	add(&EQUAL);
+	add(&CONDITIONAL_AND);
+	add(&CONDITIONAL_OR);
+	add(&CONDITIONAL_NOT);
+	add(&ACCEPT_INPUT);
+	add(&PEEK_NEXT_INPUT_CHAR);
+	add(&GET_NEXT_INPUT_CHAR);
+	add(&PRINT_CHAR);
+	add(&FALSE);
+	add(&TRUE);
+	add(&ZERO);
+	add(&ONE);
+	add(&NEGATIVE_ONE);
+	add(&ADD_ONE);
+	add(&SUBTRACT_ONE);
+}
+
 using ParamType = PrimitiveForthWordFunction::ParamType;
 
 PrimitiveForthWordFunction PrimitiveForthWords::NOP(&PrimitiveForthWords::F_NOP, "CoreForthWords::NOP");
@@ -347,3 +404,4 @@ PrimitiveForthWordFunction PrimitiveForthWords::SUBTRACT_ONE(&PrimitiveForthWord
 void PrimitiveForthWords::F_SUBTRACT_ONE(ForthThread &thread) {
     thread.pushDataStack(static_cast<ForthCell::INT_TYPE>(thread.popDataStack().integer - 1));
 }
+
