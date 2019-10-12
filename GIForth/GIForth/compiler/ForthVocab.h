@@ -14,7 +14,7 @@ public:
 	virtual ~ForthVocab() = default;
 	ForthWord* findWord(const char* strAddr) const;
 
-	static ForthWord& FIND_WORD_IN_VOCAB;	// vocab* -- word true| false
+	// str* vocab* -- word true| false
 
 protected:
 	virtual ForthWord* doFindWord(const char* strAddr) const = 0;

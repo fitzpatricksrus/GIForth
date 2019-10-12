@@ -9,7 +9,7 @@ class BasicForthVocab : public ForthVocab {
 public:
 	BasicForthVocab(ForthVocab* next);
 	BasicForthVocab(const BasicForthVocab& other) = default;
-	virtual ~BasicForthVocab() = default;
+	~BasicForthVocab() override = default;
 
 	void add(ForthWord* word);
 	ForthWord*& operator[](const std::string& name);
