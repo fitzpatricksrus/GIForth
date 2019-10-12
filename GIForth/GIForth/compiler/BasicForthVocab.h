@@ -2,6 +2,8 @@
 #define GIFORTH_BASICFORTHVOCAB_H
 
 #include "ForthVocab.h"
+#include <string>
+#include <map>
 
 class BasicForthVocab : public ForthVocab {
 public:

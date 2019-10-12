@@ -32,7 +32,5 @@ add_executable(GIForth
         GIForth/utils/TestRunner.h
         GIForth/compiler/ForthVocab.cpp
         GIForth/compiler/ForthVocab.h
-        GIForth/runtime/ForthThreadLocal.cpp
-        GIForth/runtime/ForthThreadLocal.h
         GIForth/compiler/BasicForthVocab.cpp
         GIForth/compiler/BasicForthVocab.h)

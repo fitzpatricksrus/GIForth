@@ -5,29 +5,46 @@
 #include <sstream>
 #include "PrimitiveForthWordFunction.h"
 #include "runtime/ForthThread.h"
+#include "StringUtils.h"
 
 PrimitiveForthWordFunction::PrimitiveForthWordFunction(Function funcIn, const std::string& nameIn)
-        : func(funcIn), name(nameIn), args()
+        : PrimitiveForthWordFunction(funcIn, nameIn, splitName(nameIn))
+{
+}
+
+PrimitiveForthWordFunction::PrimitiveForthWordFunction(PrimitiveForthWordFunction::Function funcIn,
+	const std::string& disassemblyNameIn, const std::string& vocabNameIn)
+	: func(funcIn), disassemblyName(disassemblyNameIn), vocabName(vocabNameIn), args()
 {
 }
 
 PrimitiveForthWordFunction::PrimitiveForthWordFunction(Function funcIn, const std::string& nameIn, std::initializer_list<ParamType> params)
-        : func(funcIn), name(nameIn), args()
+	: PrimitiveForthWordFunction(funcIn, nameIn, splitName(nameIn), params)
 {
-    for (ParamType t : params) {
-        args.push_back(t);
-    }
 }
 
+PrimitiveForthWordFunction::PrimitiveForthWordFunction(PrimitiveForthWordFunction::Function funcIn,
+	const std::string& disassemblyNameIn, const std::string &vocabNameIn,
+	std::initializer_list<ParamType> params)
+	: func(funcIn), disassemblyName(disassemblyNameIn), vocabName(vocabNameIn), args()
+{
+	for (ParamType t : params) {
+		args.push_back(t);
+	}
+}
 void PrimitiveForthWordFunction::execute(ForthThread& thread) {
     (*func)(thread);
 }
 
+std::string PrimitiveForthWordFunction::getName() const {
+	return vocabName;
+}
+
 std::string PrimitiveForthWordFunction::getDisassemblyDetail(const ForthThread &thread) const {
     if (args.empty()) {
-        return name;
+        return disassemblyName;
     } else {
-        std::string result = name + "( ";
+        std::string result = disassemblyName + "( ";
         int argNumber = 0;
         for (ParamType t : args) {
             ForthCell cell = thread.getCellAt(thread.getIndex() + argNumber);
@@ -61,9 +78,20 @@ std::string PrimitiveForthWordFunction::getDisassemblyDetail(const ForthThread &
 }
 
 std::string PrimitiveForthWordFunction::getDisassemblyName() const {
-	return name;
+	return disassemblyName;
 }
 
 int PrimitiveForthWordFunction::getDisassemblyParamCount() const {
     return args.size();
+}
+
+std::string PrimitiveForthWordFunction::splitName(const std::string& nameIn) {
+	std::string name(nameIn);
+	StringUtils::toLower(name);
+	size_t pos = name.find("::");
+	if (pos == std::string::npos) {
+		return name;
+	} else {
+		return name.substr(pos);
+	}
 }

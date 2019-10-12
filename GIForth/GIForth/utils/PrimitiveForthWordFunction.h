@@ -18,12 +18,17 @@ public:
         CELL,
     };
 
-    PrimitiveForthWordFunction(Function func, const std::string& name);
-    PrimitiveForthWordFunction(Function func, const std::string& name, std::initializer_list<ParamType> params);
+	PrimitiveForthWordFunction(Function func, const std::string& name);
+	PrimitiveForthWordFunction(Function func, const std::string& disassemblyName, const std::string& vocabName);
+	PrimitiveForthWordFunction(Function func, const std::string& name, std::initializer_list<ParamType> params);
+	PrimitiveForthWordFunction(Function func, const std::string& disassemblyName,
+			const std::string& vocabName, std::initializer_list<ParamType> params);
     PrimitiveForthWordFunction(const PrimitiveForthWordFunction& other) = default;
     ~PrimitiveForthWordFunction() = default;
     PrimitiveForthWordFunction& operator=(const PrimitiveForthWordFunction& other) = default;
     void execute(ForthThread& thread) override;
+
+	std::string getName() const override;
 
 protected:
 	std::string getDisassemblyDetail(const ForthThread &thread) const override;
@@ -32,8 +37,11 @@ protected:
 
 private:
     Function func;
-    std::string name;
+	std::string disassemblyName;
+	std::string vocabName;
     std::vector<ParamType> args;
+
+    static std::string splitName(const std::string& s);
 };
 
 #endif //GIFORTH_PRIMITIVEFORTHWORDFUNCTION_H

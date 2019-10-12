@@ -252,7 +252,7 @@ void PrimitiveForthWords::F_DUP(ForthThread& thread) {
     thread.pushDataStack(thread[0]);
 }
 
-PrimitiveForthWordFunction PrimitiveForthWords::ADD(&PrimitiveForthWords::F_ADD, "CoreForthWords::ADD");
+PrimitiveForthWordFunction PrimitiveForthWords::ADD(&PrimitiveForthWords::F_ADD, "CoreForthWords::ADD", "+");
 void PrimitiveForthWords::F_ADD(ForthThread& thread) {
 	ForthCell::INT_TYPE x = thread.popDataStack().integer;
 	ForthCell::INT_TYPE y = thread.popDataStack().integer;
@@ -260,7 +260,7 @@ void PrimitiveForthWords::F_ADD(ForthThread& thread) {
 }
 
 // a b -- (a - b)
-PrimitiveForthWordFunction PrimitiveForthWords::SUBTRACT(&PrimitiveForthWords::F_SUBTRACT, "CoreForthWords::SUBTRACT");
+PrimitiveForthWordFunction PrimitiveForthWords::SUBTRACT(&PrimitiveForthWords::F_SUBTRACT, "CoreForthWords::SUBTRACT", "-");
 void PrimitiveForthWords::F_SUBTRACT(ForthThread& thread) {
     // note, this isn't done in a single statement because C++ DOES NOT guarantee order of evaluation
     // of expression operands is undefined.
@@ -269,7 +269,7 @@ void PrimitiveForthWords::F_SUBTRACT(ForthThread& thread) {
     thread.pushDataStack(value - subtrahend);
 }
 
-PrimitiveForthWordFunction PrimitiveForthWords::MULTIPLY(&PrimitiveForthWords::F_MULTIPLY, "CoreForthWords::MULTIPLY");
+PrimitiveForthWordFunction PrimitiveForthWords::MULTIPLY(&PrimitiveForthWords::F_MULTIPLY, "CoreForthWords::MULTIPLY", "*");
 void PrimitiveForthWords::F_MULTIPLY(ForthThread& thread) {
 	ForthCell::INT_TYPE x = thread.popDataStack().integer;
 	ForthCell::INT_TYPE y = thread.popDataStack().integer;
@@ -277,7 +277,7 @@ void PrimitiveForthWords::F_MULTIPLY(ForthThread& thread) {
 }
 
 // x y -- (x / y)
-PrimitiveForthWordFunction PrimitiveForthWords::DIVIDE(&PrimitiveForthWords::F_DIVIDE, "CoreForthWords::DIVIDE");
+PrimitiveForthWordFunction PrimitiveForthWords::DIVIDE(&PrimitiveForthWords::F_DIVIDE, "CoreForthWords::DIVIDE", "/");
 void PrimitiveForthWords::F_DIVIDE(ForthThread& thread) {
     // note, this isn't done in a single statement because C++ DOES NOT guarantee order of evaluation
     // of expression operands is undefined.
@@ -287,7 +287,7 @@ void PrimitiveForthWords::F_DIVIDE(ForthThread& thread) {
 }
 
 // x y -- (x % y)
-PrimitiveForthWordFunction PrimitiveForthWords::MOD(&PrimitiveForthWords::F_MOD, "CoreForthWords::MOD");
+PrimitiveForthWordFunction PrimitiveForthWords::MOD(&PrimitiveForthWords::F_MOD, "CoreForthWords::MOD", "%");
 void PrimitiveForthWords::F_MOD(ForthThread& thread) {
     // note, this isn't done in a single statement because C++ DOES NOT guarantee order of evaluation
     // of expression operands is undefined.
@@ -299,7 +299,7 @@ void PrimitiveForthWords::F_MOD(ForthThread& thread) {
 
 
 // x y -- (x < y)
-PrimitiveForthWordFunction PrimitiveForthWords::LESS_THAN(&PrimitiveForthWords::F_LESS_THAN, "CoreForthWords::LESS_THAN");
+PrimitiveForthWordFunction PrimitiveForthWords::LESS_THAN(&PrimitiveForthWords::F_LESS_THAN, "CoreForthWords::LESS_THAN", "<");
 void PrimitiveForthWords::F_LESS_THAN(ForthThread& thread) {
     // note, this isn't done in a single statement because C++ DOES NOT guarantee order of evaluation
     // of expression operands is undefined.
@@ -309,7 +309,7 @@ void PrimitiveForthWords::F_LESS_THAN(ForthThread& thread) {
 }
 
 // x y -- (x > y)
-PrimitiveForthWordFunction PrimitiveForthWords::GREATER_THAN(&PrimitiveForthWords::F_GREATER_THAN, "CoreForthWords::GREATER_THAN");
+PrimitiveForthWordFunction PrimitiveForthWords::GREATER_THAN(&PrimitiveForthWords::F_GREATER_THAN, "CoreForthWords::GREATER_THAN", ">");
 void PrimitiveForthWords::F_GREATER_THAN(ForthThread& thread) {
     // note, this isn't done in a single statement because C++ DOES NOT guarantee order of evaluation
     // of expression operands is undefined.
@@ -319,7 +319,7 @@ void PrimitiveForthWords::F_GREATER_THAN(ForthThread& thread) {
 }
 
 // x y -- (x == y)
-PrimitiveForthWordFunction PrimitiveForthWords::EQUAL(&PrimitiveForthWords::F_EQUAL, "CoreForthWords::EQUAL");
+PrimitiveForthWordFunction PrimitiveForthWords::EQUAL(&PrimitiveForthWords::F_EQUAL, "CoreForthWords::EQUAL", "=");
 void PrimitiveForthWords::F_EQUAL(ForthThread& thread) {
 	ForthCell::INT_TYPE y = thread.popDataStack().integer;
 	ForthCell::INT_TYPE x = thread.popDataStack().integer;
@@ -327,7 +327,7 @@ void PrimitiveForthWords::F_EQUAL(ForthThread& thread) {
 }
 
 // x y -- (x && y)
-PrimitiveForthWordFunction PrimitiveForthWords::CONDITIONAL_AND(&PrimitiveForthWords::F_CONDITIONAL_AND, "CoreForthWords::AND");
+PrimitiveForthWordFunction PrimitiveForthWords::CONDITIONAL_AND(&PrimitiveForthWords::F_CONDITIONAL_AND, "CoreForthWords::AND", "&&");
 void PrimitiveForthWords::F_CONDITIONAL_AND(ForthThread& thread) {
 	bool b1 = static_cast<bool>(thread.popDataStack().integer);
 	bool b2 = static_cast<bool>(thread.popDataStack().integer);
@@ -335,7 +335,7 @@ void PrimitiveForthWords::F_CONDITIONAL_AND(ForthThread& thread) {
 }
 
 // x y -- (x && y)
-PrimitiveForthWordFunction PrimitiveForthWords::CONDITIONAL_OR(&PrimitiveForthWords::F_CONDITIONAL_OR, "CoreForthWords::OR");
+PrimitiveForthWordFunction PrimitiveForthWords::CONDITIONAL_OR(&PrimitiveForthWords::F_CONDITIONAL_OR, "CoreForthWords::OR", "||");
 void PrimitiveForthWords::F_CONDITIONAL_OR(ForthThread& thread) {
 	bool b1 = static_cast<bool>(thread.popDataStack().integer);
 	bool b2 = static_cast<bool>(thread.popDataStack().integer);
@@ -385,22 +385,22 @@ void PrimitiveForthWords::F_ZERO(ForthThread &thread) {
     thread.pushDataStack(static_cast<ForthCell::INT_TYPE>(0));
 }
 
-PrimitiveForthWordFunction PrimitiveForthWords::ONE(&PrimitiveForthWords::F_ONE, "CoreForthWords::ONE");
+PrimitiveForthWordFunction PrimitiveForthWords::ONE(&PrimitiveForthWords::F_ONE, "CoreForthWords::ONE", "1");
 void PrimitiveForthWords::F_ONE(ForthThread &thread) {
     thread.pushDataStack(static_cast<ForthCell::INT_TYPE>(1));
 }
 
-PrimitiveForthWordFunction PrimitiveForthWords::NEGATIVE_ONE(&PrimitiveForthWords::F_NEGATIVE_ONE, "CoreForthWords::NEGATIVE_ONE");
+PrimitiveForthWordFunction PrimitiveForthWords::NEGATIVE_ONE(&PrimitiveForthWords::F_NEGATIVE_ONE, "CoreForthWords::NEGATIVE_ONE", "-1");
 void PrimitiveForthWords::F_NEGATIVE_ONE(ForthThread &thread) {
     thread.pushDataStack(static_cast<ForthCell::INT_TYPE>(-1));
 }
 
-PrimitiveForthWordFunction PrimitiveForthWords::ADD_ONE(&PrimitiveForthWords::F_ADD_ONE, "CoreForthWords::ADD_ONE");
+PrimitiveForthWordFunction PrimitiveForthWords::ADD_ONE(&PrimitiveForthWords::F_ADD_ONE, "CoreForthWords::ADD_ONE", "+=1");
 void PrimitiveForthWords::F_ADD_ONE(ForthThread &thread) {
     thread.pushDataStack(static_cast<ForthCell::INT_TYPE>(1 + thread.popDataStack().integer));
 }
 
-PrimitiveForthWordFunction PrimitiveForthWords::SUBTRACT_ONE(&PrimitiveForthWords::F_ADD_ONE, "CoreForthWords::SUBTRACT_ONE");
+PrimitiveForthWordFunction PrimitiveForthWords::SUBTRACT_ONE(&PrimitiveForthWords::F_ADD_ONE, "CoreForthWords::SUBTRACT_ONE", "-=1");
 void PrimitiveForthWords::F_SUBTRACT_ONE(ForthThread &thread) {
     thread.pushDataStack(static_cast<ForthCell::INT_TYPE>(thread.popDataStack().integer - 1));
 }

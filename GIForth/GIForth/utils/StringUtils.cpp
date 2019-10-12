@@ -24,3 +24,11 @@ void StringUtils::rightTabTo(std::string& line, std::string addition, int tabPos
 	line += addition;
 }
 
+#include <algorithm>
+#include <cctype>
+#include <string>
+
+void StringUtils::toLower(std::string& data) {
+	std::transform(data.begin(), data.end(), data.begin(),
+				   [](unsigned char c) { return std::tolower(c); });
+}
