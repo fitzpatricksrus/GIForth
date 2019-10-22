@@ -9,9 +9,9 @@
 //
 
 #define CATCH_CONFIG_RUNNER
-#include "catch.hpp"
+#include "utils/testing/catch.hpp"
 
-int TestRunner::run( int argc, char* argv[] ) {
+int TestRunner::run( int argc, const char* argv[] ) {
     // global setup...
 
     int result = Catch::Session().run( argc, argv );

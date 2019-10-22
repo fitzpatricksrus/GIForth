@@ -8,7 +8,7 @@
 
 class TestRunner {
 public:
-    int run(int argc, char* argv[]);
+    static int run(int argc, const char* argv[]);
 };
 
 

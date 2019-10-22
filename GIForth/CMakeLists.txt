@@ -13,7 +13,6 @@ add_executable(GIForth
         GIForth/runtime/ForthWord.cpp
         GIForth/utils/NativeOSFunctions.cpp
         GIForth/utils/PrimitiveForthWordFunction.cpp
-        GIForth/utils/PrimitiveForthWordMemberFunction.cpp
         GIForth/words/bootstrap/BootstrapInterp.cpp
         GIForth/words/bootstrap/BootstrapWords.cpp
         GIForth/words/PrimitiveForthWords.cpp
@@ -28,9 +27,9 @@ add_executable(GIForth
         GIForth/words/tests/CoreForthWordsTest.h
         GIForth/utils/StringUtils.cpp
         GIForth/utils/StringUtils.h
-        GIForth/utils/TestRunner.cpp
-        GIForth/utils/TestRunner.h
+        GIForth/utils/testing/TestRunner.cpp
+        GIForth/utils/testing/TestRunner.h
         GIForth/compiler/ForthVocab.cpp
         GIForth/compiler/ForthVocab.h
         GIForth/compiler/BasicForthVocab.cpp
-        GIForth/compiler/BasicForthVocab.h GIForth/compiler/CompilerWords.cpp GIForth/compiler/CompilerWords.h)
+        GIForth/compiler/BasicForthVocab.h GIForth/compiler/CompilerWords.cpp GIForth/compiler/CompilerWords.h GIForth/utils/tests/StringUtilsTest.cpp GIForth/utils/tests/StringUtilsTest.h)
