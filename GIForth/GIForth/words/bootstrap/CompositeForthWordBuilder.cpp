@@ -81,6 +81,7 @@ CompositeForthWordBuilder& CompositeForthWordBuilder::compileForever() {
     word.appendCell(&PrimitiveForthWords::JUMP);
     word.appendCell(static_cast<ForthCell::INT_TYPE>(ifStack.top()));
     ifStack.pop();
+    return *this;
 }
 
 CompositeForthWord CompositeForthWordBuilder::build() {

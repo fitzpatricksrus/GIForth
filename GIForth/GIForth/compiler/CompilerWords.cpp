@@ -25,5 +25,5 @@ static void findTheWord(ForthThread& thread) {
 		thread.pushDataStack(false);
 	}
 }
-static PrimitiveForthWordFunction F_FIND_WORD_IN_VOCAB(&findTheWord, "COMPILER::FIND_WORD_IN_VOCAB");
-ForthWord& FIND_WORD_IN_VOCAB = F_FIND_WORD_IN_VOCAB;
+static PrimitiveForthWordFunction F_SEARCH_VOCAB(&findTheWord, "COMPILER::SEARCH_VOCAB");
+ForthWord& CompilerWords::SEARCH_VOCAB = F_SEARCH_VOCAB;
