@@ -6,9 +6,14 @@
 #define GIFORTH_TESTRUNNER_H
 
 
+class CompositeForthWord;
+#include "runtime/ForthThread.h"
+
 class TestRunner {
 public:
+	static bool enableTrace;
     static int run(int argc, const char* argv[]);
+    static ForthThread runTestWord(CompositeForthWord* word);
 };
 
 

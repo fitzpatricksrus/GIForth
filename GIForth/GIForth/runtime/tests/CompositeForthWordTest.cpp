@@ -11,6 +11,7 @@
 #include <words/bootstrap/CompositeForthWordBuilder.h>
 #include <words/PrimitiveForthWords.h>
 #include <words/CoreForthWords.h>
+#include <utils/testing/TestRunner.h>
 #include "utils/testing/catch.hpp"
 
 TEST_CASE( "runtime/tests/CompositeWordTest", "[CompositeWordTest]" ) {
@@ -22,11 +23,10 @@ TEST_CASE( "runtime/tests/CompositeWordTest", "[CompositeWordTest]" ) {
 			                        .append(&innerWord)
 			                        .append(&PrimitiveForthWords::ADD_ONE)
 			                        .build());
-	ForthThread thread(&outerWord);
-	thread.join();
+	ForthThread thread(TestRunner::runTestWord(&outerWord));
 	REQUIRE(thread.getDataStackSize() == 1);
-	REQUIRE(thread.popDataStack().integer == 12);
-	REQUIRE(thread.getDataStackSize() == 0);
+	CHECK(thread.popDataStack().integer == 12);
+	CHECK(thread.getDataStackSize() == 0);
 }
 
 class PrintStringWord : public ForthWord {

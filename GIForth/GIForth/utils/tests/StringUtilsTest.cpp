@@ -6,16 +6,16 @@
 #include "utils/testing/catch.hpp"
 #include "utils/StringUtils.h"
 
-TEST_CASE( "Testin utils/StringUtils", "[StringUtils]" ) {
+TEST_CASE( "Testin utils/StringUtils", "[StringUtilsTest]" ) {
 	std::string data = "UPPER CASE";
 	
 	StringUtils::toLower(data);
-	REQUIRE(  data == "upper case");
+	CHECK(  data == "upper case");
 	
 	StringUtils::tabTo(data, 15);
-	REQUIRE(data.size() == 14);
+	CHECK(data.size() == 14);
 	
 	StringUtils::rightTabTo(data, "foo", 20);
-	REQUIRE(data.size() == 20);
-	REQUIRE(data == "upper case       foo");
+	CHECK(data.size() == 20);
+	CHECK(data == "upper case       foo");
 }

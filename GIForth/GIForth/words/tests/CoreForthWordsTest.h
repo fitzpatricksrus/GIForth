@@ -7,9 +7,6 @@
 
 
 class CoreForthWordsTest {
-public:
-	static void testParseDigit();
-	static void testParseNumber();
 };
 
 
