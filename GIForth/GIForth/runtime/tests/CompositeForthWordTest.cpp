@@ -9,6 +9,25 @@
 #include <runtime/CompositeForthWord.h>
 #include <runtime/ForthThread.h>
 #include <words/bootstrap/CompositeForthWordBuilder.h>
+#include <words/PrimitiveForthWords.h>
+#include <words/CoreForthWords.h>
+#include "utils/testing/catch.hpp"
+
+TEST_CASE( "runtime/tests/CompositeWordTest", "[CompositeWordTest]" ) {
+	CompositeForthWord innerWord(CompositeForthWordBuilder("CoreForthWordsTest::innerWord")
+			                        .append(&PrimitiveForthWords::ADD_ONE)
+			                        .build());
+	CompositeForthWord outerWord(CompositeForthWordBuilder("CoreForthWordsTest::testParseDigit")
+			                        .compileConstant(10)
+			                        .append(&innerWord)
+			                        .append(&PrimitiveForthWords::ADD_ONE)
+			                        .build());
+	ForthThread thread(&outerWord);
+	thread.join();
+	REQUIRE(thread.getDataStackSize() == 1);
+	REQUIRE(thread.popDataStack().integer == 12);
+	REQUIRE(thread.getDataStackSize() == 0);
+}
 
 class PrintStringWord : public ForthWord {
 public:

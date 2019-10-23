@@ -35,6 +35,7 @@
 
 ;
 */
+#include <words/CoreForthWords.h>
 #include "words/PrimitiveForthWords.h"
 #include "BootstrapInterp.h"
 #include "BootstrapWords.h"
@@ -50,7 +51,8 @@ CompositeForthWord* BootstrapInterp::getInstance() {
                 .compileIf()
                     .append(&PrimitiveForthWords::EXECUTE)
                 .compileElse()
-                    .append(&BootstrapWords::PARSE_NUMBER)
+//                    .append(&BootstrapWords::PARSE_NUMBER)
+                    .append(&CoreForthWords::PARSE_NUMBER)
                     .append(&PrimitiveForthWords::CONDITIONAL_NOT)
                     .compileIf()
                         .append(&BootstrapWords::PRINT_STRING)

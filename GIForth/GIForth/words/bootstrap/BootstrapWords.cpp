@@ -12,7 +12,7 @@ BootstrapWords::BootstrapWords(ForthVocab* next)
 {
 	add(&NEXT_TOKEN);
 	add(&FIND_WORD);
-	add(&PARSE_NUMBER);
+//	add(&PARSE_NUMBER);
 	add(&PRINT_STRING);
 }
 
@@ -51,6 +51,7 @@ void BootstrapWords::F_FIND_WORD(ForthThread& thread) {
 	thread.pushDataStack(static_cast<ForthCell::BOOL_TYPE>(false));
 }
 
+/*
 // stringAddr -- [ value true | stringAddr false ]
 PrimitiveForthWordFunction BootstrapWords::PARSE_NUMBER(&BootstrapWords::F_PARSE_NUMBER, "BootstrapWords::PARSE_NUMBER");
 void BootstrapWords::F_PARSE_NUMBER(ForthThread& thread) {
@@ -71,6 +72,7 @@ void BootstrapWords::F_PARSE_NUMBER(ForthThread& thread) {
     thread.pushDataStack(resultValue);
     thread.pushDataStack(true);
 }
+*/
 
 // stringAddr --
 PrimitiveForthWordFunction BootstrapWords::PRINT_STRING(&BootstrapWords::F_PRINT_STRING, "BootstrapWords::PRINT_STRING");

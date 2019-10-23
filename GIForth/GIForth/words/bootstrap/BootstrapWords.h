@@ -17,7 +17,7 @@ public:
     static PrimitiveForthWordFunction FIND_WORD;
 
     // stringAddr -- [ value true | string addr false ]
-    static PrimitiveForthWordFunction PARSE_NUMBER;
+//    static PrimitiveForthWordFunction PARSE_NUMBER;
 
     // stringAddr --
     static PrimitiveForthWordFunction PRINT_STRING;

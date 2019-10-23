@@ -7,6 +7,7 @@
 
 
 #include "compiler/BasicForthVocab.h"
+#include "runtime/CompositeForthWord.h"
 
 class CoreForthWords : public BasicForthVocab {
 public:
