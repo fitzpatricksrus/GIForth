@@ -16,12 +16,12 @@
 
 TEST_CASE( "runtime/tests/CompositeWordTest", "[CompositeWordTest]" ) {
 	CompositeForthWord innerWord(CompositeForthWordBuilder("CoreForthWordsTest::innerWord")
-			                        .append(&PrimitiveForthWords::ADD_ONE)
+			                             .compileCell(&PrimitiveForthWords::ADD_ONE)
 			                        .build());
 	CompositeForthWord outerWord(CompositeForthWordBuilder("CoreForthWordsTest::testParseDigit")
-			                        .compileConstant(10)
-			                        .append(&innerWord)
-			                        .append(&PrimitiveForthWords::ADD_ONE)
+			                             .compileConstant(10)
+			                             .compileCell(&innerWord)
+			                             .compileCell(&PrimitiveForthWords::ADD_ONE)
 			                        .build());
 	ForthThread thread(TestRunner::runTestWord(&outerWord));
 	REQUIRE(thread.getDataStackSize() == 1);
@@ -60,23 +60,23 @@ void CompositeForthWordTest::test() {
     PrintStringWord cr("\n");
 
     CompositeForthWord helloSpace(
-            CompositeForthWordBuilder("helloSpace")
-            .append(&hello)
-            .append(&space)
+		    CompositeForthWordBuilder("helloSpace")
+				    .compileCell(&hello)
+				    .compileCell(&space)
             .build());
     CompositeForthWord worldCr(
-            CompositeForthWordBuilder("worldCr")
-            .append(&world)
-	        .append(&cr)
+		    CompositeForthWordBuilder("worldCr")
+				    .compileCell(&world)
+				    .compileCell(&cr)
 	        .build());
     CompositeForthWord message(
-            CompositeForthWordBuilder("message")
-            .append(&helloSpace)
-        	.append(&worldCr)
-        	.append(&hello)
-        	.append(&space)
-        	.append(&helloSpace)
-        	.append(&worldCr)
+		    CompositeForthWordBuilder("message")
+				    .compileCell(&helloSpace)
+				    .compileCell(&worldCr)
+				    .compileCell(&hello)
+				    .compileCell(&space)
+				    .compileCell(&helloSpace)
+				    .compileCell(&worldCr)
         	.build());
 
     ForthThread thread(&message);

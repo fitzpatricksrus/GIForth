@@ -2,21 +2,54 @@
 // Created by Dad on 9/28/19.
 //
 
-#include <iostream>
 #include "utils/testing/TestRunner.h"
 #include "runtime/ForthThread.h"
 #include "words/bootstrap/CompositeForthWordBuilder.h"
-#include "words/PrimitiveForthWords.h"
 #include "words/CoreForthWords.h"
-#include "CoreForthWordsTest.h"
 #include "utils/testing/catch.hpp"
 
+TEST_CASE( "words/tests/CoreForthWordsTest::testStrLen", "[CoreForthWordsTest]" ) {
+	static char str[] = "Hello World";
+	CompositeForthWord word(CompositeForthWordBuilder("CoreForthWordsTest::testStrLen")
+                .compileConstant(static_cast<ForthCell::PTR_TYPE>(str))
+                .compileCell(&CoreForthWords::STRLEN)
+                .build());
+	ForthThread thread(TestRunner::runTestWord(&word));
+	CHECK(thread.getDataStackSize() == 1);
+	CHECK(thread.popDataStack().integer == sizeof(str) - 1);
+}
+
+TEST_CASE( "words/tests/CoreForthWordsTest::testStrCpy", "[CoreForthWordsTest]" ) {
+	static char str[] = "Hello World";
+	char dest[sizeof(str)];
+	CompositeForthWord word(CompositeForthWordBuilder("CoreForthWordsTest::testStrCpy")
+                .compileConstant(static_cast<ForthCell::PTR_TYPE>(str))
+                .compileConstant(static_cast<ForthCell::PTR_TYPE>(dest))
+                .compileCell(&CoreForthWords::STRCPY)
+                .build());
+	ForthThread thread(TestRunner::runTestWord(&word));
+	CHECK(thread.getDataStackSize() == 0);
+	CHECK(strcmp(str, dest) == 0);
+}
+
+TEST_CASE( "words/tests/CoreForthWordsTest::testStrReverse", "[CoreForthWordsTest]" ) {
+	static char str[] = "abc";
+	CompositeForthWord word(CompositeForthWordBuilder("CoreForthWordsTest::testStrReverse")
+                .compileConstant(static_cast<ForthCell::PTR_TYPE>(str))
+                .compileCell(&CoreForthWords::STRREVERSE)
+                .build());
+	TestRunner::enableTrace = true;
+	ForthThread thread(TestRunner::runTestWord(&word));
+	TestRunner::enableTrace = false;
+	CHECK(thread.getDataStackSize() == 0);
+	CHECK(strcmp("cba", str) == 0);
+}
+
 static int testParseDigitWith(char c) {
-	CompositeForthWord word(CompositeForthWordBuilder("CoreForthWordsTest")
-					.append(&PrimitiveForthWords::PUSH_NEXT_CELL)
-					.append(static_cast<ForthCell::CHAR_TYPE>(c))
-					.append(&CoreForthWords::PARSE_DIGIT)
-					.build());
+	CompositeForthWord word(CompositeForthWordBuilder("CoreForthWordsTest::testParseDigitWith")
+                .compileConstant(static_cast<ForthCell::CHAR_TYPE>(c))
+                .compileCell(&CoreForthWords::PARSE_DIGIT)
+				.build());
 	ForthThread thread(TestRunner::runTestWord(&word));
 	return thread.popDataStack().integer;
 }
@@ -28,10 +61,9 @@ TEST_CASE( "words/tests/CoreForthWordsTest::testParseDigit", "[CoreForthWordsTes
 }
 
 static int testParseNumberWith(const char* c) {
-	CompositeForthWord word(CompositeForthWordBuilder("CoreForthWordsTest::testParseDigit")
-			                        .append(&PrimitiveForthWords::PUSH_NEXT_CELL)
-			                        .append(static_cast<ForthCell::PTR_TYPE>(const_cast<char*>(c)))
-			                        .append(&CoreForthWords::PARSE_NUMBER)
+	CompositeForthWord word(CompositeForthWordBuilder("CoreForthWordsTest::testParseNumber")
+			                        .compileConstant(static_cast<ForthCell::PTR_TYPE>(const_cast<char*>(c)))
+			                        .compileCell(&CoreForthWords::PARSE_NUMBER)
 			                        .build());
 	ForthThread thread(TestRunner::runTestWord(&word));
 	int isNumber = thread.popDataStack().integer;

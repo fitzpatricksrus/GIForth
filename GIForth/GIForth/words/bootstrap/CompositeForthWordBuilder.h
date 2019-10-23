@@ -12,7 +12,7 @@ class CompositeForthWordBuilder {
 public:
 	CompositeForthWordBuilder(const std::string& name);
 	CompositeForthWordBuilder& operator+=(const ForthCell& cell);
-	CompositeForthWordBuilder& append(const ForthCell& cell);
+	CompositeForthWordBuilder& compileCell(const ForthCell& cell);
 	CompositeForthWordBuilder& compileConstant(const ForthCell& cell);
 	CompositeForthWordBuilder& compileIf();
 	CompositeForthWordBuilder& compileElse();

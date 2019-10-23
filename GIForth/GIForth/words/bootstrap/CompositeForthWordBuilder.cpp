@@ -15,7 +15,7 @@ CompositeForthWordBuilder& CompositeForthWordBuilder::operator+=(const ForthCell
 	return *this;
 }
 
-CompositeForthWordBuilder& CompositeForthWordBuilder::append(const ForthCell& cell) {
+CompositeForthWordBuilder& CompositeForthWordBuilder::compileCell(const ForthCell& cell) {
 	word.appendCell(cell);
 	return *this;
 }
@@ -85,6 +85,6 @@ CompositeForthWordBuilder& CompositeForthWordBuilder::compileForever() {
 }
 
 CompositeForthWord CompositeForthWordBuilder::build() {
-    append(&PrimitiveForthWords::RETURN);
+	compileCell(&PrimitiveForthWords::RETURN);
 	return word;
 }

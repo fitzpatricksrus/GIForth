@@ -84,7 +84,7 @@ void PrimitiveForthWords::F_JUMP(ForthThread &thread) {
 TEST_CASE( "words/PrimitiveForthWords::JUMP", "[PrimitiveForthWords::JUMP]" ) {
 	CompositeForthWord word(
 			CompositeForthWordBuilder("")
-					.append(static_cast<ForthCell::INT_TYPE>(32))
+					.compileCell(static_cast<ForthCell::INT_TYPE>(32))
 					.build()
 	);
 	ForthThread thread = ForthThread(&word);
@@ -106,8 +106,8 @@ void PrimitiveForthWords::F_JUMP_IF_FALSE(ForthThread &thread) {
 TEST_CASE( "words/PrimitiveForthWords::JUMP_IF_FALSE", "[PrimitiveForthWords::JUMP_IF_FALSE]" ) {
 	CompositeForthWord word(
 			CompositeForthWordBuilder("")
-					.append(static_cast<ForthCell::INT_TYPE>(32))
-					.append(static_cast<ForthCell::INT_TYPE>(42))
+					.compileCell(static_cast<ForthCell::INT_TYPE>(32))
+					.compileCell(static_cast<ForthCell::INT_TYPE>(42))
 					.build()
 	);
 	ForthThread thread = ForthThread(&word);
