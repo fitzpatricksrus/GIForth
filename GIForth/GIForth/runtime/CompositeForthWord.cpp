@@ -126,7 +126,7 @@ void CompositeForthWord::trace(const ForthThread& thread, ForthWord* word) const
         line += shortStackDump(thread);
         line += " )";
         StringUtils::tabTo(line, SECOND_TAB_POSITION + thread.getTraceDepth() * 2);
-        line +=word->getTrace(thread);
+        line += word->getTrace(thread);
         NativeOSFunctions::printString(line);
         NativeOSFunctions::endLine();
     }
