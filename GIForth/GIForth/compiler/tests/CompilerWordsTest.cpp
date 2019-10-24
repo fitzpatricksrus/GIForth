@@ -30,7 +30,6 @@ TEST_CASE( "__FILE__::VARIABLE_IMPL", "[CompilerWordTest]" ) {
 			                           .compileCell(&PrimitiveForthWords::INT_AT)
 			                           .build());
 	
-	TestRunner::enableTrace = true;
 	ForthThread thread(TestRunner::runTestWord(&atWord));
 	CHECK(thread.popDataStack().integer == 1234);
 	
