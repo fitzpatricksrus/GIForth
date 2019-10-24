@@ -27,3 +27,10 @@ static void findTheWord(ForthThread& thread) {
 }
 static PrimitiveForthWordFunction F_SEARCH_VOCAB(&findTheWord, "COMPILER::SEARCH_VOCAB");
 ForthWord& CompilerWords::SEARCH_VOCAB = F_SEARCH_VOCAB;
+
+static void variableImpl(ForthThread& thread) {
+	thread.pushDataStack(static_cast<ForthCell::PTR_TYPE>(&thread[thread.getIndex()]));
+	thread.offsetIndex(1);
+}
+static PrimitiveForthWordFunction F_VARIABLE_IMPL(&variableImpl, "COMPILER::VARIABLE_IMPL");
+ForthWord& CompilerWords::VARIABLE_IMPL = F_VARIABLE_IMPL;

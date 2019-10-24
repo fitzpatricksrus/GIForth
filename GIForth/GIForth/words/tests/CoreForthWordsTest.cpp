@@ -38,9 +38,7 @@ TEST_CASE( "words/tests/CoreForthWordsTest::testStrReverse", "[CoreForthWordsTes
                 .compileConstant(static_cast<ForthCell::PTR_TYPE>(str))
                 .compileCell(&CoreForthWords::STRREVERSE)
                 .build());
-	TestRunner::enableTrace = true;
 	ForthThread thread(TestRunner::runTestWord(&word));
-	TestRunner::enableTrace = false;
 	CHECK(thread.getDataStackSize() == 0);
 	CHECK(strcmp("cba", str) == 0);
 }

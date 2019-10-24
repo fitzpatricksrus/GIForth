@@ -6,6 +6,7 @@
 #define GIFORTH_COMPILERWORDS_H
 
 #include "BasicForthVocab.h"
+class ForthWord;
 
 class CompilerWords : public BasicForthVocab {
 public:
@@ -14,6 +15,11 @@ public:
 	virtual ~CompilerWords() = default;
 
 	static ForthWord& SEARCH_VOCAB;
+	
+	static ForthWord& VARIABLE_IMPL;        // -- ptr
+//	static ForthWord& ALLOCATED_ARRAY;      // -- ptr
+//	static ForthWord& INLINE_ARRAY;         // -- ptr
+
 };
 
 
