@@ -7,6 +7,7 @@
 #include "words/bootstrap/CompositeForthWordBuilder.h"
 #include "words/CoreForthWords.h"
 #include "utils/testing/catch.hpp"
+#include <cstring>
 
 TEST_CASE( "words/tests/CoreForthWordsTest::testStrLen", "[CoreForthWordsTest]" ) {
 	static char str[] = "Hello World";
