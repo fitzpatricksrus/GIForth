@@ -261,8 +261,8 @@ void PrimitiveForthWords::F_FROM_RETURN_STACK(ForthThread& thread) {
     thread.pushDataStack(thread.fromReturnStack().cell);
 }
 
-PrimitiveForthWordFunction PrimitiveForthWords::AT_RETURN_STACK(&PrimitiveForthWords::F_FROM_RETURN_STACK,
-		"PrimitiveForthWords::FROM_RETURN_STACK", "r@");
+PrimitiveForthWordFunction PrimitiveForthWords::AT_RETURN_STACK(&PrimitiveForthWords::F_AT_RETURN_STACK,
+																"PrimitiveForthWords::AT_RETURN_STACK", "r@");
 void PrimitiveForthWords::F_AT_RETURN_STACK(ForthThread &thread) {
     thread.pushDataStack(thread.topOfReturnStack().cell);
 }

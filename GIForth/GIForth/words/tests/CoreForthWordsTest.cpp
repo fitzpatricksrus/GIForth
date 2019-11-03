@@ -81,3 +81,20 @@ TEST_CASE( "words/tests/CoreForthWordsTest::testParseNumber", "[CoreForthWordsTe
 	CHECK(testParseNumberWith("j1233847") == -1);
 	CHECK(testParseNumberWith("1233847j") == -1);
 }
+
+static std::string testNumbersToCharacters(int number) {
+	char scratch[20] = "";
+	CompositeForthWord word(CompositeForthWordBuilder("CoreForthWordsTest::testNumbersToCharacters")
+									.compileConstant(static_cast<ForthCell::INT_TYPE >(number))
+									.compileConstant(static_cast<ForthCell::PTR_TYPE>(scratch))
+									.compileCell(&CoreForthWords::NUMBER_TO_CHARACERS)
+									.build());
+	ForthThread thread(TestRunner::runTestWord(&word));
+	return std::string(scratch);
+}
+TEST_CASE("words/tests/CoreForthWordsTest::testNumbersToCharacters", "[CoreForthWordsTest]") {
+	CHECK(testNumbersToCharacters(0) == "0");
+	CHECK(testNumbersToCharacters(1) == "1");
+	CHECK(testNumbersToCharacters(1234) == "1234");
+	CHECK(testNumbersToCharacters(999) == "999");
+}
