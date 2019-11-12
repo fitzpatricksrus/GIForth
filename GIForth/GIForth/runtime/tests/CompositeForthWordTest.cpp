@@ -14,7 +14,7 @@
 #include <utils/testing/TestRunner.h>
 #include "utils/testing/catch.hpp"
 
-TEST_CASE( "runtime/tests/CompositeWordTest", "[CompositeWordTest]" ) {
+TEST_CASE("runtime/tests/CompositeWordTest", "[RuntimeTests]") {
 	CompositeForthWord innerWord(CompositeForthWordBuilder("CoreForthWordsTest::innerWord")
 			                             .compileCell(&PrimitiveForthWords::ADD_ONE)
 			                        .build());

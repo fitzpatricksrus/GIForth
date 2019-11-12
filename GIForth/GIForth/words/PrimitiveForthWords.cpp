@@ -71,7 +71,7 @@ using ParamType = PrimitiveForthWordFunction::ParamType;
 PrimitiveForthWordFunction PrimitiveForthWords::NOP(&PrimitiveForthWords::F_NOP, "PrimitiveForthWords::NOP", "NOP");
 void PrimitiveForthWords::F_NOP(ForthThread& thread) {
 }
-TEST_CASE( "words/PrimitiveForthWords::NOP", "[PrimitiveForthWords::NOP]" ) {
+TEST_CASE("words/PrimitiveForthWords::NOP", "[PrimitiveForthWords]") {
 	ForthThread thread = ForthThread(ForthExecutionFrame());
 	PrimitiveForthWords::NOP.execute(thread);
 	REQUIRE(thread.getDataStackSize() == 0);
@@ -82,7 +82,7 @@ PrimitiveForthWordFunction PrimitiveForthWords::JUMP(&PrimitiveForthWords::F_JUM
 void PrimitiveForthWords::F_JUMP(ForthThread &thread) {
 	thread.setIndex(thread.getNextCell().integer);
 }
-TEST_CASE( "words/PrimitiveForthWords::JUMP", "[PrimitiveForthWords::JUMP]" ) {
+TEST_CASE("words/PrimitiveForthWords::JUMP", "[PrimitiveForthWords]") {
 	CompositeForthWord word(
 			CompositeForthWordBuilder("")
 					.compileCell(static_cast<ForthCell::INT_TYPE>(32))
@@ -105,7 +105,7 @@ void PrimitiveForthWords::F_JUMP_IF_FALSE(ForthThread &thread) {
 		thread.setIndex(newNdx);
 	}
 }
-TEST_CASE( "words/PrimitiveForthWords::JUMP_IF_FALSE", "[PrimitiveForthWords::JUMP_IF_FALSE]" ) {
+TEST_CASE("words/PrimitiveForthWords::JUMP_IF_FALSE", "[PrimitiveForthWords]") {
 	CompositeForthWord word(
 			CompositeForthWordBuilder("")
 					.compileCell(static_cast<ForthCell::INT_TYPE>(32))
