@@ -9,19 +9,13 @@
 #include "ForthThread.h"
 #include "utils/NativeOSFunctions.hpp"
 
-CompositeForthWord::CompositeForthWord(const std::string &nameIn)
-		: body(), name(nameIn) {
+CompositeForthWord::CompositeForthWord(const std::string &nameIn, const std::vector<ForthCell> &cellsIn)
+		: body(cellsIn), name(nameIn) {
 }
 
 CompositeForthWord::CompositeForthWord(const CompositeForthWord &other)
 		: body(other.body), name(other.name) {
 
-}
-
-int CompositeForthWord::appendCell(const ForthCell &cell) {
-	int result = body.size();
-	body.push_back(cell);
-	return result;
 }
 
 static std::string shortStackDump(const ForthThread& thread) {

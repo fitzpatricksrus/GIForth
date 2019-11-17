@@ -14,7 +14,7 @@ class ForthThread;
 
 class CompositeForthWord : public ForthWord {
 public:
-	CompositeForthWord(const std::string& name);
+	CompositeForthWord(const std::string &name, const std::vector<ForthCell> &cells);
 	CompositeForthWord(const CompositeForthWord& other);
     virtual ~CompositeForthWord() = default;
 	CompositeForthWord& operator=(const CompositeForthWord& other) = default;
@@ -24,8 +24,6 @@ public:
     int size() const;
     const ForthCell& operator[](int ndx) const;
     ForthCell& operator[](int ndx);
-    int appendCell(const ForthCell& cell);
-    int nextAppendNdx() const;
 
     std::vector<std::string> getDisassembly() const;
 
@@ -50,10 +48,6 @@ inline const ForthCell& CompositeForthWord::operator[](int ndx) const {
 
 inline ForthCell& CompositeForthWord::operator[](int ndx) {
     return body[ndx];
-}
-
-inline int CompositeForthWord::nextAppendNdx() const {
-	return body.size();
 }
 
 #endif //GIFORTH_COMPOSITEFORTHWORD_H

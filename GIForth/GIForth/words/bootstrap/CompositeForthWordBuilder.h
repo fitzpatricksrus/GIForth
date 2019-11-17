@@ -27,7 +27,8 @@ public:
 	CompositeForthWord build();
 	
 private:
-	CompositeForthWord word;
+	std::string name;
+	std::vector<ForthCell> word;
 	std::stack<int> ifStack;
 };
 
