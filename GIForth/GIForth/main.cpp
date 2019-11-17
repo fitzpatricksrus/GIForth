@@ -15,7 +15,7 @@ int main(int argc, const char * argv[]) {
 //	CoreForthWordsTest::testParseNumber();
 
 	const char* testArgs[] = {
-			"dummy", "--list-tags"
+			"dummy", //"--list-tags"
 	};
 	int testArgCount = sizeof(testArgs) / sizeof(testArgs[0]);
 	TestRunner::run(testArgCount, testArgs);

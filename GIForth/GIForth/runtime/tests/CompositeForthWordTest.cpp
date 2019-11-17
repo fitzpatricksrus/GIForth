@@ -10,7 +10,6 @@
 #include <runtime/ForthThread.h>
 #include <words/bootstrap/CompositeForthWordBuilder.h>
 #include <words/PrimitiveForthWords.h>
-#include <words/CoreForthWords.h>
 #include <utils/testing/TestRunner.h>
 #include "utils/testing/catch.hpp"
 

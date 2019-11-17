@@ -11,7 +11,6 @@
 #include "ForthCell.h"
 
 class ForthThread;
-class CompositeForthWordProxy;
 
 class CompositeForthWord : public ForthWord {
 public:
@@ -37,20 +36,9 @@ protected:
     int getDisassemblyParamCount() const override;
 
 private:
-    friend CompositeForthWordProxy;
     std::vector<ForthCell> body;
     std::string name;
 };
-
-inline CompositeForthWord::CompositeForthWord(const std::string& nameIn)
-		: body(), name(nameIn)
-{
-}
-
-inline CompositeForthWord::CompositeForthWord(const CompositeForthWord& other)
-		: body(other.body), name(other.name)
-{
-}
 
 inline int CompositeForthWord::size() const {
     return body.size();
@@ -62,12 +50,6 @@ inline const ForthCell& CompositeForthWord::operator[](int ndx) const {
 
 inline ForthCell& CompositeForthWord::operator[](int ndx) {
     return body[ndx];
-}
-
-inline int CompositeForthWord::appendCell(const ForthCell& cell) {
-	int result = body.size();
-    body.push_back(cell);
-    return result;
 }
 
 inline int CompositeForthWord::nextAppendNdx() const {
