@@ -16,10 +16,8 @@ class CompositeForthWord : public ForthWord {
 public:
 	CompositeForthWord(const std::string &name, const std::vector<ForthCell>& cells);
 	CompositeForthWord(const std::string &name, std::shared_ptr<const std::vector<ForthCell>> cells);
-	CompositeForthWord(const CompositeForthWord& other);
     virtual ~CompositeForthWord() = default;
-	CompositeForthWord& operator=(const CompositeForthWord& other) = default;
-    
+
     void execute(ForthThread& thread) const override;
 
     int size() const;

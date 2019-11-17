@@ -21,12 +21,6 @@ CompositeForthWord::CompositeForthWord(const std::string &nameIn, std::shared_pt
 {
 }
 
-
-CompositeForthWord::CompositeForthWord(const CompositeForthWord &other)
-		: body(other.body), name(other.name) {
-
-}
-
 static std::string shortStackDump(const ForthThread& thread) {
 	std::string line;
 	int stackSize = thread.getDataStackSize();
