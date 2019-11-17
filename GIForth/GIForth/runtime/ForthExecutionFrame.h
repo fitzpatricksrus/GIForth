@@ -10,34 +10,28 @@ class CompositeForthWord;
 class ForthExecutionFrame {
 public:
 	ForthExecutionFrame();
-	ForthExecutionFrame(const CompositeForthWord *wordIn);
-	ForthExecutionFrame(const CompositeForthWord *wordIn, int ndx);
-	ForthExecutionFrame(const ForthExecutionFrame &other) = default;
+	ForthExecutionFrame(const CompositeForthWord* wordIn);
+	ForthExecutionFrame(const CompositeForthWord* wordIn, int ndx);
+	ForthExecutionFrame(const ForthExecutionFrame& other) = default;
 	~ForthExecutionFrame() = default;
-	ForthExecutionFrame &operator=(const ForthExecutionFrame &other);
+	ForthExecutionFrame& operator=(const ForthExecutionFrame &other) = default;
 
 	bool isDeadFrame() const;
 
 	int ndx;
-	const CompositeForthWord *word;
+	const CompositeForthWord* word;
 };
 
 inline ForthExecutionFrame::ForthExecutionFrame()
 		: ForthExecutionFrame(nullptr, 0) {
 }
 
-inline ForthExecutionFrame::ForthExecutionFrame(const CompositeForthWord *wordIn)
+inline ForthExecutionFrame::ForthExecutionFrame(const CompositeForthWord* wordIn)
 		: ForthExecutionFrame(wordIn, 0) {
 }
 
-inline ForthExecutionFrame::ForthExecutionFrame(const CompositeForthWord *wordIn, int ndx)
+inline ForthExecutionFrame::ForthExecutionFrame(const CompositeForthWord* wordIn, int ndx)
 		: ndx(ndx), word(wordIn) {
-}
-
-inline ForthExecutionFrame &ForthExecutionFrame::operator=(const ForthExecutionFrame &other) {
-	ndx = other.ndx;
-	word = other.word;
-	return *this;
 }
 
 inline bool ForthExecutionFrame::isDeadFrame() const {
