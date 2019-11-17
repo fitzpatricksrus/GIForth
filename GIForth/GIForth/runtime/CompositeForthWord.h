@@ -14,7 +14,8 @@ class ForthThread;
 
 class CompositeForthWord : public ForthWord {
 public:
-	CompositeForthWord(const std::string &name, const std::vector<ForthCell> &cells);
+	CompositeForthWord(const std::string &name, const std::vector<ForthCell>& cells);
+	CompositeForthWord(const std::string &name, std::shared_ptr<const std::vector<ForthCell>> cells);
 	CompositeForthWord(const CompositeForthWord& other);
     virtual ~CompositeForthWord() = default;
 	CompositeForthWord& operator=(const CompositeForthWord& other) = default;
@@ -33,16 +34,16 @@ protected:
     int getDisassemblyParamCount() const override;
 
 private:
-    std::vector<ForthCell> body;
+    std::shared_ptr<const std::vector<ForthCell>> body;
     std::string name;
 };
 
 inline int CompositeForthWord::size() const {
-    return body.size();
+    return body->size();
 }
 
 inline const ForthCell& CompositeForthWord::operator[](int ndx) const {
-    return body[ndx];
+    return (*body)[ndx];
 }
 
 #endif //GIFORTH_COMPOSITEFORTHWORD_H

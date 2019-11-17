@@ -9,9 +9,18 @@
 #include "ForthThread.h"
 #include "utils/NativeOSFunctions.hpp"
 
-CompositeForthWord::CompositeForthWord(const std::string &nameIn, const std::vector<ForthCell> &cellsIn)
-		: body(cellsIn), name(nameIn) {
+CompositeForthWord::CompositeForthWord(const std::string &nameIn, const std::vector<ForthCell>& cellsIn)
+		: body(), name(nameIn)
+{
+	auto ptr = new std::vector<ForthCell>(cellsIn);
+	body = std::shared_ptr<const std::vector<ForthCell>>(ptr);
 }
+
+CompositeForthWord::CompositeForthWord(const std::string &nameIn, std::shared_ptr<const std::vector<ForthCell>> cellsIn)
+		: body(cellsIn), name(nameIn)
+{
+}
+
 
 CompositeForthWord::CompositeForthWord(const CompositeForthWord &other)
 		: body(other.body), name(other.name) {
@@ -42,7 +51,7 @@ void CompositeForthWord::execute(ForthThread& thread) const {
 		thread.setTraceDepth(thread.getTraceDepth() + 1);
 	}
 	int ndx = thread.getIndex();
-	ForthWord *word = body[ndx].word;
+	ForthWord *word = (*body)[ndx].word;
 	thread.setIndex(ndx + 1);
 	trace(thread, word);
 	word->execute(thread);
