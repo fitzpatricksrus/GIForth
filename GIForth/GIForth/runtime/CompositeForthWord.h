@@ -23,7 +23,6 @@ public:
 
     int size() const;
     const ForthCell& operator[](int ndx) const;
-    ForthCell& operator[](int ndx);
 
     std::vector<std::string> getDisassembly() const;
 
@@ -43,10 +42,6 @@ inline int CompositeForthWord::size() const {
 }
 
 inline const ForthCell& CompositeForthWord::operator[](int ndx) const {
-    return body[ndx];
-}
-
-inline ForthCell& CompositeForthWord::operator[](int ndx) {
     return body[ndx];
 }
 

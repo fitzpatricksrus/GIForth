@@ -32,4 +32,10 @@ add_executable(GIForth
         GIForth/compiler/ForthVocab.cpp
         GIForth/compiler/ForthVocab.h
         GIForth/compiler/BasicForthVocab.cpp
-        GIForth/compiler/BasicForthVocab.h GIForth/compiler/CompilerWords.cpp GIForth/compiler/CompilerWords.h GIForth/utils/tests/StringUtilsTest.cpp GIForth/utils/tests/StringUtilsTest.h GIForth/compiler/tests/CompilerWordsTest.cpp GIForth/compiler/tests/CompilerWordsTest.h GIForth/runtime/InterpretableForthWord.cpp GIForth/runtime/InterpretableForthWord.h)
+        GIForth/compiler/BasicForthVocab.h
+        GIForth/compiler/CompilerWords.cpp
+        GIForth/compiler/CompilerWords.h
+        GIForth/utils/tests/StringUtilsTest.cpp
+        GIForth/utils/tests/StringUtilsTest.h
+        GIForth/compiler/tests/CompilerWordsTest.cpp
+        GIForth/compiler/tests/CompilerWordsTest.h)

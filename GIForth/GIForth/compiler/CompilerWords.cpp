@@ -30,8 +30,8 @@ ForthWord& CompilerWords::SEARCH_VOCAB = F_SEARCH_VOCAB;
 
 static void variableImpl(ForthThread& thread) {
 	int ndx = thread.getIndex();
-	ForthCell* cellPtr = &thread.getCellAt(ndx);
-	ForthCell::PTR_TYPE ptr = static_cast<ForthCell::PTR_TYPE>(cellPtr);
+	const ForthCell* cellPtr = &thread.getCellAt(ndx);
+	ForthCell::PTR_TYPE ptr = static_cast<const ForthCell::PTR_TYPE>(const_cast<ForthCell*>(cellPtr));
 	thread.pushDataStack(ptr);
 	thread.offsetIndex(1);
 }

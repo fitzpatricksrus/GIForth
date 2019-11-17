@@ -33,11 +33,7 @@ const ForthCell &ForthThread::getCellAt(int ndx) const {
     return (*ip.word)[ip.ndx];
 }
 
-ForthCell &ForthThread::getCellAt(int ndx) {
-    return (*ip.word)[ip.ndx];
-}
-
-ForthCell& ForthThread::getNextCell() {
+const ForthCell& ForthThread::getNextCell() {
     return (*ip.word)[ip.ndx++];
 }
 
