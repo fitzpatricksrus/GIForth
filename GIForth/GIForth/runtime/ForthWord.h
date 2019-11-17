@@ -12,7 +12,7 @@ class ForthThread;
 
 class ForthWord {
 public:
-    virtual void execute(ForthThread& thread) = 0;
+    virtual void execute(ForthThread& thread) const = 0;
 
     std::string getTrace(const ForthThread& thread) const;
     virtual int getDisassemblyParamCount() const = 0;

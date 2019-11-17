@@ -31,7 +31,7 @@ TEST_CASE("runtime/tests/CompositeWordTest", "[RuntimeTests]") {
 class PrintStringWord : public ForthWord {
 public:
     PrintStringWord(const std::string &string) : msg(string) {}
-    void execute(ForthThread &thread) override {
+    void execute(ForthThread &thread) const override {
         std::cout << msg;
     }
 

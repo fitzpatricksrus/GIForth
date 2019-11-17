@@ -32,7 +32,7 @@ PrimitiveForthWordFunction::PrimitiveForthWordFunction(PrimitiveForthWordFunctio
 		args.push_back(t);
 	}
 }
-void PrimitiveForthWordFunction::execute(ForthThread& thread) {
+void PrimitiveForthWordFunction::execute(ForthThread& thread) const {
     (*func)(thread);
 }
 

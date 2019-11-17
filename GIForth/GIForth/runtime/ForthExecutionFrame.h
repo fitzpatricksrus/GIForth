@@ -10,8 +10,8 @@ class CompositeForthWord;
 class ForthExecutionFrame {
 public:
 	ForthExecutionFrame();
-	ForthExecutionFrame(CompositeForthWord *wordIn);
-	ForthExecutionFrame(CompositeForthWord *wordIn, int ndx);
+	ForthExecutionFrame(const CompositeForthWord *wordIn);
+	ForthExecutionFrame(const CompositeForthWord *wordIn, int ndx);
 	ForthExecutionFrame(const ForthExecutionFrame &other) = default;
 	~ForthExecutionFrame() = default;
 	ForthExecutionFrame &operator=(const ForthExecutionFrame &other);
@@ -19,18 +19,18 @@ public:
 	bool isDeadFrame() const;
 
 	int ndx;
-	CompositeForthWord *word;
+	const CompositeForthWord *word;
 };
 
 inline ForthExecutionFrame::ForthExecutionFrame()
 		: ForthExecutionFrame(nullptr, 0) {
 }
 
-inline ForthExecutionFrame::ForthExecutionFrame(CompositeForthWord *wordIn)
+inline ForthExecutionFrame::ForthExecutionFrame(const CompositeForthWord *wordIn)
 		: ForthExecutionFrame(wordIn, 0) {
 }
 
-inline ForthExecutionFrame::ForthExecutionFrame(CompositeForthWord *wordIn, int ndx)
+inline ForthExecutionFrame::ForthExecutionFrame(const CompositeForthWord *wordIn, int ndx)
 		: ndx(ndx), word(wordIn) {
 }
 

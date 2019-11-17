@@ -26,7 +26,7 @@ public:
     PrimitiveForthWordFunction(const PrimitiveForthWordFunction& other) = default;
     ~PrimitiveForthWordFunction() = default;
     PrimitiveForthWordFunction& operator=(const PrimitiveForthWordFunction& other) = default;
-    void execute(ForthThread& thread) override;
+    void execute(ForthThread& thread) const override;
 
 	std::string getName() const override;
 

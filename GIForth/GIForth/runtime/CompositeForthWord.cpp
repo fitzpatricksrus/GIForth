@@ -35,7 +35,7 @@ static std::string shortStackDump(const ForthThread& thread) {
 	return line;
 }
 
-void CompositeForthWord::execute(ForthThread& thread) {
+void CompositeForthWord::execute(ForthThread& thread) const {
 	if (thread.getCurrentWord() != this) {
 		// first time called, so make a new stack frame
 		thread.pushFrame(this);

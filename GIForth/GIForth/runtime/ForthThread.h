@@ -43,14 +43,14 @@ public:
     int returnStackDepth() const;
 
     // execution operations
-    CompositeForthWord* getCurrentWord() const;
+    const CompositeForthWord* getCurrentWord() const;
     int getIndex() const;
     void setIndex(int ndx);
     void offsetIndex(int offset);
     const ForthCell& getCellAt(int ndx) const;
     const ForthCell& getNextCell();
     bool currentWordComplete() const;
-    void pushFrame(CompositeForthWord* word, int ndx = 0);
+    void pushFrame(const CompositeForthWord* word, int ndx = 0);
     void popFrame();
 
     bool execute();

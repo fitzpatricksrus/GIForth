@@ -13,7 +13,7 @@ ForthThread::ForthThread(const ForthExecutionFrame& start)
 }
 
 
-CompositeForthWord* ForthThread::getCurrentWord() const {
+const CompositeForthWord* ForthThread::getCurrentWord() const {
     return ip.word;
 }
 
@@ -41,7 +41,7 @@ bool ForthThread::currentWordComplete() const {
     return ip.ndx >= (*ip.word).size();
 }
 
-void ForthThread::pushFrame(CompositeForthWord* word, int ndx) {
+void ForthThread::pushFrame(const CompositeForthWord* word, int ndx) {
     toReturnStack(ip);
     ip = ForthExecutionFrame(word, ndx);
 }

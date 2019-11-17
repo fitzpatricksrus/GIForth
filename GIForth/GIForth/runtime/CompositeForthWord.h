@@ -19,7 +19,7 @@ public:
     virtual ~CompositeForthWord() = default;
 	CompositeForthWord& operator=(const CompositeForthWord& other) = default;
     
-    void execute(ForthThread& thread) override;
+    void execute(ForthThread& thread) const override;
 
     int size() const;
     const ForthCell& operator[](int ndx) const;
