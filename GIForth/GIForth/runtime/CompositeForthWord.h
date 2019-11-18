@@ -15,7 +15,6 @@ class ForthThread;
 class CompositeForthWord : public ForthWord {
 public:
 	CompositeForthWord(const std::string &name, const std::vector<ForthCell>& cells);
-	CompositeForthWord(const std::string &name, std::shared_ptr<const std::vector<ForthCell>> cells);
     virtual ~CompositeForthWord() = default;
 
     void execute(ForthThread& thread) const override;
@@ -26,14 +25,15 @@ public:
     std::vector<std::string> getDisassembly() const;
 
 protected:
+	CompositeForthWord(const std::string &name, std::shared_ptr<const std::vector<ForthCell>> cells);
     void trace(const ForthThread& thread, ForthWord* word) const;
 	std::string getDisassemblyName() const override;
     std::string getDisassemblyDetail(const ForthThread& thread) const override;
     int getDisassemblyParamCount() const override;
 
-private:
     std::shared_ptr<const std::vector<ForthCell>> body;
     std::string name;
+    std::shared_ptr<CompositeForthWord> frameWord;
 };
 
 inline int CompositeForthWord::size() const {

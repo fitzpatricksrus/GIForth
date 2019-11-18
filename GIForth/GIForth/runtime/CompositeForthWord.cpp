@@ -9,15 +9,35 @@
 #include "ForthThread.h"
 #include "utils/NativeOSFunctions.hpp"
 
+class ContinuingCompositeForthWord : public CompositeForthWord {
+public:
+	ContinuingCompositeForthWord(const std::string &name, std::shared_ptr<const std::vector<ForthCell>> cells);
+	void execute(ForthThread& thread) const override;
+};
+
+ContinuingCompositeForthWord::ContinuingCompositeForthWord(const std::string &name, std::shared_ptr<const std::vector<ForthCell>> cells)
+: CompositeForthWord(name +"+", cells)
+{
+}
+
+void ContinuingCompositeForthWord::execute(ForthThread& thread) const {
+	int ndx = thread.getIndex();
+	ForthWord *word = (*body)[ndx].word;
+	thread.setIndex(ndx + 1);
+	trace(thread, word);
+	word->execute(thread);
+}
+
 CompositeForthWord::CompositeForthWord(const std::string &nameIn, const std::vector<ForthCell>& cellsIn)
-		: body(), name(nameIn)
+		: body(), name(nameIn), frameWord(nullptr)
 {
 	auto ptr = new std::vector<ForthCell>(cellsIn);
 	body = std::shared_ptr<const std::vector<ForthCell>>(ptr);
+	frameWord = std::shared_ptr<CompositeForthWord>(new ContinuingCompositeForthWord(nameIn, body));
 }
 
 CompositeForthWord::CompositeForthWord(const std::string &nameIn, std::shared_ptr<const std::vector<ForthCell>> cellsIn)
-		: body(cellsIn), name(nameIn)
+		: body(cellsIn), name(nameIn), frameWord(nullptr)
 {
 }
 
@@ -40,15 +60,17 @@ static std::string shortStackDump(const ForthThread& thread) {
 
 void CompositeForthWord::execute(ForthThread& thread) const {
 	if (thread.getCurrentWord() != this) {
-		// first time called, so make a new stack frame
-		thread.pushFrame(this);
+		// first time called, so make a new stack frame if we're not already the
+		// current word.  We should only be the current for the outermost
+		// word invoked by a thread.  TODO see if we can fix this
+		// so it doesn't need this test OR the call to execute() below.
+		// They are only there to support the outer most word on a thread
+		// because test creates a stack frame with the raw CompositeForthWord
+		// in the thread.ip instead of the ContinuingCompositeForthWord
+		thread.pushFrame(frameWord.get());
 		thread.setTraceDepth(thread.getTraceDepth() + 1);
 	}
-	int ndx = thread.getIndex();
-	ForthWord *word = (*body)[ndx].word;
-	thread.setIndex(ndx + 1);
-	trace(thread, word);
-	word->execute(thread);
+	frameWord.get()->execute(thread);
 }
 
 std::vector<std::string> CompositeForthWord::getDisassembly() const {
