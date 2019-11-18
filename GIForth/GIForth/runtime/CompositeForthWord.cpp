@@ -59,23 +59,16 @@ static std::string shortStackDump(const ForthThread& thread) {
 }
 
 void CompositeForthWord::execute(ForthThread& thread) const {
-	if (thread.getCurrentWord() != this) {
-		// first time called, so make a new stack frame if we're not already the
-		// current word.  We should only be the current for the outermost
-		// word invoked by a thread.  TODO see if we can fix this
-		// so it doesn't need this test OR the call to execute() below.
-		// They are only there to support the outer most word on a thread
-		// because test creates a stack frame with the raw CompositeForthWord
-		// in the thread.ip instead of the ContinuingCompositeForthWord
-		thread.pushFrame(frameWord.get());
-		thread.setTraceDepth(thread.getTraceDepth() + 1);
-	}
-	frameWord.get()->execute(thread);
+	CompositeForthWord* word = frameWord.get();
+	thread.pushFrame(word);	//NOTE:  See ForthThread.join regarding hack that requires this
+	thread.setTraceDepth(thread.getTraceDepth() + 1);
+	word->execute(thread);
 }
 
 std::vector<std::string> CompositeForthWord::getDisassembly() const {
 	std::vector<std::string> result(size());
-	ForthThread disassemblyThread(const_cast<CompositeForthWord*>(this));
+	ForthThread disassemblyThread;
+	disassemblyThread.pushFrame(const_cast<CompositeForthWord*>(this));
 	while (!disassemblyThread.currentWordComplete()) {
 		ForthCell cell = disassemblyThread.getNextCell();
 		std::string line(cell.word->getTrace(disassemblyThread));

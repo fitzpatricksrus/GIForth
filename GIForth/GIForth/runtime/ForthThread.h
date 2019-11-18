@@ -23,7 +23,7 @@ public:
 
     static const ReturnStackFrame DEAD_FRAME;
 
-    ForthThread(const ForthExecutionFrame& start);
+	ForthThread();
     ~ForthThread() = default;
 
     // data stack operations
@@ -53,8 +53,8 @@ public:
     void pushFrame(const CompositeForthWord* word, int ndx = 0);
     void popFrame();
 
-    bool execute();
-    void join();
+	void join();
+	void join(CompositeForthWord& word);
 	static const ForthThread* getCurrentThread();
 
 	void enableTrace(bool enable);

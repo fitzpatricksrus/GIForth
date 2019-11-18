@@ -26,8 +26,8 @@ int TestRunner::run( int argc, const char* argv[] ) {
 bool TestRunner::enableTrace = false;
 
 ForthThread TestRunner::runTestWord(CompositeForthWord* word) {
-	ForthThread thread(word);
+	ForthThread thread;
 	thread.enableTrace(TestRunner::enableTrace);
-	thread.join();
+	thread.join(*word);
 	return thread;
 }

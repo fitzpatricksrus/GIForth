@@ -72,7 +72,7 @@ PrimitiveForthWordFunction PrimitiveForthWords::NOP(&PrimitiveForthWords::F_NOP,
 void PrimitiveForthWords::F_NOP(ForthThread& thread) {
 }
 TEST_CASE("words/PrimitiveForthWords::NOP", "[PrimitiveForthWords]") {
-	ForthThread thread = ForthThread(ForthExecutionFrame());
+	ForthThread thread;
 	PrimitiveForthWords::NOP.execute(thread);
 	REQUIRE(thread.getDataStackSize() == 0);
 }
@@ -85,13 +85,16 @@ void PrimitiveForthWords::F_JUMP(ForthThread &thread) {
 TEST_CASE("words/PrimitiveForthWords::JUMP", "[PrimitiveForthWords]") {
 	CompositeForthWord word(
 			CompositeForthWordBuilder("")
+					.compileCell(&PrimitiveForthWords::JUMP)
 					.compileCell(static_cast<ForthCell::INT_TYPE>(32))
 					.build()
 	);
-	ForthThread thread = ForthThread(&word);
+	ForthThread thread;
 	REQUIRE(thread.getDataStackSize() == 0);
 	REQUIRE(thread.getIndex() == 0);
-	PrimitiveForthWords::JUMP.execute(thread);
+	// we don't use thread.join here because we don't want to run more than
+	// one instruction or we'll jump off the end of the world
+	word.execute(thread);
 	REQUIRE(thread.getDataStackSize() == 0);
 	REQUIRE(thread.getIndex() == 32);
 }
@@ -112,7 +115,8 @@ TEST_CASE("words/PrimitiveForthWords::JUMP_IF_FALSE", "[PrimitiveForthWords]") {
 					.compileCell(static_cast<ForthCell::INT_TYPE>(42))
 					.build()
 	);
-	ForthThread thread = ForthThread(&word);
+	ForthThread thread;
+	thread.pushFrame(&word);
 	REQUIRE(thread.getDataStackSize() == 0);
 	REQUIRE(thread.getIndex() == 0);
 	thread.pushDataStack(static_cast<ForthCell::BOOL_TYPE>(true));
@@ -135,10 +139,32 @@ void PrimitiveForthWords::F_RETURN(ForthThread &thread) {
 PrimitiveForthWordFunction PrimitiveForthWords::EXECUTE(&PrimitiveForthWords::F_EXECUTE,
 		"PrimitiveForthWords::EXECUTE", "execute");
 void PrimitiveForthWords::F_EXECUTE(ForthThread &thread) {
-	// hey jf - will this actually work for both primitive and composite words?
 	ForthWord *word = thread.popDataStack().word;
 	word->execute(thread);
 }
+TEST_CASE("words/PrimitiveForthWords::EXECUTE", "[PrimitiveForthWords]") {
+	CompositeForthWord innerWord(
+			CompositeForthWordBuilder("")
+					.compileCell(&PrimitiveForthWords::ADD_ONE)
+					.build()
+	);
+	CompositeForthWord word(
+			CompositeForthWordBuilder("")
+					.compileConstant(static_cast<ForthCell::INT_TYPE >(98))
+					.compileConstant(&PrimitiveForthWords::ADD_ONE)
+					.compileCell(&PrimitiveForthWords::EXECUTE)
+					.compileConstant(&innerWord)
+					.compileCell(&PrimitiveForthWords::EXECUTE)
+					.build()
+	);
+	ForthThread thread;
+	REQUIRE(thread.getDataStackSize() == 0);
+	REQUIRE(thread.getIndex() == 0);
+	thread.join(word);
+	REQUIRE(thread.getDataStackSize() == 1);
+	REQUIRE(thread.popDataStack().integer == 100);
+}
+
 
 // -- value ; pushes next cell in word onto data stack
 PrimitiveForthWordFunction PrimitiveForthWords::PUSH_NEXT_CELL(&PrimitiveForthWords::F_PUSH_NEXT_CELL,

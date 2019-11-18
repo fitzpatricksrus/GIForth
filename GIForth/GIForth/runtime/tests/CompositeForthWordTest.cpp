@@ -79,7 +79,7 @@ void CompositeForthWordTest::test() {
 				    .compileCell(&worldCr)
         	.build());
 
-    ForthThread thread(&message);
+    ForthThread thread;
     thread.enableTrace(true);
-    thread.join();
+    thread.join(message);
 }

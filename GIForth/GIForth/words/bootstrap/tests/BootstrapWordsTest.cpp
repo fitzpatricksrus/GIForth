@@ -10,7 +10,7 @@
 
 void BootstrapWordsTest::testNextToken() {
     std::string endToken = "exit";
-    ForthThread thread(nullptr);
+    ForthThread thread;
     std::string token;
     do {
         BootstrapWords::NEXT_TOKEN.execute(thread);

@@ -7,11 +7,10 @@
 
 const ForthThread::ReturnStackFrame ForthThread::DEAD_FRAME(ForthExecutionFrame(nullptr));
 
-ForthThread::ForthThread(const ForthExecutionFrame& start)
-: dataStack(), returnStack(), ip(start), trace(false), traceDepth(0)
+ForthThread::ForthThread()
+		: dataStack(), returnStack(), ip(), trace(false), traceDepth(0)
 {
 }
-
 
 const CompositeForthWord* ForthThread::getCurrentWord() const {
     return ip.word;
@@ -30,7 +29,7 @@ void ForthThread::offsetIndex(int offset) {
 }
 
 const ForthCell &ForthThread::getCellAt(int ndx) const {
-    return (*ip.word)[ip.ndx];
+    return (*ip.word)[ndx];
 }
 
 const ForthCell& ForthThread::getNextCell() {
@@ -120,17 +119,19 @@ int ForthThread::returnStackDepth() const {
     return returnStack.size();
 }
 
-bool ForthThread::execute() {
+void ForthThread::join() {
 	currentThread = this;
-    ip.word->execute(*this);
-    currentThread = nullptr;
-    return !ip.isDeadFrame();
+	while (!ip.isDeadFrame()) {
+		ip.word->execute(*this);
+	}
+	currentThread = nullptr;
 }
 
-void ForthThread::join() {
-    if (!ip.isDeadFrame()) {
-        while (execute()) {};
-    }
+void ForthThread::join(CompositeForthWord& word) {
+	// force top frame to be for 'word'
+	// This is sort of a hack
+	word.execute(*this);
+	join();
 }
 
 const ForthThread* ForthThread::getCurrentThread() {
