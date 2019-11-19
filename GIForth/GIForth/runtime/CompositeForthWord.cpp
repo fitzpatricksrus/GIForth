@@ -63,7 +63,7 @@ static std::string shortStackDump(const ForthThread& thread) {
 
 void CompositeForthWord::execute(ForthThread& thread) const {
 	CompositeForthWord* word = frameWord.get();
-	thread.pushFrame(word);	//NOTE:  See ForthThread.join regarding hack that requires this
+	thread.pushFrame(word);
 	thread.setTraceDepth(thread.getTraceDepth() + 1);
 	word->execute(thread);
 }

@@ -17,10 +17,17 @@ public:
 
     class Tracer {
     public:
-		Tracer() { enableTrace = true; }
-		~Tracer() { enableTrace = false; }
+		Tracer();
+		~Tracer();
     };
 };
 
+inline TestRunner::Tracer::Tracer() {
+	enableTrace = true;
+}
+
+inline TestRunner::Tracer::~Tracer() {
+	enableTrace = false;
+}
 
 #endif //GIFORTH_TESTRUNNER_H

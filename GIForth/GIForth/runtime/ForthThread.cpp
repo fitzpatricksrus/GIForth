@@ -128,8 +128,9 @@ void ForthThread::join() {
 }
 
 void ForthThread::join(CompositeForthWord& word) {
-	// force top frame to be for 'word'
-	// This is sort of a hack
+	// force top frame to be the ContinuingForthWord for
+	// word.  Otherwise we just keep pushing stack frames.
+	// see CompositeForthWord.execute implementation
 	word.execute(*this);
 	join();
 }
