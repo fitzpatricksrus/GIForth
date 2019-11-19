@@ -8,7 +8,7 @@
 #include <iostream>
 #include <runtime/CompositeForthWord.h>
 #include <runtime/ForthThread.h>
-#include <words/bootstrap/CompositeForthWordBuilder.h>
+#include <utils/CompositeForthWordBuilder.h>
 #include <words/PrimitiveForthWords.h>
 #include <utils/testing/TestRunner.h>
 #include "utils/testing/catch.hpp"

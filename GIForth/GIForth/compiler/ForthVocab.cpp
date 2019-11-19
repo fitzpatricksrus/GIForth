@@ -3,7 +3,7 @@
 //
 
 #include "utils/PrimitiveForthWordFunction.h"
-#include "words/bootstrap/CompositeForthWordBuilder.h"
+#include "utils/CompositeForthWordBuilder.h"
 #include "ForthVocab.h"
 
 ForthVocab::ForthVocab(ForthVocab* nextIn)

@@ -4,7 +4,7 @@
 
 #include "utils/testing/TestRunner.h"
 #include "runtime/ForthThread.h"
-#include "words/bootstrap/CompositeForthWordBuilder.h"
+#include "utils/CompositeForthWordBuilder.h"
 #include "words/CoreForthWords.h"
 #include "utils/testing/catch.hpp"
 #include <cstring>

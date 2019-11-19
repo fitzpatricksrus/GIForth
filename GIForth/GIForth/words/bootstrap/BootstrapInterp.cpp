@@ -40,29 +40,28 @@
 #include "BootstrapInterp.h"
 #include "BootstrapWords.h"
 #include "runtime/ForthCell.h"
-#include "CompositeForthWordBuilder.h"
+#include "utils/CompositeForthWordBuilder.h"
 
 CompositeForthWord* BootstrapInterp::getInstance() {
     static CompositeForthWord INSTANCE(
 		    CompositeForthWordBuilder("BootstrapInterp::INSTANCE")
 				    .compileRepeat()
-				    .compileCell(&BootstrapWords::NEXT_TOKEN)
-				    .compileCell(&BootstrapWords::FIND_WORD)
-				    .compileIf()
-				    .compileCell(&PrimitiveForthWords::EXECUTE)
-				    .compileElse()
-//                    .append(&BootstrapWords::PARSE_NUMBER)
-				    .compileCell(&CoreForthWords::PARSE_NUMBER)
-				    .compileCell(&PrimitiveForthWords::CONDITIONAL_NOT)
-				    .compileIf()
-				    .compileCell(&BootstrapWords::PRINT_STRING)
-				    .compileCell(static_cast<ForthCell::INT_TYPE>(63))
-				    .compileCell(&PrimitiveForthWords::PRINT_CHAR)
-				    .compileCell(static_cast<ForthCell::INT_TYPE>(13))
-				    .compileCell(&PrimitiveForthWords::PRINT_CHAR)
-                    .compileEndIf()
-                .compileEndIf()
-            .compileForever()
+						.compileCell(&BootstrapWords::NEXT_TOKEN)
+						.compileCell(&BootstrapWords::FIND_WORD)
+						.compileIf()
+							.compileCell(&PrimitiveForthWords::EXECUTE)
+						.compileElse()
+							.compileCell(&CoreForthWords::PARSE_NUMBER)
+							.compileCell(&PrimitiveForthWords::CONDITIONAL_NOT)
+							.compileIf()
+								.compileCell(&BootstrapWords::PRINT_STRING)
+								.compileCell(static_cast<ForthCell::INT_TYPE>(63))
+								.compileCell(&PrimitiveForthWords::PRINT_CHAR)
+								.compileCell(static_cast<ForthCell::INT_TYPE>(13))
+								.compileCell(&PrimitiveForthWords::PRINT_CHAR)
+							.compileEndIf()
+						.compileEndIf()
+					.compileForever()
             .build()
             );
 /*    static CompositeForthWord INSTANCE("BootstrapInterp::INSTANCE");

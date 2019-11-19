@@ -2,7 +2,7 @@
 // Created by Dad on 9/17/19.
 //
 
-#include <words/bootstrap/CompositeForthWordBuilder.h>
+#include <utils/CompositeForthWordBuilder.h>
 #include "PrimitiveForthWords.h"
 #include "runtime/ForthThread.h"
 #include "runtime/CompositeForthWord.h"

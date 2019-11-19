@@ -3,7 +3,7 @@
 //
 
 #include <runtime/CompositeForthWord.h>
-#include <words/bootstrap/CompositeForthWordBuilder.h>
+#include <utils/CompositeForthWordBuilder.h>
 #include <compiler/CompilerWords.h>
 #include <words/PrimitiveForthWords.h>
 #include <runtime/ForthThread.h>

@@ -21,8 +21,8 @@ add_executable(GIForth
         GIForth/words/bootstrap/tests/BootstrapInterpTest.cpp
         GIForth/words/CoreForthWords.cpp
         GIForth/words/CoreForthWords.h
-        GIForth/words/bootstrap/CompositeForthWordBuilder.cpp
-        GIForth/words/bootstrap/CompositeForthWordBuilder.h
+        GIForth/utils/CompositeForthWordBuilder.cpp
+        GIForth/utils/CompositeForthWordBuilder.h
         GIForth/words/tests/CoreForthWordsTest.cpp
         GIForth/words/tests/CoreForthWordsTest.h
         GIForth/utils/StringUtils.cpp
