@@ -14,6 +14,12 @@ public:
 	static bool enableTrace;
     static int run(int argc, const char* argv[]);
     static ForthThread runTestWord(CompositeForthWord* word);
+
+    class Tracer {
+    public:
+		Tracer() { enableTrace = true; }
+		~Tracer() { enableTrace = false; }
+    };
 };
 
 

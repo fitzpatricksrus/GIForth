@@ -16,7 +16,7 @@ public:
 };
 
 ContinuingCompositeForthWord::ContinuingCompositeForthWord(const std::string &name, std::shared_ptr<const std::vector<ForthCell>> cells)
-: CompositeForthWord(name +"+", cells)
+: CompositeForthWord(name, cells)
 {
 }
 
@@ -44,6 +44,9 @@ CompositeForthWord::CompositeForthWord(const std::string &nameIn, std::shared_pt
 static std::string shortStackDump(const ForthThread& thread) {
 	std::string line;
 	int stackSize = thread.getDataStackSize();
+	if (stackSize >= 4) {
+		line += "... ";
+	}
 	if (stackSize >= 3) {
 		line += std::to_string(thread[2].integer);
 		line += " ";
