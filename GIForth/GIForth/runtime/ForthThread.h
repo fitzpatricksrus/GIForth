@@ -22,6 +22,7 @@ public:
     } ReturnStackFrame;
 
     static const ReturnStackFrame DEAD_FRAME;
+	class ThreadExitException : public std::exception {};
 
 	ForthThread();
     ~ForthThread() = default;

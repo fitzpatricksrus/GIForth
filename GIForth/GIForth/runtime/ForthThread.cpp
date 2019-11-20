@@ -2,13 +2,21 @@
 // Created by Dad on 9/16/19.
 //
 
+#include "words/PrimitiveForthWords.h"
 #include "ForthThread.h"
 #include "CompositeForthWord.h"
+#include "utils/CompositeForthWordBuilder.h"
 
-const ForthThread::ReturnStackFrame ForthThread::DEAD_FRAME(ForthExecutionFrame(nullptr));
+static const CompositeForthWord deadFrameWord(
+		CompositeForthWordBuilder("ForthThread::DEAD_FRAME")
+			.compileCell(&PrimitiveForthWords::EXIT_THREAD)
+		.build()
+		);
+
+const ForthThread::ReturnStackFrame ForthThread::DEAD_FRAME(ForthExecutionFrame(&deadFrameWord, 0));
 
 ForthThread::ForthThread()
-		: dataStack(), returnStack(), ip(), trace(false), traceDepth(0)
+		: dataStack(), returnStack(), ip(ForthExecutionFrame(&deadFrameWord)), trace(false), traceDepth(0)
 {
 }
 
@@ -121,8 +129,11 @@ int ForthThread::returnStackDepth() const {
 
 void ForthThread::join() {
 	currentThread = this;
-	while (!ip.isDeadFrame()) {
-		ip.word->execute(*this);
+	try {
+		while (true) {
+			ip.word->execute(*this);
+		}
+	} catch (const ThreadExitException& e) {
 	}
 	currentThread = nullptr;
 }

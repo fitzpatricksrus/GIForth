@@ -16,6 +16,7 @@ PrimitiveForthWords::PrimitiveForthWords(ForthVocab *next)
 	add(&JUMP);
 	add(&JUMP_IF_FALSE);
 	add(&RETURN);
+	add(&EXIT_THREAD);
 	add(&EXECUTE);
 	add(&PUSH_NEXT_CELL);
 	add(&CHAR_SIZE);
@@ -134,6 +135,12 @@ PrimitiveForthWordFunction PrimitiveForthWords::RETURN(&PrimitiveForthWords::F_R
 void PrimitiveForthWords::F_RETURN(ForthThread &thread) {
 	thread.popFrame();
     thread.setTraceDepth(thread.getTraceDepth() - 1);
+}
+
+PrimitiveForthWordFunction PrimitiveForthWords::EXIT_THREAD(&PrimitiveForthWords::F_EXIT_THREAD,
+		"PrimitiveForthWords::EXIT_THREAD", "(EXIT_THREAD)");
+void PrimitiveForthWords::F_EXIT_THREAD(ForthThread &thread) {
+	throw ForthThread::ThreadExitException();
 }
 
 PrimitiveForthWordFunction PrimitiveForthWords::EXECUTE(&PrimitiveForthWords::F_EXECUTE,

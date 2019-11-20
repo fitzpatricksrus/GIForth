@@ -24,6 +24,7 @@ public:
 
 	// --
 	static PrimitiveForthWordFunction RETURN;
+	static PrimitiveForthWordFunction EXIT_THREAD;
 
 	// wordAddr --
 	static PrimitiveForthWordFunction EXECUTE;
@@ -93,6 +94,7 @@ private:
 	static void F_JUMP(ForthThread &thread);
 	static void F_JUMP_IF_FALSE(ForthThread &thread);
 	static void F_RETURN(ForthThread &thread);
+	static void F_EXIT_THREAD(ForthThread& thread);
 	static void F_EXECUTE(ForthThread &thread);
 	static void F_PUSH_NEXT_CELL(ForthThread &thread);
 
