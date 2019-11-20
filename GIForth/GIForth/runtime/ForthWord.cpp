@@ -27,6 +27,9 @@ std::string ForthWord::getName() const {
 	}
 }
 
+void ForthWord::trace(const ForthThread& thread, ForthWord* word) const {
+}
+
 /*
 int ForthWord::disassemblyParamCount() const {
     return 0;

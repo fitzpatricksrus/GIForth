@@ -6,35 +6,15 @@
 #include "ForthThread.h"
 #include "utils/NativeOSFunctions.hpp"
 
-class ContinuingCompositeForthWord : public CompositeForthWord {
-public:
-	ContinuingCompositeForthWord(const std::string &name, std::shared_ptr<const std::vector<ForthCell>> cells);
-	void execute(ForthThread& thread) const override;
-};
-
-ContinuingCompositeForthWord::ContinuingCompositeForthWord(const std::string &name, std::shared_ptr<const std::vector<ForthCell>> cells)
-: CompositeForthWord(name, cells)
-{
-}
-
-void ContinuingCompositeForthWord::execute(ForthThread& thread) const {
-	int ndx = thread.getIndex();
-	ForthWord *word = (*body)[ndx].word;
-	thread.setIndex(ndx + 1);
-	trace(thread, word);
-	word->execute(thread);
-}
-
 CompositeForthWord::CompositeForthWord(const std::string &nameIn, const std::vector<ForthCell>& cellsIn)
-		: body(), name(nameIn), frameWord(nullptr)
+		: body(), name(nameIn)
 {
 	auto ptr = new std::vector<ForthCell>(cellsIn);
 	body = std::shared_ptr<const std::vector<ForthCell>>(ptr);
-	frameWord = std::shared_ptr<CompositeForthWord>(new ContinuingCompositeForthWord(nameIn, body));
 }
 
 CompositeForthWord::CompositeForthWord(const std::string &nameIn, const std::shared_ptr<const std::vector<ForthCell>>& cellsIn)
-		: body(cellsIn), name(nameIn), frameWord(nullptr)
+		: body(cellsIn), name(nameIn)
 {
 }
 
@@ -59,10 +39,8 @@ static std::string shortStackDump(const ForthThread& thread) {
 }
 
 void CompositeForthWord::execute(ForthThread& thread) const {
-	CompositeForthWord* word = frameWord.get();
-	thread.pushFrame(word);
+	thread.pushFrame(this);
 	thread.setTraceDepth(thread.getTraceDepth() + 1);
-	word->execute(thread);
 }
 
 std::vector<std::string> CompositeForthWord::getDisassembly() const {

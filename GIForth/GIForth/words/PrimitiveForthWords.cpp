@@ -87,7 +87,9 @@ TEST_CASE("words/PrimitiveForthWords::JUMP", "[PrimitiveForthWords]") {
 	CompositeForthWord word(
 			CompositeForthWordBuilder("")
 					.compileCell(&PrimitiveForthWords::JUMP)
-					.compileCell(static_cast<ForthCell::INT_TYPE>(32))
+					.compileCell(static_cast<ForthCell::INT_TYPE>(4))
+					.compileCell(&PrimitiveForthWords::PUSH_NEXT_CELL)
+					.compileCell(static_cast<ForthCell::INT_TYPE >(99))
 					.build()
 	);
 	ForthThread thread;
@@ -95,9 +97,8 @@ TEST_CASE("words/PrimitiveForthWords::JUMP", "[PrimitiveForthWords]") {
 	REQUIRE(thread.getIndex() == 0);
 	// we don't use thread.join here because we don't want to run more than
 	// one instruction or we'll jump off the end of the world
-	word.execute(thread);
+	thread.join(word);
 	REQUIRE(thread.getDataStackSize() == 0);
-	REQUIRE(thread.getIndex() == 32);
 }
 
 // bool --   if the tos is false, the next cell is set as the ip.ndx else it's just skipped

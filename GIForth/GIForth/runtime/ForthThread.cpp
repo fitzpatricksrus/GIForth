@@ -122,7 +122,9 @@ void ForthThread::join() {
 	currentThread = this;
 	try {
 		while (true) {
-			ip.word->execute(*this);
+			ForthWord* word = (*ip.word)[ip.ndx++].word;
+			word->trace(*this, word);
+			word->execute(*this);
 		}
 	} catch (const ThreadExitException& e) {
 	}
@@ -130,10 +132,7 @@ void ForthThread::join() {
 }
 
 void ForthThread::join(const CompositeForthWord& word) {
-	// force top frame to be the ContinuingForthWord for
-	// word.  Otherwise we just keep pushing stack frames.
-	// see CompositeForthWord.execute implementation
-	word.execute(*this);
+	pushFrame(&word);
 	join();
 }
 
