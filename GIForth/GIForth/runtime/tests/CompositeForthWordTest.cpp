@@ -5,7 +5,6 @@
 #include "CompositeForthWordTest.h"
 
 #include <string>
-#include <iostream>
 #include <runtime/CompositeForthWord.h>
 #include <runtime/ForthThread.h>
 #include <utils/CompositeForthWordBuilder.h>
@@ -27,59 +26,4 @@ TEST_CASE("runtime/tests/CompositeWordTest", "[RuntimeTests]") {
 	REQUIRE(thread.getDataStackSize() == 1);
 	CHECK(thread.popDataStack().integer == 13);
 	CHECK(thread.getDataStackSize() == 0);
-}
-
-class PrintStringWord : public ForthWord {
-public:
-    PrintStringWord(const std::string &string) : msg(string) {}
-    void execute(ForthThread &thread) const override {
-        std::cout << msg;
-    }
-
-    std::string getDisassemblyDetail(const ForthThread& thread) const override {
-        return std::string("PrintStringWord(\"") + msg + "\")";
-    };
-
-    std::string getDisassemblyName() const override {
-    	return "PrintStringWord";
-    }
-    
-    int getDisassemblyParamCount() const override {
-        return 0;
-    }
-
-
-private:
-    std::string msg;
-};
-
-void CompositeForthWordTest::test() {
-    PrintStringWord hello("Hello");
-    PrintStringWord world("World");
-    PrintStringWord space(" ");
-    PrintStringWord cr("\n");
-
-    CompositeForthWord helloSpace(
-		    CompositeForthWordBuilder("helloSpace")
-				    .compileCell(&hello)
-				    .compileCell(&space)
-            .build());
-    CompositeForthWord worldCr(
-		    CompositeForthWordBuilder("worldCr")
-				    .compileCell(&world)
-				    .compileCell(&cr)
-	        .build());
-    CompositeForthWord message(
-		    CompositeForthWordBuilder("message")
-				    .compileCell(&helloSpace)
-				    .compileCell(&worldCr)
-				    .compileCell(&hello)
-				    .compileCell(&space)
-				    .compileCell(&helloSpace)
-				    .compileCell(&worldCr)
-        	.build());
-
-    ForthThread thread;
-    thread.enableTrace(true);
-    thread.join(message);
 }

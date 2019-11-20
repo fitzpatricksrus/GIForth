@@ -25,7 +25,7 @@ public:
     std::vector<std::string> getDisassembly() const;
 
 protected:
-	CompositeForthWord(const std::string &name, std::shared_ptr<const std::vector<ForthCell>> cells);
+	CompositeForthWord(const std::string &name, const std::shared_ptr<const std::vector<ForthCell>>& cells);
     void trace(const ForthThread& thread, ForthWord* word) const;
 	std::string getDisassemblyName() const override;
     std::string getDisassemblyDetail(const ForthThread& thread) const override;

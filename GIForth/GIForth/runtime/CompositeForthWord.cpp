@@ -1,8 +1,5 @@
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "modernize-pass-by-value"
-//
-// Created by Dad on 9/16/19.
-//
 
 #include "utils/StringUtils.h"
 #include "CompositeForthWord.h"
@@ -36,7 +33,7 @@ CompositeForthWord::CompositeForthWord(const std::string &nameIn, const std::vec
 	frameWord = std::shared_ptr<CompositeForthWord>(new ContinuingCompositeForthWord(nameIn, body));
 }
 
-CompositeForthWord::CompositeForthWord(const std::string &nameIn, std::shared_ptr<const std::vector<ForthCell>> cellsIn)
+CompositeForthWord::CompositeForthWord(const std::string &nameIn, const std::shared_ptr<const std::vector<ForthCell>>& cellsIn)
 		: body(cellsIn), name(nameIn), frameWord(nullptr)
 {
 }

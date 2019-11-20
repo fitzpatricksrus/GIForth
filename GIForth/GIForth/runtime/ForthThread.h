@@ -9,10 +9,23 @@
 #include <vector>
 #include <map>
 #include "ForthCell.h"
-#include "ForthExecutionFrame.h"
+
+class CompositeForthWord;
 
 class ForthThread {
 public:
+	class ForthExecutionFrame {
+	public:
+		ForthExecutionFrame();
+		ForthExecutionFrame(const CompositeForthWord* wordIn, int ndx = 0);
+		ForthExecutionFrame(const ForthExecutionFrame& other) = default;
+		~ForthExecutionFrame() = default;
+		ForthExecutionFrame& operator=(const ForthExecutionFrame &other) = default;
+
+		int ndx;
+		const CompositeForthWord* word;
+	};
+
     typedef union ReturnStackFrame {
         ReturnStackFrame(const ForthExecutionFrame& execIn) : execution(execIn) {}
         ReturnStackFrame(const ForthCell& cellIn) : cell(cellIn) {}
@@ -21,7 +34,7 @@ public:
         ForthCell cell;
     } ReturnStackFrame;
 
-    static const ReturnStackFrame DEAD_FRAME;
+    static const ForthExecutionFrame DEAD_FRAME;
 	class ThreadExitException : public std::exception {};
 
 	ForthThread();
@@ -51,11 +64,11 @@ public:
     const ForthCell& getCellAt(int ndx) const;
     const ForthCell& getNextCell();
     bool currentWordComplete() const;
-    void pushFrame(const CompositeForthWord* word, int ndx = 0);
+    void pushFrame(const ForthExecutionFrame& frame);
     void popFrame();
 
 	void join();
-	void join(CompositeForthWord& word);
+	void join(const CompositeForthWord& word);
 	static const ForthThread* getCurrentThread();
 
 	void enableTrace(bool enable);
@@ -73,5 +86,23 @@ private:
     std::stack<ReturnStackFrame> returnStack;
     std::vector<ForthCell> dataStack;
 };
+
+inline ForthThread::ForthExecutionFrame::ForthExecutionFrame()
+		: ForthExecutionFrame(nullptr, 0) {
+}
+
+inline ForthThread::ForthExecutionFrame::ForthExecutionFrame(const CompositeForthWord* wordIn, int ndx)
+		: ndx(ndx), word(wordIn) {
+}
+
+inline int ForthThread::getIndex() const {
+	return ip.ndx;
+}
+
+inline void ForthThread::setIndex(int newIndex) {
+	ip.ndx = newIndex;
+}
+
+
 
 #endif //GIFORTH_FORTHTHREAD_H

@@ -7,29 +7,25 @@
 #include "CompositeForthWord.h"
 #include "utils/CompositeForthWordBuilder.h"
 
+/*
+ * deadFrameWord is used for the "bottom of the return stack" and
+ * causes the current thread to exit cleanly when interpreted
+ */
 static const CompositeForthWord deadFrameWord(
 		CompositeForthWordBuilder("ForthThread::DEAD_FRAME")
 			.compileCell(&PrimitiveForthWords::EXIT_THREAD)
 		.build()
 		);
 
-const ForthThread::ReturnStackFrame ForthThread::DEAD_FRAME(ForthExecutionFrame(&deadFrameWord, 0));
+const ForthThread::ForthExecutionFrame ForthThread::DEAD_FRAME(ForthExecutionFrame(&deadFrameWord, 0));
 
 ForthThread::ForthThread()
-		: dataStack(), returnStack(), ip(ForthExecutionFrame(&deadFrameWord)), trace(false), traceDepth(0)
+		: dataStack(), returnStack(), ip(DEAD_FRAME), trace(false), traceDepth(0)
 {
 }
 
 const CompositeForthWord* ForthThread::getCurrentWord() const {
     return ip.word;
-}
-
-int ForthThread::getIndex() const {
-    return ip.ndx;
-}
-
-void ForthThread::setIndex(int newIndex) {
-    ip.ndx = newIndex;
 }
 
 void ForthThread::offsetIndex(int offset) {
@@ -48,9 +44,9 @@ bool ForthThread::currentWordComplete() const {
     return ip.ndx >= (*ip.word).size();
 }
 
-void ForthThread::pushFrame(const CompositeForthWord* word, int ndx) {
+void ForthThread::pushFrame(const ForthExecutionFrame& frame) {
     toReturnStack(ip);
-    ip = ForthExecutionFrame(word, ndx);
+    ip = frame;
 }
 
 void ForthThread::popFrame() {
@@ -105,14 +101,9 @@ int ForthThread::getDataStackSize() const {
 }
 
 ForthThread::ReturnStackFrame ForthThread::fromReturnStack() {
-    if (returnStack.empty()) {
-        // this will return a frame with a nullptr word which will cause the thread to exit/join
-        return DEAD_FRAME;
-    } else {
-        ReturnStackFrame result = returnStack.top();
-        returnStack.pop();
-        return result;
-    }
+	ReturnStackFrame result = returnStack.top();
+	returnStack.pop();
+	return result;
 }
 
 const ForthThread::ReturnStackFrame &ForthThread::topOfReturnStack() const {
@@ -138,7 +129,7 @@ void ForthThread::join() {
 	currentThread = nullptr;
 }
 
-void ForthThread::join(CompositeForthWord& word) {
+void ForthThread::join(const CompositeForthWord& word) {
 	// force top frame to be the ContinuingForthWord for
 	// word.  Otherwise we just keep pushing stack frames.
 	// see CompositeForthWord.execute implementation
