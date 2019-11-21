@@ -6,9 +6,6 @@
 #include "ForthThread.h"
 #include "utils/StringUtils.h"
 
-
-static constexpr int INDENT = 4;
-
 std::string ForthWord::getNameInVocabulary() const {
 	std::string name(getDisassemblyName());
 	size_t pos = name.find("::");
@@ -18,9 +15,3 @@ std::string ForthWord::getNameInVocabulary() const {
 		return name.substr(pos);
 	}
 }
-
-/*
-int ForthWord::disassemblyParamCount() const {
-    return 0;
-}
-*/

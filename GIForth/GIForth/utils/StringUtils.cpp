@@ -3,6 +3,8 @@
 //
 
 #include "StringUtils.h"
+#include <algorithm>
+#include <cctype>
 
 static const std::string SPACES = "                                                                                                                        ";
 
@@ -14,7 +16,7 @@ void StringUtils::tabTo(std::string& line, int tabPos) {
 	}
 }
 
-void StringUtils::rightTabTo(std::string& line, std::string addition, int tabPos) {
+void StringUtils::rightTabTo(std::string& line, const std::string& addition, int tabPos) {
 	int contentLength = line.length() + addition.length();
 	if (contentLength < tabPos) {
 		line += SPACES.substr(0, tabPos - contentLength);
@@ -23,10 +25,6 @@ void StringUtils::rightTabTo(std::string& line, std::string addition, int tabPos
 	};
 	line += addition;
 }
-
-#include <algorithm>
-#include <cctype>
-#include <string>
 
 void StringUtils::toLower(std::string& data) {
 	std::transform(data.begin(), data.end(), data.begin(),

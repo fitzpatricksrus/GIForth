@@ -101,8 +101,8 @@ inline int ForthThread::getIndex() const {
 	return ip.ndx;
 }
 
-inline void ForthThread::setIndex(int newIndex) {
-	ip.ndx = newIndex;
+inline void ForthThread::setIndex(int ndx) {
+	ip.ndx = ndx;
 }
 
 

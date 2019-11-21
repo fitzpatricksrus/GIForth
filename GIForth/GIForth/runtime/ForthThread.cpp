@@ -14,7 +14,7 @@
  * causes the current thread to exit cleanly when interpreted
  */
 static const CompositeForthWord deadFrameWord(
-		CompositeForthWordBuilder("ForthThread::DEAD_FRAME")
+		CompositeForthWordBuilder("ForthThread::THREAD_ROOT_STUB")
 			.compileCell(&PrimitiveForthWords::EXIT_THREAD)
 		.build()
 		);
@@ -179,20 +179,26 @@ static std::string shortStackDump(const ForthThread& thread) {
 }
 
 void ForthThread::doTrace(const ForthWord* word) const {
-	static constexpr int FIRST_TAB_POSITION = 40;
-	static constexpr int SECOND_TAB_POSITION = 80;
-	static constexpr int NESTING_INDENT = 4;
+	static constexpr int INDEX_TAB_POSITION = 52;
+	static constexpr int FIRST_TAB_POSITION = 60;
+	static constexpr int SECOND_TAB_POSITION = 120;
 
-	std::string line(ip.word->getDisassemblyName());
-	StringUtils::tabTo(line, FIRST_TAB_POSITION);
+	std::string line;
+	line += ip.word->getDisassemblyName();
+
+	StringUtils::tabTo(line, INDEX_TAB_POSITION - 3);
+	line += "[" ;
+	StringUtils::rightTabTo(line, std::to_string(getIndex() - 1), INDEX_TAB_POSITION);
+	line += " ] ";
+
+	StringUtils::tabTo(line, FIRST_TAB_POSITION + getTraceDepth() * 2);
+	line += word->getDisassemblyDetail(*this);
+
+	StringUtils::tabTo(line, SECOND_TAB_POSITION);
 	line += " ( ";
 	line += shortStackDump(*this);
 	line += " )";
-	StringUtils::tabTo(line, SECOND_TAB_POSITION + getTraceDepth() * 2);
-	line += "[" ;
-	StringUtils::rightTabTo(line, std::to_string(getIndex() - 1), NESTING_INDENT);
-	line += " ] ";
-	line += word->getDisassemblyDetail(*this);
+
 	NativeOSFunctions::printString(line);
 	NativeOSFunctions::endLine();
 }
