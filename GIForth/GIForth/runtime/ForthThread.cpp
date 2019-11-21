@@ -19,10 +19,10 @@ static const CompositeForthWord deadFrameWord(
 		.build()
 		);
 
-const ForthThread::ForthExecutionFrame ForthThread::DEAD_FRAME(ForthExecutionFrame(&deadFrameWord, 0));
+static const ForthThread::ForthExecutionFrame THREAD_ROOT_STUB(ForthThread::ForthExecutionFrame(&deadFrameWord, 0));
 
 ForthThread::ForthThread()
-		: dataStack(), returnStack(), ip(DEAD_FRAME), trace(false), traceDepth(0)
+		: dataStack(), returnStack(), ip(THREAD_ROOT_STUB), trace(false), traceDepth(0)
 {
 }
 
