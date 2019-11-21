@@ -2,6 +2,8 @@
 // Created by Dad on 9/16/19.
 //
 
+#include <utils/StringUtils.h>
+#include <utils/NativeOSFunctions.hpp>
 #include "words/PrimitiveForthWords.h"
 #include "ForthThread.h"
 #include "CompositeForthWord.h"
@@ -123,7 +125,7 @@ void ForthThread::join() {
 	try {
 		while (true) {
 			ForthWord* word = (*ip.word)[ip.ndx++].word;
-			word->trace(*this, word);
+			doTrace(word);
 			word->execute(*this);
 		}
 	} catch (const ThreadExitException& e) {
@@ -154,6 +156,45 @@ int ForthThread::getTraceDepth() const {
 
 void ForthThread::setTraceDepth(int depth) {
     traceDepth = depth;
+}
+
+static std::string shortStackDump(const ForthThread& thread) {
+	std::string line;
+	int stackSize = thread.getDataStackSize();
+	if (stackSize >= 4) {
+		line += "... ";
+	}
+	if (stackSize >= 3) {
+		line += std::to_string(thread[2].integer);
+		line += " ";
+	}
+	if (stackSize >= 2) {
+		line += std::to_string(thread[1].integer);
+		line += " ";
+	}
+	if (stackSize >= 1) {
+		line += std::to_string(thread[0].integer);
+	}
+	return line;
+}
+
+void ForthThread::doTrace(const ForthWord* word) const {
+	static constexpr int FIRST_TAB_POSITION = 40;
+	static constexpr int SECOND_TAB_POSITION = 80;
+	static constexpr int NESTING_INDENT = 4;
+
+	std::string line(ip.word->getDisassemblyName());
+	StringUtils::tabTo(line, FIRST_TAB_POSITION);
+	line += " ( ";
+	line += shortStackDump(*this);
+	line += " )";
+	StringUtils::tabTo(line, SECOND_TAB_POSITION + getTraceDepth() * 2);
+	line += "[" ;
+	StringUtils::rightTabTo(line, std::to_string(getIndex() - 1), NESTING_INDENT);
+	line += " ] ";
+	line += word->getDisassemblyDetail(*this);
+	NativeOSFunctions::printString(line);
+	NativeOSFunctions::endLine();
 }
 
 thread_local ForthThread* ForthThread::currentThread = nullptr;

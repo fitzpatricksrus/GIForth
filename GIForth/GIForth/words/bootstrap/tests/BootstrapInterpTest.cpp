@@ -11,9 +11,6 @@
 
 void BootstrapInterpTest::test() {
 	CompositeForthWord *interp = BootstrapInterp::getInstance();
-	for (const std::string& s : interp->getDisassembly()) {
-		std::cout << s << std::endl;
-	}
 
 	ForthThread thread;
 	thread.enableTrace(true);

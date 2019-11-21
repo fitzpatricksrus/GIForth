@@ -8,19 +8,13 @@
 class ForthThread;
 
 #include <string>
-#include <vector>
 
 class ForthWord {
 public:
     virtual void execute(ForthThread& thread) const = 0;
 
-    std::string getTrace(const ForthThread& thread) const;
-    virtual int getDisassemblyParamCount() const = 0;
-    virtual std::string getName() const;
-	virtual void trace(const ForthThread& thread, ForthWord* word) const;
-
-protected:
-	virtual std::string getDisassemblyName() const = 0;
+    virtual std::string getNameInVocabulary() const;
+    virtual std::string getDisassemblyName() const = 0;
     virtual std::string getDisassemblyDetail(const ForthThread& thread) const = 0;
 };
 

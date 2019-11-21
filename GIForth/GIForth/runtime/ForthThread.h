@@ -77,6 +77,8 @@ public:
     void setTraceDepth(int depth);
 
 private:
+	void doTrace(const ForthWord* word) const;
+
 	static thread_local ForthThread* currentThread;
 
     bool trace;

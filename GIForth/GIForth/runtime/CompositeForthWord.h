@@ -22,26 +22,20 @@ public:
     int size() const;
     const ForthCell& operator[](int ndx) const;
 
-    std::vector<std::string> getDisassembly() const;
+	std::string getDisassemblyName() const override;
+	std::string getDisassemblyDetail(const ForthThread& thread) const override;
 
 protected:
-	friend ForthThread;
-	CompositeForthWord(const std::string &name, const std::shared_ptr<const std::vector<ForthCell>>& cells);
-    void trace(const ForthThread& thread, ForthWord* word) const override;
-	std::string getDisassemblyName() const override;
-    std::string getDisassemblyDetail(const ForthThread& thread) const override;
-    int getDisassemblyParamCount() const override;
-
-    std::shared_ptr<const std::vector<ForthCell>> body;
+    const std::vector<ForthCell> body;
     std::string name;
 };
 
 inline int CompositeForthWord::size() const {
-    return body->size();
+    return body.size();
 }
 
 inline const ForthCell& CompositeForthWord::operator[](int ndx) const {
-    return (*body)[ndx];
+    return body[ndx];
 }
 
 #endif //GIFORTH_COMPOSITEFORTHWORD_H

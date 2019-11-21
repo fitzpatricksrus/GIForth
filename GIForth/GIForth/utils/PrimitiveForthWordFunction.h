@@ -5,7 +5,8 @@
 #ifndef GIFORTH_PRIMITIVEFORTHWORDFUNCTION_H
 #define GIFORTH_PRIMITIVEFORTHWORDFUNCTION_H
 
-#include <runtime/ForthWord.h>
+#include <vector>
+#include "runtime/ForthWord.h"
 
 class PrimitiveForthWordFunction : public ForthWord {
 public:
@@ -28,12 +29,9 @@ public:
     PrimitiveForthWordFunction& operator=(const PrimitiveForthWordFunction& other) = default;
     void execute(ForthThread& thread) const override;
 
-	std::string getName() const override;
-
-protected:
+	std::string getNameInVocabulary() const override;
 	std::string getDisassemblyDetail(const ForthThread &thread) const override;
 	std::string getDisassemblyName() const override;
-    int getDisassemblyParamCount() const override;
 
 private:
     Function func;

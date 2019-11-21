@@ -22,8 +22,11 @@ TEST_CASE("runtime/tests/CompositeWordTest", "[RuntimeTests]") {
 			                             .compileCell(&innerWord)
 			                             .compileCell(&PrimitiveForthWords::ADD_ONE)
 			                        .build());
-	ForthThread thread(TestRunner::runTestWord(&outerWord));
-	REQUIRE(thread.getDataStackSize() == 1);
-	CHECK(thread.popDataStack().integer == 13);
-	CHECK(thread.getDataStackSize() == 0);
+	{
+		TestRunner::Tracer t;
+		ForthThread thread(TestRunner::runTestWord(&outerWord));
+		REQUIRE(thread.getDataStackSize() == 1);
+		CHECK(thread.popDataStack().integer == 13);
+		CHECK(thread.getDataStackSize() == 0);
+	}
 }

@@ -36,7 +36,7 @@ void PrimitiveForthWordFunction::execute(ForthThread& thread) const {
     (*func)(thread);
 }
 
-std::string PrimitiveForthWordFunction::getName() const {
+std::string PrimitiveForthWordFunction::getNameInVocabulary() const {
 	return vocabName;
 }
 
@@ -56,7 +56,7 @@ std::string PrimitiveForthWordFunction::getDisassemblyDetail(const ForthThread &
                     result += std::to_string(static_cast<bool>(cell.integer));
                     break;
                 case ParamType::CELL:
-                    result += cell.word->getTrace(thread);
+                    result += cell.word->getDisassemblyDetail(thread);
                     break;
                 case ParamType::CHAR:
                     result += std::to_string(static_cast<char>(cell.integer));
@@ -79,10 +79,6 @@ std::string PrimitiveForthWordFunction::getDisassemblyDetail(const ForthThread &
 
 std::string PrimitiveForthWordFunction::getDisassemblyName() const {
 	return disassemblyName;
-}
-
-int PrimitiveForthWordFunction::getDisassemblyParamCount() const {
-    return args.size();
 }
 
 std::string PrimitiveForthWordFunction::splitName(const std::string& nameIn) {

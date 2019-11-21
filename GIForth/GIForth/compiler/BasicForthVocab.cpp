@@ -16,7 +16,7 @@ ForthWord *BasicForthVocab::doFindWord(const char *strAddr) {
 }
 
 void BasicForthVocab::add(ForthWord *word) {
-	(*this)[word->getName()] = word;
+	(*this)[word->getNameInVocabulary()] = word;
 }
 
 ForthWord*& BasicForthVocab::operator[](const std::string& ndx) {

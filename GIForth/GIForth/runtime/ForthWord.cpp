@@ -9,15 +9,7 @@
 
 static constexpr int INDENT = 4;
 
-std::string ForthWord::getTrace(const ForthThread& thread) const {
-    std::string line("[") ;
-    StringUtils::rightTabTo(line, std::to_string(thread.getIndex() - 1), INDENT);
-    line += " ] ";
-    line += getDisassemblyDetail(thread);
-    return line;
-}
-
-std::string ForthWord::getName() const {
+std::string ForthWord::getNameInVocabulary() const {
 	std::string name(getDisassemblyName());
 	size_t pos = name.find("::");
 	if (pos == std::string::npos) {
@@ -25,9 +17,6 @@ std::string ForthWord::getName() const {
 	} else {
 		return name.substr(pos);
 	}
-}
-
-void ForthWord::trace(const ForthThread& thread, ForthWord* word) const {
 }
 
 /*
