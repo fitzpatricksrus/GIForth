@@ -40,6 +40,8 @@ public:
     static PrimitiveForthWordFunction ALLOC;
     static PrimitiveForthWordFunction FREE;
 
+    static PrimitiveForthWordFunction REGISTER;
+
     static PrimitiveForthWordFunction CHAR_AT;          // addr - char
     static PrimitiveForthWordFunction CHAR_PUT;         // char addr --
     static PrimitiveForthWordFunction CHAR_INDEX;       // ndx addr -- addr
@@ -87,6 +89,24 @@ public:
     static PrimitiveForthWordFunction NEGATIVE_ONE;
     static PrimitiveForthWordFunction ADD_ONE;
     static PrimitiveForthWordFunction SUBTRACT_ONE;
+
+    enum {
+		THREAD_STATE,
+		COMPILER_STATE,
+		UNUSED2,
+		UNUSED3,
+		UNUSED4,
+		UNUSED5,
+		UNUSED6,
+		UNUSED8,
+		UNUSED9,
+		UNUSED10,
+		UNUSED11,
+		UNUSED12,
+		UNUSED13,
+		UNUSED14,
+		UNUSED15,
+	} THREAD_STORAGE;
 
 private:
     static void F_NOP(ForthThread& thread);

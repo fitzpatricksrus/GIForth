@@ -16,7 +16,6 @@ public:
 
 	static ForthWord& SEARCH_VOCAB;
 	
-	static ForthWord& VARIABLE_IMPL;        // -- ptr
 //	static ForthWord& ALLOCATED_ARRAY;      // -- ptr
 //	static ForthWord& INLINE_ARRAY;         // -- ptr
 

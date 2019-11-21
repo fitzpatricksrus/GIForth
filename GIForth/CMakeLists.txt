@@ -38,4 +38,4 @@ add_executable(GIForth
         GIForth/utils/tests/StringUtilsTest.cpp
         GIForth/utils/tests/StringUtilsTest.h
         GIForth/compiler/tests/CompilerWordsTest.cpp
-        GIForth/compiler/tests/CompilerWordsTest.h)
+        GIForth/compiler/tests/CompilerWordsTest.h GIForth/words/tests/PrimitiveForthWordsTest.cpp)

@@ -27,13 +27,3 @@ static void findTheWord(ForthThread& thread) {
 }
 static PrimitiveForthWordFunction F_SEARCH_VOCAB(&findTheWord, "COMPILER::SEARCH_VOCAB");
 ForthWord& CompilerWords::SEARCH_VOCAB = F_SEARCH_VOCAB;
-
-static void variableImpl(ForthThread& thread) {
-	int ndx = thread.getIndex();
-	const ForthCell* cellPtr = &thread.getCellAt(ndx);
-	ForthCell::PTR_TYPE ptr = static_cast<const ForthCell::PTR_TYPE>(const_cast<ForthCell*>(cellPtr));
-	thread.pushDataStack(ptr);
-	thread.offsetIndex(1);
-}
-static PrimitiveForthWordFunction F_VARIABLE_IMPL(&variableImpl, "COMPILER::VARIABLE_IMPL", { PrimitiveForthWordFunction::ParamType::INT });
-ForthWord& CompilerWords::VARIABLE_IMPL = F_VARIABLE_IMPL;
