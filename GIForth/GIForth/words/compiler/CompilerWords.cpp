@@ -2,6 +2,8 @@
 // Created by stuff on 10/12/2019.
 //
 
+#include <utils/CompositeForthWordBuilder.h>
+#include <words/PrimitiveForthWords.h>
 #include "utils/PrimitiveForthWordFunction.h"
 #include "CompilerWords.h"
 #include "ForthVocab.h"
@@ -11,6 +13,7 @@ CompilerWords::CompilerWords(ForthVocab *next)
 : BasicForthVocab(next)
 {
 	add(&SEARCH_VOCAB);
+	add(&CURRENT_VOCAB);
 }
 
 // str* vocab* -- word true| false
@@ -27,3 +30,9 @@ static void findTheWord(ForthThread& thread) {
 }
 static PrimitiveForthWordFunction F_SEARCH_VOCAB(&findTheWord, "COMPILER::SEARCH_VOCAB");
 ForthWord& CompilerWords::SEARCH_VOCAB = F_SEARCH_VOCAB;
+
+static CompositeForthWord F_CURRENT_VOCAB(  // char* -- len
+		CompositeForthWordBuilder("CoreForthWords::CURRENT_VOCAB")
+				.compileConstant(&PrimitiveForthWords::registers + PrimitiveForthWords::COMPILER_STATE)
+				.build());
+ForthWord& CompilerWords::CURRENT_VOCAB = F_CURRENT_VOCAB;

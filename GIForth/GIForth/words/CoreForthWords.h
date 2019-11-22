@@ -15,6 +15,8 @@ public:
 	CoreForthWords(const CoreForthWords& other) = default;
 	~CoreForthWords() = default;
 
+	static CompositeForthWord CURRENT_THREAD;
+
     static CompositeForthWord STRLEN;               // char* -- len
     static CompositeForthWord STRCPY;               // src* dest* --
     static CompositeForthWord STRREVERSE;           // src*

@@ -42,10 +42,6 @@ const ForthCell& ForthThread::getNextCell() {
     return (*ip.word)[ip.ndx++];
 }
 
-bool ForthThread::currentWordComplete() const {
-    return ip.ndx >= (*ip.word).size();
-}
-
 void ForthThread::pushFrame(const ForthExecutionFrame& frame) {
     toReturnStack(ip);
     ip = frame;
@@ -121,7 +117,7 @@ int ForthThread::returnStackDepth() const {
 }
 
 void ForthThread::join() {
-	currentThread = this;
+	PrimitiveForthWords::registers[PrimitiveForthWords::THREAD_STATE] = this;
 	try {
 		while (true) {
 			ForthWord* word = (*ip.word)[ip.ndx++].word;
@@ -130,16 +126,12 @@ void ForthThread::join() {
 		}
 	} catch (const ThreadExitException& e) {
 	}
-	currentThread = nullptr;
+	PrimitiveForthWords::registers[PrimitiveForthWords::THREAD_STATE] = static_cast<ForthCell::PTR_TYPE>(nullptr);
 }
 
 void ForthThread::join(const CompositeForthWord& word) {
 	pushFrame(&word);
 	join();
-}
-
-const ForthThread* ForthThread::getCurrentThread() {
-	return currentThread;
 }
 
 void ForthThread::enableTrace(bool enable) {
@@ -202,6 +194,4 @@ void ForthThread::doTrace(const ForthWord* word) const {
 	NativeOSFunctions::printString(line);
 	NativeOSFunctions::endLine();
 }
-
-thread_local ForthThread* ForthThread::currentThread = nullptr;
 

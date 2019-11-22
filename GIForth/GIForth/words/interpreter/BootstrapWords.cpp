@@ -4,6 +4,10 @@
 
 #include "BootstrapWords.h"
 #include <array>
+#include <utils/CompositeForthWordBuilder.h>
+#include <words/PrimitiveForthWords.h>
+#include <words/CoreForthWords.h>
+#include <words/compiler/CompilerWords.h>
 #include "utils/NativeOSFunctions.hpp"
 #include "runtime/ForthThread.h"
 
@@ -46,33 +50,13 @@ void BootstrapWords::F_NEXT_TOKEN(ForthThread& thread) {
     thread.pushDataStack(static_cast<ForthCell::PTR_TYPE>(token.data()));
 }
 
-PrimitiveForthWordFunction BootstrapWords::FIND_WORD(&BootstrapWords::F_FIND_WORD, "BootstrapWords::FIND_WORD");
-void BootstrapWords::F_FIND_WORD(ForthThread& thread) {
-	thread.pushDataStack(static_cast<ForthCell::BOOL_TYPE>(false));
-}
-
-/*
-// stringAddr -- [ value true | stringAddr false ]
-PrimitiveForthWordFunction BootstrapWords::PARSE_NUMBER(&BootstrapWords::F_PARSE_NUMBER, "BootstrapWords::PARSE_NUMBER");
-void BootstrapWords::F_PARSE_NUMBER(ForthThread& thread) {
-    ForthCell::INT_TYPE resultValue = 0;
-    char* data = static_cast<char*>(thread.popDataStack().pointer);
-    int dataNdx = 0;
-    while (data[dataNdx]) {
-        char c = data[dataNdx++];
-        if ((c < '0' || c >'9')) {
-            // oops, non-numeric char
-            thread.pushDataStack(static_cast<ForthCell::PTR_TYPE>(data));
-            thread.pushDataStack(false);
-            return;
-        } else {
-            resultValue = resultValue * 10 + c - '0';
-        }
-    }
-    thread.pushDataStack(resultValue);
-    thread.pushDataStack(true);
-}
-*/
+static CompositeForthWord F_FIND_WORD(  // char* -- len
+		CompositeForthWordBuilder("CoreForthWords::CURRENT_VOCAB")
+				.compileCell(&CompilerWords::CURRENT_VOCAB)
+				.compileCell(&PrimitiveForthWords::CELL_AT)
+				.compileCell(&CompilerWords::SEARCH_VOCAB)
+				.build());
+ForthWord& BootstrapWords::FIND_WORD = F_FIND_WORD;
 
 // stringAddr --
 PrimitiveForthWordFunction BootstrapWords::PRINT_STRING(&BootstrapWords::F_PRINT_STRING, "BootstrapWords::PRINT_STRING");

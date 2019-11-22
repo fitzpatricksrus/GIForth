@@ -2,7 +2,6 @@
 // Created by Dad on 10/22/19.
 //
 
-#include "StringUtilsTest.h"
 #include "utils/testing/catch.hpp"
 #include "utils/StringUtils.h"
 

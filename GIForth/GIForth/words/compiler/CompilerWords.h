@@ -14,11 +14,8 @@ public:
 	CompilerWords(const CompilerWords& other) = default;
 	virtual ~CompilerWords() = default;
 
-	static ForthWord& SEARCH_VOCAB;
-	
-//	static ForthWord& ALLOCATED_ARRAY;      // -- ptr
-//	static ForthWord& INLINE_ARRAY;         // -- ptr
-
+	static ForthWord& SEARCH_VOCAB;			// char* vocab -- ( word true | false )
+	static ForthWord& CURRENT_VOCAB;		// -- vocab
 };
 
 

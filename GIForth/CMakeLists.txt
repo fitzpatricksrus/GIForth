@@ -6,19 +6,19 @@ set(CMAKE_CXX_STANDARD 14)
 include_directories(GIForth)
 
 add_executable(GIForth
-        GIForth/words/bootstrap/tests/BootstrapWordsTest.cpp
+        GIForth/words/interpreter/tests/BootstrapWordsTest.cpp
         GIForth/runtime/tests/CompositeForthWordTest.cpp
         GIForth/runtime/CompositeForthWord.cpp
         GIForth/runtime/ForthThread.cpp
         GIForth/runtime/ForthWord.cpp
         GIForth/utils/NativeOSFunctions.cpp
         GIForth/utils/PrimitiveForthWordFunction.cpp
-        GIForth/words/bootstrap/BootstrapInterp.cpp
-        GIForth/words/bootstrap/BootstrapWords.cpp
+        GIForth/words/interpreter/BootstrapInterp.cpp
+        GIForth/words/interpreter/BootstrapWords.cpp
         GIForth/words/PrimitiveForthWords.cpp
         GIForth/main.cpp
         CMakeLists.txt
-        GIForth/words/bootstrap/tests/BootstrapInterpTest.cpp
+        GIForth/words/interpreter/tests/BootstrapInterpTest.cpp
         GIForth/words/CoreForthWords.cpp
         GIForth/words/CoreForthWords.h
         GIForth/utils/CompositeForthWordBuilder.cpp
@@ -29,13 +29,13 @@ add_executable(GIForth
         GIForth/utils/StringUtils.h
         GIForth/utils/testing/TestRunner.cpp
         GIForth/utils/testing/TestRunner.h
-        GIForth/compiler/ForthVocab.cpp
-        GIForth/compiler/ForthVocab.h
-        GIForth/compiler/BasicForthVocab.cpp
-        GIForth/compiler/BasicForthVocab.h
-        GIForth/compiler/CompilerWords.cpp
-        GIForth/compiler/CompilerWords.h
+        GIForth/words/compiler/ForthVocab.cpp
+        GIForth/words/compiler/ForthVocab.h
+        GIForth/words/compiler/BasicForthVocab.cpp
+        GIForth/words/compiler/BasicForthVocab.h
+        GIForth/words/compiler/CompilerWords.cpp
+        GIForth/words/compiler/CompilerWords.h
         GIForth/utils/tests/StringUtilsTest.cpp
         GIForth/utils/tests/StringUtilsTest.h
-        GIForth/compiler/tests/CompilerWordsTest.cpp
-        GIForth/compiler/tests/CompilerWordsTest.h GIForth/words/tests/PrimitiveForthWordsTest.cpp)
+        GIForth/words/compiler/tests/CompilerWordsTest.cpp
+        GIForth/words/compiler/tests/CompilerWordsTest.h GIForth/words/tests/PrimitiveForthWordsTest.cpp)

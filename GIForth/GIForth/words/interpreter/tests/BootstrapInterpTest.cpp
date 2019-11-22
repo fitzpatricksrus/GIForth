@@ -2,9 +2,8 @@
 // Created by Dad on 9/19/19.
 //
 
-#include <iostream>
 #include "BootstrapInterpTest.h"
-#include "words/bootstrap/BootstrapInterp.h"
+#include "words/interpreter/BootstrapInterp.h"
 #include "runtime/ForthThread.h"
 
 #define ENDLESS

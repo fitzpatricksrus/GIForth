@@ -9,6 +9,7 @@
 #include "NativeOSFunctions.hpp"
 #include <string>
 #include <iostream>
+#include <istream>
 #include <cstring>
 
 int NativeOSFunctions::accept(char* buffer, int size) {
@@ -38,8 +39,7 @@ char NativeOSFunctions::peekNextChar() {
 char NativeOSFunctions::nextChar() {
     if (inputPos > inputBuffer.size()) {
         do {
-			std::cout << "> ";
-            std::getline(std::cin, inputBuffer);
+			std::getline(currentInputStream(), inputBuffer);
         } while (inputBuffer.empty());
         inputPos = 1;
         return inputBuffer[0];
@@ -56,6 +56,21 @@ void NativeOSFunctions::flushInput() {
 	inputPos = 0;
 }
 
+void NativeOSFunctions::pushInputStream(std::istream &input) {
+	inputStreams.push(&input);
+}
+
+void NativeOSFunctions::popInputStream() {
+	inputStreams.pop();
+}
+
+std::istream& NativeOSFunctions::currentInputStream() {
+	if (inputStreams.empty()) {
+		return std::cin;
+	} else {
+		return *(inputStreams.top());
+	}
+}
 
 void NativeOSFunctions::printChar(char c) {
     std::cout << c;
@@ -72,6 +87,8 @@ void NativeOSFunctions::printString(const std::string& string) {
 void NativeOSFunctions::endLine() {
     std::cout << std::endl;
 }
+
+std::stack<std::istream*> NativeOSFunctions::inputStreams;
 
 /*
  ACCEPT( addr u1 — u2 )

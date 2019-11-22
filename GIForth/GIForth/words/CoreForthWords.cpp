@@ -18,6 +18,11 @@ CoreForthWords::CoreForthWords(ForthVocab *next)
 	add(&NUMBER_TO_CHARACERS);
 }
 
+CompositeForthWord CoreForthWords::CURRENT_THREAD(  // char* -- len
+		CompositeForthWordBuilder("CoreForthWords::CURRENT_THREAD")
+			.compileConstant(&PrimitiveForthWords::registers[PrimitiveForthWords::THREAD_STATE])
+		.build());
+
 /*
 : strlen                ( char* -- len )
  0 >R

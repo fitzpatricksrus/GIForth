@@ -62,13 +62,11 @@ public:
     void offsetIndex(int offset);
     const ForthCell& getCellAt(int ndx) const;
     const ForthCell& getNextCell();
-    bool currentWordComplete() const;
     void pushFrame(const ForthExecutionFrame& frame);
     void popFrame();
 
 	void join();
 	void join(const CompositeForthWord& word);
-	static const ForthThread* getCurrentThread();
 
 	void enableTrace(bool enable);
     bool isTraceEnabled() const;
@@ -77,8 +75,6 @@ public:
 
 private:
 	void doTrace(const ForthWord* word) const;
-
-	static thread_local ForthThread* currentThread;
 
     bool trace;
     int traceDepth;

@@ -7,6 +7,7 @@
 
 #include "compiler/BasicForthVocab.h"
 #include "utils/PrimitiveForthWordFunction.h"
+#include "runtime/ForthCell.h"
 
 class PrimitiveForthWords : public BasicForthVocab {
 public:
@@ -92,8 +93,8 @@ public:
 
     enum {
 		THREAD_STATE,
+		INTERPRETER_STATE,
 		COMPILER_STATE,
-		UNUSED2,
 		UNUSED3,
 		UNUSED4,
 		UNUSED5,
@@ -107,6 +108,8 @@ public:
 		UNUSED14,
 		UNUSED15,
 	} THREAD_STORAGE;
+
+	static thread_local ForthCell registers[16];
 
 private:
     static void F_NOP(ForthThread& thread);
