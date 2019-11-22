@@ -27,7 +27,7 @@ bool TestRunner::enableTrace = false;
 
 ForthThread TestRunner::runTestWord(CompositeForthWord* word) {
 	ForthThread thread;
-	thread.enableTrace(TestRunner::enableTrace);
+	Tracer t(TestRunner::enableTrace);
 	thread.join(*word);
 	return thread;
 }

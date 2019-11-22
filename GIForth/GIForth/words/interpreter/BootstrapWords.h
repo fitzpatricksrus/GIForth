@@ -16,8 +16,11 @@ public:
     // stringAddr -- [ wordAddr true | stringAddr false ]
     static ForthWord& FIND_WORD;
 
-    // stringAddr --
-    static PrimitiveForthWordFunction PRINT_STRING;
+	// stringAddr --
+	static PrimitiveForthWordFunction PRINT_STRING;
+
+	// int --
+	static PrimitiveForthWordFunction PRINT_NUMBER;
 
 private:
     static void F_NEXT_TOKEN(ForthThread& thread);

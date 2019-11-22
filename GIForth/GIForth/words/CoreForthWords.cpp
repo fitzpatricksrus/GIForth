@@ -10,12 +10,12 @@
 CoreForthWords::CoreForthWords(ForthVocab *next)
 		: BasicForthVocab(next)
 {
-	add(&STRLEN);
-	add(&STRCPY);
-	add(&STRREVERSE);
-	add(&PARSE_DIGIT);
-	add(&PARSE_NUMBER);
-	add(&NUMBER_TO_CHARACERS);
+	add("strlen", &STRLEN);
+	add("strcpy", &STRCPY);
+	add("strreverse", &STRREVERSE);
+	add("char2Int", &PARSE_DIGIT);
+	add("str2Int", &PARSE_NUMBER);
+	add("int2Str", &NUMBER_TO_CHARACERS);
 }
 
 CompositeForthWord CoreForthWords::CURRENT_THREAD(  // char* -- len

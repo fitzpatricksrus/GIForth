@@ -6,7 +6,6 @@
 #include <array>
 #include <utils/CompositeForthWordBuilder.h>
 #include <words/PrimitiveForthWords.h>
-#include <words/CoreForthWords.h>
 #include <words/compiler/CompilerWords.h>
 #include "utils/NativeOSFunctions.hpp"
 #include "runtime/ForthThread.h"
@@ -14,13 +13,13 @@
 BootstrapWords::BootstrapWords(ForthVocab* next)
 : BasicForthVocab(next)
 {
-	add(&NEXT_TOKEN);
-	add(&FIND_WORD);
-//	add(&PARSE_NUMBER);
-	add(&PRINT_STRING);
+	add("nextToken", &NEXT_TOKEN);
+	add("findWord", &FIND_WORD);
+	add("printString", &PRINT_STRING);
+	add("printNumber", &PRINT_NUMBER);
 }
 
-PrimitiveForthWordFunction BootstrapWords::NEXT_TOKEN(&BootstrapWords::F_NEXT_TOKEN, "BootstrapWords::NEXT_TOKEN");
+PrimitiveForthWordFunction BootstrapWords::NEXT_TOKEN(&BootstrapWords::F_NEXT_TOKEN, "BootstrapWords::NEXT_TOKEN", "nextToken");
 void BootstrapWords::F_NEXT_TOKEN(ForthThread& thread) {
     static constexpr int MAX_TOKEN_SIZE = 80;
     static std::array<char, MAX_TOKEN_SIZE> token;
@@ -51,7 +50,7 @@ void BootstrapWords::F_NEXT_TOKEN(ForthThread& thread) {
 }
 
 static CompositeForthWord F_FIND_WORD(  // char* -- len
-		CompositeForthWordBuilder("CoreForthWords::CURRENT_VOCAB")
+		CompositeForthWordBuilder("BootstrapWords::FIND_WORD")
 				.compileCell(&CompilerWords::CURRENT_VOCAB)
 				.compileCell(&PrimitiveForthWords::CELL_AT)
 				.compileCell(&CompilerWords::SEARCH_VOCAB)
@@ -59,8 +58,13 @@ static CompositeForthWord F_FIND_WORD(  // char* -- len
 ForthWord& BootstrapWords::FIND_WORD = F_FIND_WORD;
 
 // stringAddr --
-PrimitiveForthWordFunction BootstrapWords::PRINT_STRING(&BootstrapWords::F_PRINT_STRING, "BootstrapWords::PRINT_STRING");
+PrimitiveForthWordFunction BootstrapWords::PRINT_STRING(&BootstrapWords::F_PRINT_STRING, "BootstrapWords::PRINT_STRING", "printString");
 void BootstrapWords::F_PRINT_STRING(ForthThread& thread) {
-    NativeOSFunctions::printString(static_cast<char*>(thread.popDataStack().pointer));
+	NativeOSFunctions::printString(static_cast<char*>(thread.popDataStack().pointer));
 }
 
+// int --
+static void F_PRINT_NUMBER(ForthThread& thread) {
+	NativeOSFunctions::printString(std::to_string(thread.popDataStack().integer));
+}
+PrimitiveForthWordFunction BootstrapWords::PRINT_NUMBER(&F_PRINT_NUMBER, "BootstrapWords::PRINT_NUMBER", "printNumber");

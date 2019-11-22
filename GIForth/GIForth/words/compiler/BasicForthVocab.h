@@ -12,6 +12,7 @@ public:
 	~BasicForthVocab() override = default;
 
 	void add(ForthWord* word);
+	void add(const std::string& name, ForthWord* word);
 	const ForthWord*& operator[](const std::string& name);
 
 protected:

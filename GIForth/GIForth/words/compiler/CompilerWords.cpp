@@ -12,11 +12,11 @@
 CompilerWords::CompilerWords(ForthVocab *next)
 : BasicForthVocab(next)
 {
-	add(&SEARCH_VOCAB);
-	add(&CURRENT_VOCAB);
+	add("searchVocab", &SEARCH_VOCAB);
+	add("currentVocab", &CURRENT_VOCAB);
 }
 
-// str* vocab* -- word true| false
+// str* vocab* -- word true| str* false
 static void findTheWord(ForthThread& thread) {
 	ForthVocab* vocab = static_cast<ForthVocab*>(thread.popDataStack().pointer);
 	char* str = static_cast<char*>(thread.popDataStack().pointer);
@@ -25,6 +25,7 @@ static void findTheWord(ForthThread& thread) {
 		thread.pushDataStack(const_cast<ForthWord*>(result));
 		thread.pushDataStack(true);
 	} else {
+		thread.pushDataStack(static_cast<ForthCell::PTR_TYPE>(str));
 		thread.pushDataStack(false);
 	}
 }

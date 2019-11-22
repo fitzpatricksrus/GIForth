@@ -175,6 +175,8 @@ void ForthThread::doTrace(const ForthWord* word) const {
 	static constexpr int FIRST_TAB_POSITION = 60;
 	static constexpr int SECOND_TAB_POSITION = 120;
 
+	if (!trace) return;
+
 	std::string line;
 	line += ip.word->getDisassemblyName();
 
