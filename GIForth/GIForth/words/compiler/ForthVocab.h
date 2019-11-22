@@ -12,12 +12,12 @@ public:
 	ForthVocab(ForthVocab* next);
 	ForthVocab(const ForthVocab& other) = default;
 	virtual ~ForthVocab() = default;
-	ForthWord* findWord(const char* strAddr) const;
+	const ForthWord* findWord(const char* strAddr);
 
 	// str* vocab* -- word true| false
 
 protected:
-	virtual ForthWord* doFindWord(const char* strAddr) const = 0;
+	virtual const ForthWord* doFindWord(const char* strAddr) = 0;
 
 private:
 	ForthVocab* next;

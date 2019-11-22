@@ -2,7 +2,6 @@
 // Created by Dad on 9/17/19.
 //
 
-#include <utils/CompositeForthWordBuilder.h>
 #include "PrimitiveForthWords.h"
 #include "runtime/ForthThread.h"
 #include "runtime/CompositeForthWord.h"
@@ -150,7 +149,7 @@ void PrimitiveForthWords::F_FREE(ForthThread& thread) {
 	delete[] static_cast<char*>(ptr);
 }
 
-thread_local ForthCell PrimitiveForthWords::registers[16];
+thread_local ForthCell PrimitiveForthWords::registers[THREAD_STORAGE_SIZE];
 static void F_REGISTERS(ForthThread& thread) {
 	thread.pushDataStack(static_cast<ForthCell::PTR_TYPE>(PrimitiveForthWords::registers));
 }

@@ -11,8 +11,8 @@ ForthVocab::ForthVocab(ForthVocab* nextIn)
 {
 }
 
-ForthWord *ForthVocab::findWord(const char *strAddr) const {
-	ForthWord* result = doFindWord(strAddr);
+const ForthWord *ForthVocab::findWord(const char *strAddr) {
+	const ForthWord* result = doFindWord(strAddr);
 	if ((result == nullptr) && (next != nullptr)) {
 		result = next->findWord(strAddr);
 	}

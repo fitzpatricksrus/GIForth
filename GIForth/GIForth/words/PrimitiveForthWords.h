@@ -11,9 +11,9 @@
 
 class PrimitiveForthWords : public BasicForthVocab {
 public:
-	PrimitiveForthWords(ForthVocab* next);
+	explicit PrimitiveForthWords(ForthVocab* next);
 	PrimitiveForthWords(const PrimitiveForthWords& other) = default;
-	virtual ~PrimitiveForthWords() = default;
+	~PrimitiveForthWords() override = default;
 
     static PrimitiveForthWordFunction NOP;
 
@@ -91,25 +91,15 @@ public:
     static PrimitiveForthWordFunction ADD_ONE;
     static PrimitiveForthWordFunction SUBTRACT_ONE;
 
-    enum {
+    enum THREAD_STORAGE {
 		THREAD_STATE,
 		INTERPRETER_STATE,
 		COMPILER_STATE,
-		UNUSED3,
-		UNUSED4,
-		UNUSED5,
-		UNUSED6,
-		UNUSED8,
-		UNUSED9,
-		UNUSED10,
-		UNUSED11,
-		UNUSED12,
-		UNUSED13,
-		UNUSED14,
-		UNUSED15,
-	} THREAD_STORAGE;
 
-	static thread_local ForthCell registers[16];
+		THREAD_STORAGE_SIZE
+	};
+
+	static thread_local ForthCell registers[THREAD_STORAGE_SIZE];
 
 private:
     static void F_NOP(ForthThread& thread);

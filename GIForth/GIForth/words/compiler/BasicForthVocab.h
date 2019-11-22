@@ -12,13 +12,13 @@ public:
 	~BasicForthVocab() override = default;
 
 	void add(ForthWord* word);
-	ForthWord*& operator[](const std::string& name);
+	const ForthWord*& operator[](const std::string& name);
 
 protected:
-	virtual ForthWord* doFindWord(const char* strAddr);
+	virtual const ForthWord* doFindWord(const char* strAddr) override;
 
 private:
-	std::map<std::string, ForthWord*> words;
+	std::map<std::string, const ForthWord*> words;
 };
 
 #endif //GIFORTH_BASICFORTHVOCAB_H

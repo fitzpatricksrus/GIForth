@@ -20,9 +20,9 @@ CompilerWords::CompilerWords(ForthVocab *next)
 static void findTheWord(ForthThread& thread) {
 	ForthVocab* vocab = static_cast<ForthVocab*>(thread.popDataStack().pointer);
 	char* str = static_cast<char*>(thread.popDataStack().pointer);
-	ForthWord* result = vocab->findWord(str);
+	const ForthWord* result = vocab->findWord(str);
 	if (result) {
-		thread.pushDataStack(result);
+		thread.pushDataStack(const_cast<ForthWord*>(result));
 		thread.pushDataStack(true);
 	} else {
 		thread.pushDataStack(false);

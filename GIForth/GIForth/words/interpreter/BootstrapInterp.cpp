@@ -36,6 +36,7 @@
 ;
 */
 #include <words/CoreForthWords.h>
+#include <words/compiler/CompilerWords.h>
 #include "words/PrimitiveForthWords.h"
 #include "BootstrapInterp.h"
 #include "BootstrapWords.h"
@@ -43,8 +44,16 @@
 #include "utils/CompositeForthWordBuilder.h"
 
 CompositeForthWord* BootstrapInterp::getInstance() {
+	static PrimitiveForthWords pfw(nullptr);
+	static CoreForthWords cfw(&pfw);
+	static CompilerWords cw(&cfw);
+	static BootstrapWords bw(&cw);
+
     static CompositeForthWord INSTANCE(
 		    CompositeForthWordBuilder("BootstrapInterp::INSTANCE")
+		    		.compileConstant(static_cast<ForthCell::PTR_TYPE>(&bw))
+		    		.compileCell(&CompilerWords::CURRENT_VOCAB)
+		    		.compileCell(&PrimitiveForthWords::CELL_PUT)
 				    .compileRepeat()
 						.compileCell(&BootstrapWords::NEXT_TOKEN)
 						.compileCell(&BootstrapWords::FIND_WORD)
