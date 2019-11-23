@@ -20,22 +20,14 @@ add_executable(GIForth
         CMakeLists.txt
         GIForth/words/interpreter/tests/BootstrapInterpTest.cpp
         GIForth/words/CoreForthWords.cpp
-        GIForth/words/CoreForthWords.h
         GIForth/utils/CompositeForthWordBuilder.cpp
-        GIForth/utils/CompositeForthWordBuilder.h
         GIForth/words/tests/CoreForthWordsTest.cpp
-        GIForth/words/tests/CoreForthWordsTest.h
         GIForth/utils/StringUtils.cpp
-        GIForth/utils/StringUtils.h
         GIForth/utils/testing/TestRunner.cpp
-        GIForth/utils/testing/TestRunner.h
         GIForth/words/compiler/ForthVocab.cpp
-        GIForth/words/compiler/ForthVocab.h
         GIForth/words/compiler/BasicForthVocab.cpp
-        GIForth/words/compiler/BasicForthVocab.h
         GIForth/words/compiler/CompilerWords.cpp
-        GIForth/words/compiler/CompilerWords.h
         GIForth/utils/tests/StringUtilsTest.cpp
-        GIForth/utils/tests/StringUtilsTest.h
         GIForth/words/compiler/tests/CompilerWordsTest.cpp
-        GIForth/words/compiler/tests/CompilerWordsTest.h GIForth/words/tests/PrimitiveForthWordsTest.cpp)
+        GIForth/words/tests/PrimitiveForthWordsTest.cpp
+        )

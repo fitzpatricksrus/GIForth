@@ -34,7 +34,7 @@ public:
         ForthCell cell;
     } ReturnStackFrame;
 
-	class ThreadExitException : public std::exception {};
+	class ThreadExitException {};
 
 	ForthThread();
     ~ForthThread() = default;

@@ -9,6 +9,8 @@
 #include "CompositeForthWord.h"
 #include "utils/CompositeForthWordBuilder.h"
 
+#include "utils/testing/debug.h"
+
 /*
  * deadFrameWord is used for the "bottom of the return stack" and
  * causes the current thread to exit cleanly when interpreted
@@ -22,7 +24,7 @@ static const CompositeForthWord deadFrameWord(
 static const ForthThread::ForthExecutionFrame THREAD_ROOT_STUB(ForthThread::ForthExecutionFrame(&deadFrameWord, 0));
 
 ForthThread::ForthThread()
-		: dataStack(), returnStack(), ip(THREAD_ROOT_STUB), trace(false), traceDepth(0)
+: dataStack(), returnStack(), ip(THREAD_ROOT_STUB), trace(false), traceDepth(0)
 {
 }
 
@@ -32,13 +34,16 @@ const CompositeForthWord* ForthThread::getCurrentWord() const {
 
 void ForthThread::offsetIndex(int offset) {
     ip.ndx += offset;
+	assertTrue(ip.ndx < ip.word->size());
 }
 
 const ForthCell &ForthThread::getCellAt(int ndx) const {
+	assertTrue(ndx < ip.word->size());
     return (*ip.word)[ndx];
 }
 
 const ForthCell& ForthThread::getNextCell() {
+	assertTrue(ip.ndx < ip.word->size());
     return (*ip.word)[ip.ndx++];
 }
 
@@ -52,14 +57,17 @@ void ForthThread::popFrame() {
 }
 
 ForthCell ForthThread::peekDataStack(int ndx) const {
+	assertTrue(ndx < dataStack.size());
     return (*this)[ndx];
 }
 
 void ForthThread::pokeDataStack(int ndx, const ForthCell& value) {
+	assertTrue(ndx < dataStack.size());
     (*this)[ndx] = value;
 }
 
 void ForthThread::rollDataStack(int count) {
+	assertTrue(count < dataStack.size());
 #if 0
     // this is easier to read but less efficient (probably)
     ForthCell temp = (*this)[0];
@@ -77,6 +85,7 @@ void ForthThread::rollDataStack(int count) {
 }
 
 ForthCell ForthThread::popDataStack() {
+	assertTrue(!dataStack.empty());
     ForthCell result = dataStack.back();
     dataStack.pop_back();
     return result;
@@ -87,10 +96,12 @@ void ForthThread::pushDataStack(const ForthCell& value) {
 }
 
 const ForthCell& ForthThread::operator[](int ndx) const {
+	assertTrue(ndx < dataStack.size());
     return dataStack[dataStack.size() - 1 - ndx];
 }
 
 ForthCell& ForthThread::operator[](int ndx) {
+	assertTrue(ndx < dataStack.size());
     return dataStack[dataStack.size() - 1 - ndx];
 }
 
@@ -99,12 +110,14 @@ int ForthThread::getDataStackSize() const {
 }
 
 ForthThread::ReturnStackFrame ForthThread::fromReturnStack() {
+	assertTrue(!returnStack.empty());
 	ReturnStackFrame result = returnStack.top();
 	returnStack.pop();
 	return result;
 }
 
 const ForthThread::ReturnStackFrame &ForthThread::topOfReturnStack() const {
+	assertTrue(!returnStack.empty());
     return returnStack.top();
 }
 
@@ -120,11 +133,19 @@ void ForthThread::join() {
 	PrimitiveForthWords::registers[PrimitiveForthWords::THREAD_STATE] = this;
 	try {
 		while (true) {
-			ForthWord* word = (*ip.word)[ip.ndx++].word;
+			assertTrue(ip.word);
+			assertTrue(ip.ndx < ip.word->size());
+			ForthWord *word = (*ip.word)[ip.ndx++].word;
 			doTrace(word);
-			word->execute(*this);
+			try {
+				word->execute(*this);
+			} catch (const DebugException &e) {
+				NativeOSFunctions::printString(e.msg);
+				NativeOSFunctions::endLine();
+			} catch (const std::exception &e) {
+			}
 		}
-	} catch (const ThreadExitException& e) {
+	} catch (const ThreadExitException &e) {
 	}
 	PrimitiveForthWords::registers[PrimitiveForthWords::THREAD_STATE] = static_cast<ForthCell::PTR_TYPE>(nullptr);
 }

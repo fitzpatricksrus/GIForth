@@ -25,26 +25,39 @@ public:
 	static void popInputStream();
 	static std::istream& currentInputStream();
 
-
     static void printChar(char c);
     static void printString(const char* string);
     static void printString(const std::string& string);
     static void endLine();
+	static void pushOutputStream(std::ostream& output);
+	static void popOutputStream();
+	static std::ostream& currentOutputStream();
 
-    class InputPatch {
-    public:
+	class InputPatch {
+	public:
 		InputPatch(std::istream& input) {
 			pushInputStream(input);
 		}
 		~InputPatch() {
 			popInputStream();
 		}
-    };
+	};
+
+	class OutputPatch {
+	public:
+		OutputPatch(std::ostream& output) {
+			pushOutputStream(output);
+		}
+		~OutputPatch() {
+			popOutputStream();
+		}
+	};
 
 private:
     static std::string inputBuffer;
     static int inputPos;
-    static std::stack<std::istream*> inputStreams;
+	static std::stack<std::istream*> inputStreams;
+	static std::stack<std::ostream*> outputStreams;
 };
 
 #endif /* NativeOSFunctions_hpp */

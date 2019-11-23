@@ -39,6 +39,7 @@ char NativeOSFunctions::peekNextChar() {
 char NativeOSFunctions::nextChar() {
     if (inputPos > inputBuffer.size()) {
         do {
+			currentOutputStream().flush();
 			std::getline(currentInputStream(), inputBuffer);
         } while (inputBuffer.empty());
         inputPos = 1;
@@ -73,22 +74,39 @@ std::istream& NativeOSFunctions::currentInputStream() {
 }
 
 void NativeOSFunctions::printChar(char c) {
-    std::cout << c;
+	currentOutputStream() << c;
 }
 
 void NativeOSFunctions::printString(const char *string) {
-    std::cout << string;
+	currentOutputStream() << string;
 }
 
 void NativeOSFunctions::printString(const std::string& string) {
-    std::cout << string;
+	currentOutputStream() << string;
 }
 
 void NativeOSFunctions::endLine() {
-    std::cout << std::endl;
+	currentOutputStream() << std::endl;
+}
+
+void NativeOSFunctions::pushOutputStream(std::ostream &output) {
+	outputStreams.push(&output);
+}
+
+void NativeOSFunctions::popOutputStream() {
+	outputStreams.pop();
+}
+
+std::ostream& NativeOSFunctions::currentOutputStream() {
+	if (outputStreams.empty()) {
+		return std::cout;
+	} else {
+		return *(outputStreams.top());
+	}
 }
 
 std::stack<std::istream*> NativeOSFunctions::inputStreams;
+std::stack<std::ostream*> NativeOSFunctions::outputStreams;
 
 /*
  ACCEPT( addr u1 — u2 )
