@@ -6,7 +6,7 @@
 #include <array>
 #include <utils/CompositeForthWordBuilder.h>
 #include <words/PrimitiveForthWords.h>
-#include <words/compiler/CompilerWords.h>
+#include <words/VocabWords.h>
 #include "utils/NativeOSFunctions.hpp"
 #include "runtime/ForthThread.h"
 
@@ -51,9 +51,9 @@ void BootstrapWords::F_NEXT_TOKEN(ForthThread& thread) {
 
 static CompositeForthWord F_FIND_WORD(  // char* -- len
 		CompositeForthWordBuilder("BootstrapWords::FIND_WORD")
-				.compileCell(&CompilerWords::CURRENT_VOCAB)
+				.compileCell(&VocabWords::CURRENT_VOCAB)
 				.compileCell(&PrimitiveForthWords::CELL_AT)
-				.compileCell(&CompilerWords::SEARCH_VOCAB)
+				.compileCell(&VocabWords::SEARCH_VOCAB)
 				.build());
 ForthWord& BootstrapWords::FIND_WORD = F_FIND_WORD;
 

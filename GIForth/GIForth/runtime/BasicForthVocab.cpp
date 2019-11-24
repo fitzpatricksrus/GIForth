@@ -12,7 +12,6 @@ BasicForthVocab::BasicForthVocab(ForthVocab *next)
 
 const ForthWord* BasicForthVocab::doFindWord(const char *strAddr) {
 	std::string str(strAddr);
-	auto r = words[str];
 	return words[str];
 }
 

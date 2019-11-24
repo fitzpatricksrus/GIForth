@@ -6,14 +6,14 @@
 #define GIFORTH_COREFORTHWORDS_H
 
 
-#include "compiler/BasicForthVocab.h"
+#include "runtime/BasicForthVocab.h"
 #include "runtime/CompositeForthWord.h"
 
 class CoreForthWords : public BasicForthVocab {
 public:
-	CoreForthWords(ForthVocab* next);
+	explicit CoreForthWords(ForthVocab* next);
 	CoreForthWords(const CoreForthWords& other) = default;
-	~CoreForthWords() = default;
+	~CoreForthWords() override = default;
 
 	static CompositeForthWord CURRENT_THREAD;
 

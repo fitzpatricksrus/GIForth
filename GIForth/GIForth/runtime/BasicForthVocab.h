@@ -7,7 +7,7 @@
 
 class BasicForthVocab : public ForthVocab {
 public:
-	BasicForthVocab(ForthVocab* next);
+	explicit BasicForthVocab(ForthVocab* next);
 	BasicForthVocab(const BasicForthVocab& other) = default;
 	~BasicForthVocab() override = default;
 
@@ -16,7 +16,7 @@ public:
 	const ForthWord*& operator[](const std::string& name);
 
 protected:
-	virtual const ForthWord* doFindWord(const char* strAddr) override;
+	const ForthWord* doFindWord(const char* strAddr) override;
 
 private:
 	std::map<std::string, const ForthWord*> words;

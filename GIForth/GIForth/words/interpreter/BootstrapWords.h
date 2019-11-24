@@ -2,13 +2,13 @@
 #define GIFORTH_BOOTSTRAPWORDS_H
 
 #include "utils/PrimitiveForthWordFunction.h"
-#include "words/compiler/BasicForthVocab.h"
+#include "runtime/BasicForthVocab.h"
 
 class BootstrapWords : public BasicForthVocab {
 public:
-	BootstrapWords(ForthVocab* next);
+	explicit BootstrapWords(ForthVocab* next);
 	BootstrapWords(const BootstrapWords& other) = default;
-	virtual ~BootstrapWords() = default;
+	~BootstrapWords() override = default;
 
     // -- stringAddr
     static PrimitiveForthWordFunction NEXT_TOKEN;

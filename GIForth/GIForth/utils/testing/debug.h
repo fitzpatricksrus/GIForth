@@ -7,22 +7,23 @@
 
 #include <exception>
 
-class DebugException : std::exception {
+class CheckException : std::exception {
 public:
-	DebugException(const std::string& msgIn) : std::exception(), msg(msgIn) {}
-	const std::string msg;
+	explicit CheckException(std::string file, int line, const std::string& msgIn) : std::exception(), msg(std::move(file)) {
+		msg += ":";
+		msg += std::to_string(line);
+		msg += " ";
+		msg += msgIn;
+	}
+	std::string msg;
 };
+
+#define checkTrue(x) if (!(x)) throw CheckException(__FILE__, __LINE__, #x)
 
 #ifdef NDEBUG
 #define assertTrue(x)
 #else
-#define assertTrue(x)				\
-	if (!(x)) { 					\
-		std::string f(__FILE__);	\
-		std::string l(std::to_string(__LINE__));	\
-		std::string m(#x);			\
-		throw DebugException(f+":"+l+" "+m); \
-	}
+#define assertTrue(x) if (!(x)) throw CheckException(__FILE__, __LINE__, #x)
 #endif
 
 #endif //GIFORTH_DEBUG_H

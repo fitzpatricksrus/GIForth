@@ -10,7 +10,7 @@
 #include "utils/testing/TestRunner.h"
 
 int main(int argc, const char * argv[]) {
-#if 1
+#if 0
 	BootstrapInterpTest::test();
 #else
 	const char* testArgs[] = {

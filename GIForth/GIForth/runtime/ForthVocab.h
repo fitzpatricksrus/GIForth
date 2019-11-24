@@ -9,7 +9,7 @@ class ForthWord;
 
 class ForthVocab {
 public:
-	ForthVocab(ForthVocab* next);
+	explicit ForthVocab(ForthVocab* next);
 	ForthVocab(const ForthVocab& other) = default;
 	virtual ~ForthVocab() = default;
 	const ForthWord* findWord(const char* strAddr);

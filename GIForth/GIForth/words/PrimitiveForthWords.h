@@ -5,7 +5,7 @@
 #ifndef GIFORTH_PRIMITIVEFORTHWORDS_H
 #define GIFORTH_PRIMITIVEFORTHWORDS_H
 
-#include "compiler/BasicForthVocab.h"
+#include "runtime/BasicForthVocab.h"
 #include "utils/PrimitiveForthWordFunction.h"
 #include "runtime/ForthCell.h"
 
