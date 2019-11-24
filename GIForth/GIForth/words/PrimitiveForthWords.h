@@ -41,8 +41,6 @@ public:
     static PrimitiveForthWordFunction ALLOC;
     static PrimitiveForthWordFunction FREE;
 
-    static PrimitiveForthWordFunction REGISTER;
-
     static PrimitiveForthWordFunction CHAR_AT;          // addr - char
     static PrimitiveForthWordFunction CHAR_PUT;         // char addr --
     static PrimitiveForthWordFunction CHAR_INDEX;       // ndx addr -- addr
@@ -91,13 +89,13 @@ public:
     static PrimitiveForthWordFunction ADD_ONE;
     static PrimitiveForthWordFunction SUBTRACT_ONE;
 
+	static PrimitiveForthWordFunction REGISTER;
     enum THREAD_STORAGE {
 		THREAD_STATE,
 		VOCAB_STATE,
 
 		THREAD_STORAGE_SIZE
 	};
-
 	static thread_local ForthCell registers[THREAD_STORAGE_SIZE];
 };
 
