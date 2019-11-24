@@ -34,6 +34,6 @@ ForthWord& VocabWords::SEARCH_VOCAB = F_SEARCH_VOCAB;
 
 static CompositeForthWord F_CURRENT_VOCAB(  // char* -- len
 		CompositeForthWordBuilder("CoreForthWords::CURRENT_VOCAB")
-				.compileConstant(&PrimitiveForthWords::registers + PrimitiveForthWords::COMPILER_STATE)
+				.compileConstant(&PrimitiveForthWords::registers + PrimitiveForthWords::VOCAB_STATE)
 				.build());
 ForthWord& VocabWords::CURRENT_VOCAB = F_CURRENT_VOCAB;

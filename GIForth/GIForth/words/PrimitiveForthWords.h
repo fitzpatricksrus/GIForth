@@ -46,9 +46,9 @@ public:
     static PrimitiveForthWordFunction CHAR_AT;          // addr - char
     static PrimitiveForthWordFunction CHAR_PUT;         // char addr --
     static PrimitiveForthWordFunction CHAR_INDEX;       // ndx addr -- addr
-    static PrimitiveForthWordFunction INT_AT;          // addr - char
-    static PrimitiveForthWordFunction INT_PUT;         // char addr --
-    static PrimitiveForthWordFunction INT_INDEX;       // ndx addr -- addr
+    static PrimitiveForthWordFunction INT_AT;           // addr - char
+    static PrimitiveForthWordFunction INT_PUT;			// char addr --
+    static PrimitiveForthWordFunction INT_INDEX;		// ndx addr -- addr
     static PrimitiveForthWordFunction CELL_AT;          // addr -- cell
     static PrimitiveForthWordFunction CELL_PUT;         // value addr --
     static PrimitiveForthWordFunction CELL_INDEX;       // ndx addr -- addr
@@ -93,81 +93,12 @@ public:
 
     enum THREAD_STORAGE {
 		THREAD_STATE,
-		INTERPRETER_STATE,
-		COMPILER_STATE,
+		VOCAB_STATE,
 
 		THREAD_STORAGE_SIZE
 	};
 
 	static thread_local ForthCell registers[THREAD_STORAGE_SIZE];
-
-private:
-    static void F_NOP(ForthThread& thread);
-
-	static void F_JUMP(ForthThread &thread);
-	static void F_JUMP_IF_FALSE(ForthThread &thread);
-	static void F_RETURN(ForthThread &thread);
-	static void F_EXIT_THREAD(ForthThread& thread);
-	static void F_EXECUTE(ForthThread &thread);
-	static void F_PUSH_NEXT_CELL(ForthThread &thread);
-
-    static void F_CHAR_SIZE(ForthThread& thread);
-    static void F_INT_SIZE(ForthThread& thread);
-    static void F_PTR_SIZE(ForthThread& thread);
-    static void F_WORD_SIZE(ForthThread& thread);
-
-    static void F_ALLOC(ForthThread& thread);
-    static void F_FREE(ForthThread& thread);
-
-    static void F_CHAR_AT(ForthThread& thread);         // ptr -- char
-    static void F_CHAR_PUT(ForthThread& thread);        // value ptr --
-    static void F_CHAR_INDEX(ForthThread& thread);      // ndx ptr -- ptr
-
-    static void F_INT_AT(ForthThread& thread);
-    static void F_INT_PUT(ForthThread& thread);
-    static void F_INT_INDEX(ForthThread& thread);
-
-    static void F_CELL_AT(ForthThread& thread);
-    static void F_CELL_PUT(ForthThread& thread);
-    static void F_CELL_INDEX(ForthThread& thread);
-
-    static void F_TO_RETURN_STACK(ForthThread& thread);
-    static void F_FROM_RETURN_STACK(ForthThread& thread);
-    static void F_AT_RETURN_STACK(ForthThread& thread);
-
-    static void F_SWAP(ForthThread& thread);
-    static void F_PICK(ForthThread& thread);
-    static void F_OVER(ForthThread& thread);
-    static void F_ROLL(ForthThread& thread);
-	static void F_DROP(ForthThread& thread);
-	static void F_DUP(ForthThread& thread);
-
-    static void F_ADD(ForthThread& thread);
-    static void F_SUBTRACT(ForthThread& thread);
-    static void F_MULTIPLY(ForthThread& thread);
-    static void F_DIVIDE(ForthThread& thread);
-    static void F_MOD(ForthThread& thread);
-
-    static void F_LESS_THAN(ForthThread& thread);
-    static void F_GREATER_THAN(ForthThread& thread);
-    static void F_EQUAL(ForthThread& thread);
-
-    static void F_CONDITIONAL_AND(ForthThread& thread);
-    static void F_CONDITIONAL_OR(ForthThread& thread);
-    static void F_CONDITIONAL_NOT(ForthThread& thread);
-
-    static void F_ACCEPT_INPUT(ForthThread& thread);
-    static void F_PEEK_NEXT_INPUT_CHAR(ForthThread& thread);
-    static void F_GET_NEXT_INPUT_CHAR(ForthThread& thread);
-    static void F_PRINT_CHAR(ForthThread& thread);
-
-    static void F_FALSE(ForthThread& thread);
-    static void F_TRUE(ForthThread& thread);
-    static void F_ZERO(ForthThread& thread);
-    static void F_ONE(ForthThread& thread);
-    static void F_NEGATIVE_ONE(ForthThread& thread);
-    static void F_ADD_ONE(ForthThread& thread);
-    static void F_SUBTRACT_ONE(ForthThread& thread);
 };
 
 #endif //GIFORTH_PRIMITIVEFORTHWORDS_H

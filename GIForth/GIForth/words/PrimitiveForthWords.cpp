@@ -68,86 +68,86 @@ PrimitiveForthWords::PrimitiveForthWords(ForthVocab *next)
 
 using ParamType = PrimitiveForthWordFunction::ParamType;
 
-PrimitiveForthWordFunction PrimitiveForthWords::NOP(&PrimitiveForthWords::F_NOP, "PrimitiveForthWords::NOP", "NOP");
-void PrimitiveForthWords::F_NOP(ForthThread& thread) {
+static void F_NOP(ForthThread& thread) {
 }
+PrimitiveForthWordFunction PrimitiveForthWords::NOP(&F_NOP, "PrimitiveForthWords::NOP", "NOP");
 
-PrimitiveForthWordFunction PrimitiveForthWords::JUMP(&PrimitiveForthWords::F_JUMP,
-		"PrimitiveForthWords::JUMP", "(JUMP)",{ParamType::INT });
-void PrimitiveForthWords::F_JUMP(ForthThread &thread) {
+static void F_JUMP(ForthThread &thread) {
 	thread.setIndex(thread.getNextCell().integer);
 }
+PrimitiveForthWordFunction PrimitiveForthWords::JUMP(&F_JUMP,
+		"PrimitiveForthWords::JUMP", "(JUMP)",{ParamType::INT });
 
 // bool --   if the tos is false, the next cell is set as the ip.ndx else it's just skipped
-PrimitiveForthWordFunction PrimitiveForthWords::JUMP_IF_FALSE(&PrimitiveForthWords::F_JUMP_IF_FALSE,
-		"PrimitiveForthWords::JUMP_IF_FALSE", "(JUMP_IF_FALSE)",{ParamType::INT });
-void PrimitiveForthWords::F_JUMP_IF_FALSE(ForthThread &thread) {
+static void F_JUMP_IF_FALSE(ForthThread &thread) {
 	int newNdx = thread.getNextCell().integer;  // consume next cell always
 	if (!thread.popDataStack().integer) {
 		thread.setIndex(newNdx);
 	}
 }
+PrimitiveForthWordFunction PrimitiveForthWords::JUMP_IF_FALSE(&F_JUMP_IF_FALSE,
+		"PrimitiveForthWords::JUMP_IF_FALSE", "(JUMP_IF_FALSE)",{ParamType::INT });
 
-PrimitiveForthWordFunction PrimitiveForthWords::RETURN(&PrimitiveForthWords::F_RETURN,
-		"PrimitiveForthWords::RETURN", "(RETURN)");
-void PrimitiveForthWords::F_RETURN(ForthThread &thread) {
+static void F_RETURN(ForthThread &thread) {
 	thread.popFrame();
-    thread.setTraceDepth(thread.getTraceDepth() - 1);
+	thread.setTraceDepth(thread.getTraceDepth() - 1);
 }
+PrimitiveForthWordFunction PrimitiveForthWords::RETURN(&F_RETURN,
+		"PrimitiveForthWords::RETURN", "(RETURN)");
 
-PrimitiveForthWordFunction PrimitiveForthWords::EXIT_THREAD(&PrimitiveForthWords::F_EXIT_THREAD,
-		"PrimitiveForthWords::EXIT_THREAD", "(EXIT_THREAD)");
-void PrimitiveForthWords::F_EXIT_THREAD(ForthThread &thread) {
+static void F_EXIT_THREAD(ForthThread &thread) {
 	throw ForthThread::ThreadExitException();
 }
+PrimitiveForthWordFunction PrimitiveForthWords::EXIT_THREAD(&F_EXIT_THREAD,
+		"PrimitiveForthWords::EXIT_THREAD", "(EXIT_THREAD)");
 
-PrimitiveForthWordFunction PrimitiveForthWords::EXECUTE(&PrimitiveForthWords::F_EXECUTE,
-		"PrimitiveForthWords::EXECUTE", "execute");
-void PrimitiveForthWords::F_EXECUTE(ForthThread &thread) {
+static void F_EXECUTE(ForthThread &thread) {
 	ForthWord *word = thread.popDataStack().word;
 	word->execute(thread);
 }
+PrimitiveForthWordFunction PrimitiveForthWords::EXECUTE(&F_EXECUTE,
+		"PrimitiveForthWords::EXECUTE", "execute");
 
 // -- value ; pushes next cell in word onto data stack
-PrimitiveForthWordFunction PrimitiveForthWords::PUSH_NEXT_CELL(&PrimitiveForthWords::F_PUSH_NEXT_CELL,
-		"PrimitiveForthWords::PUSH_NEXT_CELL", "(PUSH_NEXT_CELL)", {ParamType::INT });
-void PrimitiveForthWords::F_PUSH_NEXT_CELL(ForthThread &thread) {
+static void F_PUSH_NEXT_CELL(ForthThread &thread) {
 	thread.pushDataStack(thread.getNextCell());
 }
+PrimitiveForthWordFunction PrimitiveForthWords::PUSH_NEXT_CELL(&F_PUSH_NEXT_CELL,
+		"PrimitiveForthWords::PUSH_NEXT_CELL", "(PUSH_NEXT_CELL)", {ParamType::INT });
 
+static void F_CHAR_SIZE(ForthThread& thread) {
+	thread.pushDataStack((ForthCell::INT_TYPE)sizeof(ForthCell::CHAR_TYPE));
+}
 PrimitiveForthWordFunction PrimitiveForthWords::CHAR_SIZE(
-		&PrimitiveForthWords::F_CHAR_SIZE, "PrimitiveForthWords::CHAR_SIZE", "CHAR_SIZE");
-void PrimitiveForthWords::F_CHAR_SIZE(ForthThread& thread) {
-    thread.pushDataStack((ForthCell::INT_TYPE)sizeof(ForthCell::CHAR_TYPE));
-}
+		&F_CHAR_SIZE, "PrimitiveForthWords::CHAR_SIZE", "CHAR_SIZE");
 
-PrimitiveForthWordFunction PrimitiveForthWords::INT_SIZE(&PrimitiveForthWords::F_INT_SIZE, "PrimitiveForthWords::INT_SIZE", "INT_SIZE");
-void PrimitiveForthWords::F_INT_SIZE(ForthThread& thread) {
-    thread.pushDataStack((ForthCell::INT_TYPE)sizeof(ForthCell::INT_TYPE));
+static void F_INT_SIZE(ForthThread& thread) {
+	thread.pushDataStack((ForthCell::INT_TYPE)sizeof(ForthCell::INT_TYPE));
 }
+PrimitiveForthWordFunction PrimitiveForthWords::INT_SIZE(&F_INT_SIZE, "PrimitiveForthWords::INT_SIZE", "INT_SIZE");
 
-PrimitiveForthWordFunction PrimitiveForthWords::PTR_SIZE(&PrimitiveForthWords::F_PTR_SIZE, "PrimitiveForthWords::PTR_SIZE", "PTR_SIZE");
-void PrimitiveForthWords::F_PTR_SIZE(ForthThread& thread) {
-    thread.pushDataStack((ForthCell::INT_TYPE)sizeof(ForthCell::PTR_TYPE));
+static void F_PTR_SIZE(ForthThread& thread) {
+	thread.pushDataStack((ForthCell::INT_TYPE)sizeof(ForthCell::PTR_TYPE));
 }
+PrimitiveForthWordFunction PrimitiveForthWords::PTR_SIZE(&F_PTR_SIZE, "PrimitiveForthWords::PTR_SIZE", "PTR_SIZE");
 
+static void F_WORD_SIZE(ForthThread& thread) {
+	thread.pushDataStack((ForthCell::INT_TYPE)sizeof(ForthCell::word));
+}
 PrimitiveForthWordFunction PrimitiveForthWords::WORD_SIZE(
-		&PrimitiveForthWords::F_WORD_SIZE, "PrimitiveForthWords::WORD_SIZE", "WORD_SIZE");
-void PrimitiveForthWords::F_WORD_SIZE(ForthThread& thread) {
-    thread.pushDataStack((ForthCell::INT_TYPE)sizeof(ForthCell::word));
-}
+		&F_WORD_SIZE, "PrimitiveForthWords::WORD_SIZE", "WORD_SIZE");
 
-PrimitiveForthWordFunction PrimitiveForthWords::ALLOC(&PrimitiveForthWords::F_ALLOC, "PrimitiveForthWords::ALLOC", "allocMem");
-void PrimitiveForthWords::F_ALLOC(ForthThread& thread) {
-    ForthCell::INT_TYPE size = thread.popDataStack().integer;
-    thread.pushDataStack((ForthCell::PTR_TYPE)new char[size]);
+static void F_ALLOC(ForthThread& thread) {
+	ForthCell::INT_TYPE size = thread.popDataStack().integer;
+	thread.pushDataStack((ForthCell::PTR_TYPE)new char[size]);
 }
+PrimitiveForthWordFunction PrimitiveForthWords::ALLOC(&F_ALLOC, "PrimitiveForthWords::ALLOC", "allocMem");
 
-PrimitiveForthWordFunction PrimitiveForthWords::FREE(&PrimitiveForthWords::F_FREE, "PrimitiveForthWords::FREE", "freeMem");
-void PrimitiveForthWords::F_FREE(ForthThread& thread) {
+static void F_FREE(ForthThread& thread) {
 	ForthCell::PTR_TYPE ptr = thread.popDataStack().pointer;
 	delete[] static_cast<char*>(ptr);
 }
+PrimitiveForthWordFunction PrimitiveForthWords::FREE(&F_FREE, "PrimitiveForthWords::FREE", "freeMem");
 
 thread_local ForthCell PrimitiveForthWords::registers[THREAD_STORAGE_SIZE];
 static void F_REGISTERS(ForthThread& thread) {
@@ -156,299 +156,299 @@ static void F_REGISTERS(ForthThread& thread) {
 PrimitiveForthWordFunction PrimitiveForthWords::REGISTER(&F_REGISTERS, "PrimitiveForthWords::REGISTERS", "registers");
 
 // addr - char
-PrimitiveForthWordFunction PrimitiveForthWords::CHAR_AT(&PrimitiveForthWords::F_CHAR_AT, "PrimitiveForthWords::CHAR_AT", "c@");
-void PrimitiveForthWords::F_CHAR_AT(ForthThread& thread) {
-    ForthCell::CHAR_TYPE* ptr = static_cast<ForthCell::CHAR_TYPE*>(thread.popDataStack().pointer);
-    thread.pushDataStack(*ptr);
+static void F_CHAR_AT(ForthThread& thread) {
+	ForthCell::CHAR_TYPE* ptr = static_cast<ForthCell::CHAR_TYPE*>(thread.popDataStack().pointer);
+	thread.pushDataStack(*ptr);
 }
+PrimitiveForthWordFunction PrimitiveForthWords::CHAR_AT(&F_CHAR_AT, "PrimitiveForthWords::CHAR_AT", "c@");
 
 // char addr --
-PrimitiveForthWordFunction PrimitiveForthWords::CHAR_PUT(&PrimitiveForthWords::F_CHAR_PUT, "PrimitiveForthWords::CHAR_PUT", "c!");
-void PrimitiveForthWords::F_CHAR_PUT(ForthThread& thread) {
-    ForthCell::CHAR_TYPE* ptr = static_cast<ForthCell::CHAR_TYPE*>(thread.popDataStack().pointer);
-    (*ptr) = static_cast<char>(thread.popDataStack().integer);
+static void F_CHAR_PUT(ForthThread& thread) {
+	ForthCell::CHAR_TYPE* ptr = static_cast<ForthCell::CHAR_TYPE*>(thread.popDataStack().pointer);
+	(*ptr) = static_cast<char>(thread.popDataStack().integer);
 }
+PrimitiveForthWordFunction PrimitiveForthWords::CHAR_PUT(&F_CHAR_PUT, "PrimitiveForthWords::CHAR_PUT", "c!");
 
 // ndx addr -- addr
-PrimitiveForthWordFunction PrimitiveForthWords::CHAR_INDEX(&PrimitiveForthWords::F_CHAR_INDEX, "PrimitiveForthWords::CHAR_INDEX", "c[]");
-void PrimitiveForthWords::F_CHAR_INDEX(ForthThread& thread) {
-    ForthCell::CHAR_TYPE* ptr = static_cast<ForthCell::CHAR_TYPE*>(thread.popDataStack().pointer);
-    ForthCell::INT_TYPE ndx = thread.popDataStack().integer;
-    thread.pushDataStack(&ptr[ndx]);
+static void F_CHAR_INDEX(ForthThread& thread) {
+	ForthCell::CHAR_TYPE* ptr = static_cast<ForthCell::CHAR_TYPE*>(thread.popDataStack().pointer);
+	ForthCell::INT_TYPE ndx = thread.popDataStack().integer;
+	thread.pushDataStack(&ptr[ndx]);
 }
+PrimitiveForthWordFunction PrimitiveForthWords::CHAR_INDEX(&F_CHAR_INDEX, "PrimitiveForthWords::CHAR_INDEX", "c[]");
 
 // addr - INT
-PrimitiveForthWordFunction PrimitiveForthWords::INT_AT(&PrimitiveForthWords::F_INT_AT, "PrimitiveForthWords::INT_AT", "@");
-void PrimitiveForthWords::F_INT_AT(ForthThread& thread) {
-    ForthCell::INT_TYPE* ptr = static_cast<ForthCell::INT_TYPE*>(thread.popDataStack().pointer);
-    thread.pushDataStack(*ptr);
+static void F_INT_AT(ForthThread& thread) {
+	ForthCell::INT_TYPE* ptr = static_cast<ForthCell::INT_TYPE*>(thread.popDataStack().pointer);
+	thread.pushDataStack(*ptr);
 }
+PrimitiveForthWordFunction PrimitiveForthWords::INT_AT(&F_INT_AT, "PrimitiveForthWords::INT_AT", "@");
 
 // INT addr --
-PrimitiveForthWordFunction PrimitiveForthWords::INT_PUT(&PrimitiveForthWords::F_INT_PUT, "PrimitiveForthWords::INT_PUT", "!");
-void PrimitiveForthWords::F_INT_PUT(ForthThread& thread) {
-    ForthCell::INT_TYPE* ptr = static_cast<ForthCell::INT_TYPE*>(thread.popDataStack().pointer);
-    (*ptr) = thread.popDataStack().integer;
+static void F_INT_PUT(ForthThread& thread) {
+	ForthCell::INT_TYPE* ptr = static_cast<ForthCell::INT_TYPE*>(thread.popDataStack().pointer);
+	(*ptr) = thread.popDataStack().integer;
 }
+PrimitiveForthWordFunction PrimitiveForthWords::INT_PUT(&F_INT_PUT, "PrimitiveForthWords::INT_PUT", "!");
 
 // ndx addr -- addr
-PrimitiveForthWordFunction PrimitiveForthWords::INT_INDEX(&PrimitiveForthWords::F_INT_INDEX,
-		"PrimitiveForthWords::INT_INDEX", "[]");
-void PrimitiveForthWords::F_INT_INDEX(ForthThread& thread) {
-    ForthCell::INT_TYPE* ptr = static_cast<ForthCell::INT_TYPE*>(thread.popDataStack().pointer);
-    ForthCell::INT_TYPE ndx = thread.popDataStack().integer;
-    thread.pushDataStack(&ptr[ndx]);
+static void F_INT_INDEX(ForthThread& thread) {
+	ForthCell::INT_TYPE* ptr = static_cast<ForthCell::INT_TYPE*>(thread.popDataStack().pointer);
+	ForthCell::INT_TYPE ndx = thread.popDataStack().integer;
+	thread.pushDataStack(&ptr[ndx]);
 }
+PrimitiveForthWordFunction PrimitiveForthWords::INT_INDEX(&F_INT_INDEX,
+		"PrimitiveForthWords::INT_INDEX", "[]");
 
 // addr - CELL
-PrimitiveForthWordFunction PrimitiveForthWords::CELL_AT(&PrimitiveForthWords::F_CELL_AT,
-		"PrimitiveForthWords::CELL_AT", "w@");
-void PrimitiveForthWords::F_CELL_AT(ForthThread& thread) {
-    ForthCell::CELL_TYPE* ptr = static_cast<ForthCell::CELL_TYPE*>(thread.popDataStack().pointer);
-    thread.pushDataStack(*ptr);
+static void F_CELL_AT(ForthThread& thread) {
+	ForthCell::CELL_TYPE* ptr = static_cast<ForthCell::CELL_TYPE*>(thread.popDataStack().pointer);
+	thread.pushDataStack(*ptr);
 }
+PrimitiveForthWordFunction PrimitiveForthWords::CELL_AT(&F_CELL_AT,
+		"PrimitiveForthWords::CELL_AT", "w@");
 
 // CELL addr --
-PrimitiveForthWordFunction PrimitiveForthWords::CELL_PUT(&PrimitiveForthWords::F_CELL_PUT,
-		"PrimitiveForthWords::CELL_PUT", "w!");
-void PrimitiveForthWords::F_CELL_PUT(ForthThread& thread) {
-    ForthCell::CELL_TYPE* ptr = static_cast<ForthCell::CELL_TYPE*>(thread.popDataStack().pointer);
-    (*ptr) = thread.popDataStack().word;
+static void F_CELL_PUT(ForthThread& thread) {
+	ForthCell::CELL_TYPE* ptr = static_cast<ForthCell::CELL_TYPE*>(thread.popDataStack().pointer);
+	(*ptr) = thread.popDataStack().word;
 }
+PrimitiveForthWordFunction PrimitiveForthWords::CELL_PUT(&F_CELL_PUT,
+		"PrimitiveForthWords::CELL_PUT", "w!");
 
 // ndx addr -- addr
-PrimitiveForthWordFunction PrimitiveForthWords::CELL_INDEX(&PrimitiveForthWords::F_CELL_INDEX,
+static void F_CELL_INDEX(ForthThread& thread) {
+	ForthCell::CELL_TYPE* ptr = static_cast<ForthCell::CELL_TYPE*>(thread.popDataStack().pointer);
+	ForthCell::INT_TYPE ndx = thread.popDataStack().integer;
+	thread.pushDataStack(&ptr[ndx]);
+}
+PrimitiveForthWordFunction PrimitiveForthWords::CELL_INDEX(&F_CELL_INDEX,
 		"PrimitiveForthWords::CELL_INDEX", "w[]");
-void PrimitiveForthWords::F_CELL_INDEX(ForthThread& thread) {
-    ForthCell::CELL_TYPE* ptr = static_cast<ForthCell::CELL_TYPE*>(thread.popDataStack().pointer);
-    ForthCell::INT_TYPE ndx = thread.popDataStack().integer;
-    thread.pushDataStack(&ptr[ndx]);
-}
 
-PrimitiveForthWordFunction PrimitiveForthWords::TO_RETURN_STACK(&PrimitiveForthWords::F_TO_RETURN_STACK,
+static void F_TO_RETURN_STACK(ForthThread& thread) {
+	thread.toReturnStack(thread.popDataStack());
+}
+PrimitiveForthWordFunction PrimitiveForthWords::TO_RETURN_STACK(&F_TO_RETURN_STACK,
 		"PrimitiveForthWords::TO_RETURN_STACK", ">r");
-void PrimitiveForthWords::F_TO_RETURN_STACK(ForthThread& thread) {
-    thread.toReturnStack(thread.popDataStack());
-}
 
-PrimitiveForthWordFunction PrimitiveForthWords::FROM_RETURN_STACK(&PrimitiveForthWords::F_FROM_RETURN_STACK,
+static void F_FROM_RETURN_STACK(ForthThread& thread) {
+	thread.pushDataStack(thread.fromReturnStack().cell);
+}
+PrimitiveForthWordFunction PrimitiveForthWords::FROM_RETURN_STACK(&F_FROM_RETURN_STACK,
 		"PrimitiveForthWords::FROM_RETURN_STACK", "r>");
-void PrimitiveForthWords::F_FROM_RETURN_STACK(ForthThread& thread) {
-    thread.pushDataStack(thread.fromReturnStack().cell);
-}
 
-PrimitiveForthWordFunction PrimitiveForthWords::AT_RETURN_STACK(&PrimitiveForthWords::F_AT_RETURN_STACK,
-																"PrimitiveForthWords::AT_RETURN_STACK", "r@");
-void PrimitiveForthWords::F_AT_RETURN_STACK(ForthThread &thread) {
-    thread.pushDataStack(thread.topOfReturnStack().cell);
+static void F_AT_RETURN_STACK(ForthThread &thread) {
+	thread.pushDataStack(thread.topOfReturnStack().cell);
 }
+PrimitiveForthWordFunction PrimitiveForthWords::AT_RETURN_STACK(&F_AT_RETURN_STACK,
+		"PrimitiveForthWords::AT_RETURN_STACK", "r@");
 
-PrimitiveForthWordFunction PrimitiveForthWords::SWAP(&PrimitiveForthWords::F_SWAP,
+static void F_SWAP(ForthThread& thread) {
+	ForthCell v1 = thread.popDataStack();
+	ForthCell v2 = thread.popDataStack();
+	thread.pushDataStack(v1);
+	thread.pushDataStack(v2);
+}
+PrimitiveForthWordFunction PrimitiveForthWords::SWAP(&F_SWAP,
 		"PrimitiveForthWords::SWAP", "swap");
-void PrimitiveForthWords::F_SWAP(ForthThread& thread) {
-    ForthCell v1 = thread.popDataStack();
-    ForthCell v2 = thread.popDataStack();
-    thread.pushDataStack(v1);
-    thread.pushDataStack(v2);
-}
 
 // ( a0 .. an n -- a0 .. an a0 )
-PrimitiveForthWordFunction PrimitiveForthWords::PICK(&PrimitiveForthWords::F_PICK,
+static void F_PICK(ForthThread& thread) {
+	thread.pushDataStack(thread[thread.popDataStack().integer]);
+}
+PrimitiveForthWordFunction PrimitiveForthWords::PICK(&F_PICK,
 		"PrimitiveForthWords::PICK", "pick");
-void PrimitiveForthWords::F_PICK(ForthThread& thread) {
-    thread.pushDataStack(thread[thread.popDataStack().integer]);
-}
 
 // ( a0 .. an n -- a0 .. an a0 )
-PrimitiveForthWordFunction PrimitiveForthWords::OVER(&PrimitiveForthWords::F_OVER,
-		"PrimitiveForthWords::OVER", "over");
-void PrimitiveForthWords::F_OVER(ForthThread& thread) {
-    thread.pushDataStack(thread[1]);
+static void F_OVER(ForthThread& thread) {
+	thread.pushDataStack(thread[1]);
 }
+PrimitiveForthWordFunction PrimitiveForthWords::OVER(&F_OVER,
+		"PrimitiveForthWords::OVER", "over");
 
 // ( a0 .. an n -- a1 .. an a0 )
-PrimitiveForthWordFunction PrimitiveForthWords::ROLL(&PrimitiveForthWords::F_ROLL,
+static void F_ROLL(ForthThread& thread) {
+	thread.rollDataStack(thread.popDataStack().integer);
+}
+PrimitiveForthWordFunction PrimitiveForthWords::ROLL(&F_ROLL,
 		"PrimitiveForthWords::ROLL", "roll");
-void PrimitiveForthWords::F_ROLL(ForthThread& thread) {
-    thread.rollDataStack(thread.popDataStack().integer);
-}
 
-PrimitiveForthWordFunction PrimitiveForthWords::DROP(&PrimitiveForthWords::F_DROP,
+static void F_DROP(ForthThread& thread) {
+	thread.popDataStack();
+}
+PrimitiveForthWordFunction PrimitiveForthWords::DROP(&F_DROP,
 		"PrimitiveForthWords::DROP", "drop");
-void PrimitiveForthWords::F_DROP(ForthThread& thread) {
-    thread.popDataStack();
-}
 
-PrimitiveForthWordFunction PrimitiveForthWords::DUP(&PrimitiveForthWords::F_DUP,
+static void F_DUP(ForthThread& thread) {
+	thread.pushDataStack(thread[0]);
+}
+PrimitiveForthWordFunction PrimitiveForthWords::DUP(&F_DUP,
 		"PrimitiveForthWords::DUP", "dup");
-void PrimitiveForthWords::F_DUP(ForthThread& thread) {
-    thread.pushDataStack(thread[0]);
-}
 
-PrimitiveForthWordFunction PrimitiveForthWords::ADD(&PrimitiveForthWords::F_ADD,
-		"PrimitiveForthWords::ADD", "+");
-void PrimitiveForthWords::F_ADD(ForthThread& thread) {
+static void F_ADD(ForthThread& thread) {
 	ForthCell::INT_TYPE x = thread.popDataStack().integer;
 	ForthCell::INT_TYPE y = thread.popDataStack().integer;
 	thread.pushDataStack(x + y);
 }
+PrimitiveForthWordFunction PrimitiveForthWords::ADD(&F_ADD,
+		"PrimitiveForthWords::ADD", "+");
 
 // a b -- (a - b)
-PrimitiveForthWordFunction PrimitiveForthWords::SUBTRACT(&PrimitiveForthWords::F_SUBTRACT,
-		"PrimitiveForthWords::SUBTRACT", "-");
-void PrimitiveForthWords::F_SUBTRACT(ForthThread& thread) {
-    // note, this isn't done in a single statement because C++ DOES NOT guarantee order of evaluation
-    // of expression operands is undefined.
+static void F_SUBTRACT(ForthThread& thread) {
+	// note, this isn't done in a single statement because C++ DOES NOT guarantee order of evaluation
+	// of expression operands is undefined.
 	ForthCell::INT_TYPE subtrahend = thread.popDataStack().integer;
 	ForthCell::INT_TYPE value = thread.popDataStack().integer;
-    thread.pushDataStack(value - subtrahend);
+	thread.pushDataStack(value - subtrahend);
 }
+PrimitiveForthWordFunction PrimitiveForthWords::SUBTRACT(&F_SUBTRACT,
+		"PrimitiveForthWords::SUBTRACT", "-");
 
-PrimitiveForthWordFunction PrimitiveForthWords::MULTIPLY(&PrimitiveForthWords::F_MULTIPLY,
-		"PrimitiveForthWords::MULTIPLY", "*");
-void PrimitiveForthWords::F_MULTIPLY(ForthThread& thread) {
+static void F_MULTIPLY(ForthThread& thread) {
 	ForthCell::INT_TYPE x = thread.popDataStack().integer;
 	ForthCell::INT_TYPE y = thread.popDataStack().integer;
-    thread.pushDataStack(x * y);
+	thread.pushDataStack(x * y);
 }
+PrimitiveForthWordFunction PrimitiveForthWords::MULTIPLY(&F_MULTIPLY,
+		"PrimitiveForthWords::MULTIPLY", "*");
 
 // x y -- (x / y)
-PrimitiveForthWordFunction PrimitiveForthWords::DIVIDE(&PrimitiveForthWords::F_DIVIDE,
-		"PrimitiveForthWords::DIVIDE", "/");
-void PrimitiveForthWords::F_DIVIDE(ForthThread& thread) {
-    // note, this isn't done in a single statement because C++ DOES NOT guarantee order of evaluation
-    // of expression operands is undefined.
+static void F_DIVIDE(ForthThread& thread) {
+	// note, this isn't done in a single statement because C++ DOES NOT guarantee order of evaluation
+	// of expression operands is undefined.
 	ForthCell::INT_TYPE divisor = thread.popDataStack().integer;
 	ForthCell::INT_TYPE dividend = thread.popDataStack().integer;
-    thread.pushDataStack(dividend / divisor);
+	thread.pushDataStack(dividend / divisor);
 }
+PrimitiveForthWordFunction PrimitiveForthWords::DIVIDE(&F_DIVIDE,
+		"PrimitiveForthWords::DIVIDE", "/");
 
 // x y -- (x % y)
-PrimitiveForthWordFunction PrimitiveForthWords::MOD(&PrimitiveForthWords::F_MOD, "PrimitiveForthWords::MOD", "%");
-void PrimitiveForthWords::F_MOD(ForthThread& thread) {
-    // note, this isn't done in a single statement because C++ DOES NOT guarantee order of evaluation
-    // of expression operands is undefined.
+static void F_MOD(ForthThread& thread) {
+	// note, this isn't done in a single statement because C++ DOES NOT guarantee order of evaluation
+	// of expression operands is undefined.
 	ForthCell::INT_TYPE modulus = thread.popDataStack().integer;
 	ForthCell::INT_TYPE value = thread.popDataStack().integer;
-    
-    thread.pushDataStack(value % modulus);
+
+	thread.pushDataStack(value % modulus);
 }
+PrimitiveForthWordFunction PrimitiveForthWords::MOD(&F_MOD, "PrimitiveForthWords::MOD", "%");
 
 // x y -- (x < y)
-PrimitiveForthWordFunction PrimitiveForthWords::LESS_THAN(&PrimitiveForthWords::F_LESS_THAN,
-		"PrimitiveForthWords::LESS_THAN", "<");
-void PrimitiveForthWords::F_LESS_THAN(ForthThread& thread) {
-    // note, this isn't done in a single statement because C++ DOES NOT guarantee order of evaluation
-    // of expression operands is undefined.
+static void F_LESS_THAN(ForthThread& thread) {
+	// note, this isn't done in a single statement because C++ DOES NOT guarantee order of evaluation
+	// of expression operands is undefined.
 	ForthCell::INT_TYPE y = thread.popDataStack().integer;
 	ForthCell::INT_TYPE x = thread.popDataStack().integer;
-    thread.pushDataStack(x < y);
+	thread.pushDataStack(x < y);
 }
+PrimitiveForthWordFunction PrimitiveForthWords::LESS_THAN(&F_LESS_THAN,
+		"PrimitiveForthWords::LESS_THAN", "<");
 
 // x y -- (x > y)
-PrimitiveForthWordFunction PrimitiveForthWords::GREATER_THAN(&PrimitiveForthWords::F_GREATER_THAN,
-		"PrimitiveForthWords::GREATER_THAN", ">");
-void PrimitiveForthWords::F_GREATER_THAN(ForthThread& thread) {
-    // note, this isn't done in a single statement because C++ DOES NOT guarantee order of evaluation
-    // of expression operands is undefined.
+static void F_GREATER_THAN(ForthThread& thread) {
+	// note, this isn't done in a single statement because C++ DOES NOT guarantee order of evaluation
+	// of expression operands is undefined.
 	ForthCell::INT_TYPE y = thread.popDataStack().integer;
 	ForthCell::INT_TYPE x = thread.popDataStack().integer;
-    thread.pushDataStack(x > y);
+	thread.pushDataStack(x > y);
 }
+PrimitiveForthWordFunction PrimitiveForthWords::GREATER_THAN(&F_GREATER_THAN,
+		"PrimitiveForthWords::GREATER_THAN", ">");
 
 // x y -- (x == y)
-PrimitiveForthWordFunction PrimitiveForthWords::EQUAL(&PrimitiveForthWords::F_EQUAL, "PrimitiveForthWords::EQUAL", "=");
-void PrimitiveForthWords::F_EQUAL(ForthThread& thread) {
+static void F_EQUAL(ForthThread& thread) {
 	ForthCell::INT_TYPE y = thread.popDataStack().integer;
 	ForthCell::INT_TYPE x = thread.popDataStack().integer;
-    thread.pushDataStack(x == y);
+	thread.pushDataStack(x == y);
 }
+PrimitiveForthWordFunction PrimitiveForthWords::EQUAL(&F_EQUAL, "PrimitiveForthWords::EQUAL", "=");
 
 // x y -- (x && y)
+static void F_CONDITIONAL_AND(ForthThread& thread) {
+	bool b1 = static_cast<bool>(thread.popDataStack().integer);
+	bool b2 = static_cast<bool>(thread.popDataStack().integer);
+	thread.pushDataStack(b1 && b2);
+}
 PrimitiveForthWordFunction PrimitiveForthWords::CONDITIONAL_AND(
-		&PrimitiveForthWords::F_CONDITIONAL_AND, "PrimitiveForthWords::AND", "&&");
-void PrimitiveForthWords::F_CONDITIONAL_AND(ForthThread& thread) {
-	bool b1 = static_cast<bool>(thread.popDataStack().integer);
-	bool b2 = static_cast<bool>(thread.popDataStack().integer);
-    thread.pushDataStack(b1 && b2);
-}
+		&F_CONDITIONAL_AND, "PrimitiveForthWords::AND", "&&");
 
 // x y -- (x && y)
-PrimitiveForthWordFunction PrimitiveForthWords::CONDITIONAL_OR(
-		&PrimitiveForthWords::F_CONDITIONAL_OR, "PrimitiveForthWords::OR", "||");
-void PrimitiveForthWords::F_CONDITIONAL_OR(ForthThread& thread) {
+static void F_CONDITIONAL_OR(ForthThread& thread) {
 	bool b1 = static_cast<bool>(thread.popDataStack().integer);
 	bool b2 = static_cast<bool>(thread.popDataStack().integer);
-    thread.pushDataStack(b1 && b2);
+	thread.pushDataStack(b1 && b2);
 }
+PrimitiveForthWordFunction PrimitiveForthWords::CONDITIONAL_OR(
+		&F_CONDITIONAL_OR, "PrimitiveForthWords::OR", "||");
 
 // x -- !x)
+static void F_CONDITIONAL_NOT(ForthThread& thread) {
+	thread.pushDataStack(!static_cast<bool>(thread.popDataStack().integer));
+}
 PrimitiveForthWordFunction PrimitiveForthWords::CONDITIONAL_NOT(
-		&PrimitiveForthWords::F_CONDITIONAL_NOT, "PrimitiveForthWords::NOT", "not");
-void PrimitiveForthWords::F_CONDITIONAL_NOT(ForthThread& thread) {
-    thread.pushDataStack(!static_cast<bool>(thread.popDataStack().integer));
-}
+		&F_CONDITIONAL_NOT, "PrimitiveForthWords::NOT", "not");
 
-PrimitiveForthWordFunction PrimitiveForthWords::ACCEPT_INPUT(&PrimitiveForthWords::F_ACCEPT_INPUT,
+static void F_ACCEPT_INPUT(ForthThread& thread) {
+	ForthCell::INT_TYPE size = thread.popDataStack().integer;
+	ForthCell::PTR_TYPE ptr = thread.popDataStack().pointer;
+	thread.pushDataStack(static_cast<ForthCell::INT_TYPE>(NativeOSFunctions::accept(static_cast<char*>(ptr), size)));
+}
+PrimitiveForthWordFunction PrimitiveForthWords::ACCEPT_INPUT(&F_ACCEPT_INPUT,
 		"PrimitiveForthWords::ACCEPT_INPUT", "acceptInput");
-void PrimitiveForthWords::F_ACCEPT_INPUT(ForthThread& thread) {
-    ForthCell::INT_TYPE size = thread.popDataStack().integer;
-    ForthCell::PTR_TYPE ptr = thread.popDataStack().pointer;
-    thread.pushDataStack(static_cast<ForthCell::INT_TYPE>(NativeOSFunctions::accept(static_cast<char*>(ptr), size)));
-}
 
-PrimitiveForthWordFunction PrimitiveForthWords::PEEK_NEXT_INPUT_CHAR(&PrimitiveForthWords::F_PEEK_NEXT_INPUT_CHAR,
+static void F_PEEK_NEXT_INPUT_CHAR(ForthThread& thread) {
+	thread.pushDataStack(NativeOSFunctions::peekNextChar());
+}
+PrimitiveForthWordFunction PrimitiveForthWords::PEEK_NEXT_INPUT_CHAR(&F_PEEK_NEXT_INPUT_CHAR,
 		"PrimitiveForthWords::PEEK_NEXT_INPUT_CHAR", "peekInput");
-void PrimitiveForthWords::F_PEEK_NEXT_INPUT_CHAR(ForthThread& thread) {
-    thread.pushDataStack(NativeOSFunctions::peekNextChar());
-}
 
-PrimitiveForthWordFunction PrimitiveForthWords::GET_NEXT_INPUT_CHAR(&PrimitiveForthWords::F_GET_NEXT_INPUT_CHAR,
+static void F_GET_NEXT_INPUT_CHAR(ForthThread& thread) {
+	thread.pushDataStack(NativeOSFunctions::nextChar());
+}
+PrimitiveForthWordFunction PrimitiveForthWords::GET_NEXT_INPUT_CHAR(&F_GET_NEXT_INPUT_CHAR,
 		"PrimitiveForthWords::GET_NEXT_INPUT_CHAR", "getInput");
-void PrimitiveForthWords::F_GET_NEXT_INPUT_CHAR(ForthThread& thread) {
-    thread.pushDataStack(NativeOSFunctions::nextChar());
-}
 
-PrimitiveForthWordFunction PrimitiveForthWords::PRINT_CHAR(&PrimitiveForthWords::F_PRINT_CHAR,
+static void F_PRINT_CHAR(ForthThread& thread) {
+	NativeOSFunctions::printChar(static_cast<char>(thread.popDataStack().integer));
+}
+PrimitiveForthWordFunction PrimitiveForthWords::PRINT_CHAR(&F_PRINT_CHAR,
 		"PrimitiveForthWords::PRINT_CHAR", "printChar");
-void PrimitiveForthWords::F_PRINT_CHAR(ForthThread& thread) {
-    NativeOSFunctions::printChar(static_cast<char>(thread.popDataStack().integer));
-}
 
-PrimitiveForthWordFunction PrimitiveForthWords::FALSE(&PrimitiveForthWords::F_FALSE, "PrimitiveForthWords::FALSE", "false");
-void PrimitiveForthWords::F_FALSE(ForthThread &thread) {
-    thread.pushDataStack(static_cast<ForthCell::BOOL_TYPE>(false));
+static void F_FALSE(ForthThread &thread) {
+	thread.pushDataStack(static_cast<ForthCell::BOOL_TYPE>(false));
 }
+PrimitiveForthWordFunction PrimitiveForthWords::FALSE(&F_FALSE, "PrimitiveForthWords::FALSE", "false");
 
-PrimitiveForthWordFunction PrimitiveForthWords::TRUE(&PrimitiveForthWords::F_TRUE, "PrimitiveForthWords::TRUE", "true");
-void PrimitiveForthWords::F_TRUE(ForthThread &thread) {
-    thread.pushDataStack(static_cast<ForthCell::BOOL_TYPE>(true));
+static void F_TRUE(ForthThread &thread) {
+	thread.pushDataStack(static_cast<ForthCell::BOOL_TYPE>(true));
 }
+PrimitiveForthWordFunction PrimitiveForthWords::TRUE(&F_TRUE, "PrimitiveForthWords::TRUE", "true");
 
-PrimitiveForthWordFunction PrimitiveForthWords::ZERO(&PrimitiveForthWords::F_ZERO, "PrimitiveForthWords::ZERO", "0");
-void PrimitiveForthWords::F_ZERO(ForthThread &thread) {
-    thread.pushDataStack(static_cast<ForthCell::INT_TYPE>(0));
+static void F_ZERO(ForthThread &thread) {
+	thread.pushDataStack(static_cast<ForthCell::INT_TYPE>(0));
 }
+PrimitiveForthWordFunction PrimitiveForthWords::ZERO(&F_ZERO, "PrimitiveForthWords::ZERO", "0");
 
-PrimitiveForthWordFunction PrimitiveForthWords::ONE(&PrimitiveForthWords::F_ONE, "PrimitiveForthWords::ONE", "1");
-void PrimitiveForthWords::F_ONE(ForthThread &thread) {
-    thread.pushDataStack(static_cast<ForthCell::INT_TYPE>(1));
+static void F_ONE(ForthThread &thread) {
+	thread.pushDataStack(static_cast<ForthCell::INT_TYPE>(1));
 }
+PrimitiveForthWordFunction PrimitiveForthWords::ONE(&F_ONE, "PrimitiveForthWords::ONE", "1");
 
+static void F_NEGATIVE_ONE(ForthThread &thread) {
+	thread.pushDataStack(static_cast<ForthCell::INT_TYPE>(-1));
+}
 PrimitiveForthWordFunction PrimitiveForthWords::NEGATIVE_ONE(
-		&PrimitiveForthWords::F_NEGATIVE_ONE, "PrimitiveForthWords::NEGATIVE_ONE", "-1");
-void PrimitiveForthWords::F_NEGATIVE_ONE(ForthThread &thread) {
-    thread.pushDataStack(static_cast<ForthCell::INT_TYPE>(-1));
-}
+		&F_NEGATIVE_ONE, "PrimitiveForthWords::NEGATIVE_ONE", "-1");
 
-PrimitiveForthWordFunction PrimitiveForthWords::ADD_ONE(&PrimitiveForthWords::F_ADD_ONE, "PrimitiveForthWords::ADD_ONE", "+=1");
-void PrimitiveForthWords::F_ADD_ONE(ForthThread &thread) {
-    thread.pushDataStack(static_cast<ForthCell::INT_TYPE>(1 + thread.popDataStack().integer));
+static void F_ADD_ONE(ForthThread &thread) {
+	thread.pushDataStack(static_cast<ForthCell::INT_TYPE>(1 + thread.popDataStack().integer));
 }
+PrimitiveForthWordFunction PrimitiveForthWords::ADD_ONE(&F_ADD_ONE, "PrimitiveForthWords::ADD_ONE", "+=1");
 
+static void F_SUBTRACT_ONE(ForthThread &thread) {
+	thread.pushDataStack(static_cast<ForthCell::INT_TYPE>(thread.popDataStack().integer - 1));
+}
 PrimitiveForthWordFunction PrimitiveForthWords::SUBTRACT_ONE(
-		&PrimitiveForthWords::F_ADD_ONE, "PrimitiveForthWords::SUBTRACT_ONE", "-=1");
-void PrimitiveForthWords::F_SUBTRACT_ONE(ForthThread &thread) {
-    thread.pushDataStack(static_cast<ForthCell::INT_TYPE>(thread.popDataStack().integer - 1));
-}
+		&F_SUBTRACT_ONE, "PrimitiveForthWords::SUBTRACT_ONE", "-=1");
 
