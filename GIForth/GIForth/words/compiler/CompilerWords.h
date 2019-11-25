@@ -1,0 +1,32 @@
+//
+// Created by Dad on 11/24/19.
+//
+
+#ifndef GIFORTH_COMPILERWORDS_H
+#define GIFORTH_COMPILERWORDS_H
+
+#include <runtime/BasicForthVocab.h>
+#include <utils/PrimitiveForthWordFunction.h>
+
+class CompilerWords : public BasicForthVocab {
+public:
+	explicit CompilerWords(ForthVocab* next);
+	CompilerWords(const CompilerWords& other) = default;
+	~CompilerWords() override = default;
+
+	static PrimitiveForthWordFunction COMPILE_BEGIN;
+	static PrimitiveForthWordFunction COMPILE_TOS;
+	static PrimitiveForthWordFunction COMPILE_END;
+
+	static PrimitiveForthWordFunction FREE_WORD;
+
+};
+
+
+inline CompilerWords::CompilerWords(ForthVocab *next)
+: BasicForthVocab(next)
+{
+}
+
+
+#endif //GIFORTH_COMPILERWORDS_H
