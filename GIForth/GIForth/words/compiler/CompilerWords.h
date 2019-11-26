@@ -14,12 +14,17 @@ public:
 	CompilerWords(const CompilerWords& other) = default;
 	~CompilerWords() override = default;
 
+	// str --
 	static PrimitiveForthWordFunction COMPILE_BEGIN;
+
+	// word --
 	static PrimitiveForthWordFunction COMPILE_TOS;
+
+	// -- word
 	static PrimitiveForthWordFunction COMPILE_END;
 
+	// --
 	static PrimitiveForthWordFunction FREE_WORD;
-
 };
 
 
