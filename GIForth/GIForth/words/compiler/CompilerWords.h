@@ -27,11 +27,4 @@ public:
 	static PrimitiveForthWordFunction FREE_WORD;
 };
 
-
-inline CompilerWords::CompilerWords(ForthVocab *next)
-: BasicForthVocab(next)
-{
-}
-
-
 #endif //GIFORTH_COMPILERWORDS_H

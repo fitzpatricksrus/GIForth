@@ -1,4 +1,5 @@
 #pragma clang diagnostic push
+#pragma ide diagnostic ignored "modernize-use-trailing-return-type"
 #pragma ide diagnostic ignored "modernize-pass-by-value"
 
 #include "utils/StringUtils.h"
@@ -22,3 +23,5 @@ std::string CompositeForthWord::getDisassemblyName() const {
 std::string CompositeForthWord::getDisassemblyDetail(const ForthThread& thread) const {
 	return name;
 }
+
+#pragma clang diagnostic pop
