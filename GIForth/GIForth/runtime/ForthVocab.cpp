@@ -2,8 +2,8 @@
 // Created by stuff on 10/8/2019.
 //
 
-#include "utils/PrimitiveForthWordFunction.h"
-#include "utils/CompositeForthWordBuilder.h"
+#include "runtime/utils/PrimitiveForthWordFunction.h"
+#include "runtime/utils/CompositeForthWordBuilder.h"
 #include "ForthVocab.h"
 
 ForthVocab::ForthVocab(ForthVocab* nextIn)

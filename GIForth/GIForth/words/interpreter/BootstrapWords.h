@@ -1,7 +1,7 @@
 #ifndef GIFORTH_BOOTSTRAPWORDS_H
 #define GIFORTH_BOOTSTRAPWORDS_H
 
-#include "utils/PrimitiveForthWordFunction.h"
+#include "runtime/utils/PrimitiveForthWordFunction.h"
 #include "runtime/BasicForthVocab.h"
 
 class BootstrapWords : public BasicForthVocab {

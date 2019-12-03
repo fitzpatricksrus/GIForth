@@ -6,7 +6,7 @@
 #define GIFORTH_PRIMITIVEFORTHWORDS_H
 
 #include "runtime/BasicForthVocab.h"
-#include "utils/PrimitiveForthWordFunction.h"
+#include "runtime/utils/PrimitiveForthWordFunction.h"
 #include "runtime/ForthCell.h"
 
 class PrimitiveForthWords : public BasicForthVocab {

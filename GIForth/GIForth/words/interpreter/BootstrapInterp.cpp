@@ -37,11 +37,11 @@
 */
 #include <words/CoreForthWords.h>
 #include <words/VocabWords.h>
-#include "words/PrimitiveForthWords.h"
+#include "runtime/PrimitiveForthWords.h"
 #include "BootstrapInterp.h"
 #include "BootstrapWords.h"
 #include "runtime/ForthCell.h"
-#include "utils/CompositeForthWordBuilder.h"
+#include "runtime/utils/CompositeForthWordBuilder.h"
 
 CompositeForthWord* BootstrapInterp::getInstance() {
 	static PrimitiveForthWords pfw(nullptr);

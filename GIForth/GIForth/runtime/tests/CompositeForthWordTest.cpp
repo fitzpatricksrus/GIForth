@@ -1,8 +1,8 @@
 #include <string>
 #include <runtime/CompositeForthWord.h>
 #include <runtime/ForthThread.h>
-#include <utils/CompositeForthWordBuilder.h>
-#include <words/PrimitiveForthWords.h>
+#include <runtime/utils/CompositeForthWordBuilder.h>
+#include <runtime/PrimitiveForthWords.h>
 #include <utils/testing/TestRunner.h>
 #include "utils/testing/catch.hpp"
 

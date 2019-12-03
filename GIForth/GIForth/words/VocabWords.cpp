@@ -2,9 +2,9 @@
 // Created by stuff on 10/12/2019.
 //
 
-#include <utils/CompositeForthWordBuilder.h>
-#include <words/PrimitiveForthWords.h>
-#include "utils/PrimitiveForthWordFunction.h"
+#include <runtime/utils/CompositeForthWordBuilder.h>
+#include <runtime/PrimitiveForthWords.h>
+#include "runtime/utils/PrimitiveForthWordFunction.h"
 #include "VocabWords.h"
 #include "runtime/ForthVocab.h"
 #include "runtime/ForthThread.h"

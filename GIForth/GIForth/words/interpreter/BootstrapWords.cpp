@@ -4,10 +4,10 @@
 
 #include "BootstrapWords.h"
 #include <array>
-#include <utils/CompositeForthWordBuilder.h>
-#include <words/PrimitiveForthWords.h>
+#include <runtime/utils/CompositeForthWordBuilder.h>
+#include <runtime/PrimitiveForthWords.h>
 #include <words/VocabWords.h>
-#include "utils/NativeOSFunctions.hpp"
+#include "runtime/NativeOSFunctions.hpp"
 #include "runtime/ForthThread.h"
 
 BootstrapWords::BootstrapWords(ForthVocab* next)

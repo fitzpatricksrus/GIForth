@@ -4,7 +4,7 @@
 
 #include <string>
 #include <sstream>
-#include <utils/NativeOSFunctions.hpp>
+#include <runtime/NativeOSFunctions.hpp>
 #include "words/interpreter/BootstrapWords.h"
 #include "runtime/ForthThread.h"
 #include "utils/testing/catch.hpp"

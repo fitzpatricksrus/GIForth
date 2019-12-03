@@ -5,7 +5,7 @@
 #include "PrimitiveForthWords.h"
 #include "runtime/ForthThread.h"
 #include "runtime/CompositeForthWord.h"
-#include "utils/NativeOSFunctions.hpp"
+#include "runtime/NativeOSFunctions.hpp"
 
 PrimitiveForthWords::PrimitiveForthWords(ForthVocab *next)
 	: BasicForthVocab(next)

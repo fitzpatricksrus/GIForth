@@ -1,5 +1,5 @@
-#include <words/PrimitiveForthWords.h>
-#include <utils/CompositeForthWordBuilder.h>
+#include <runtime/PrimitiveForthWords.h>
+#include <runtime/utils/CompositeForthWordBuilder.h>
 #include "CompilerWords.h"
 #include "runtime/ForthThread.h"
 #include "utils/testing/debug.h"

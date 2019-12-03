@@ -5,7 +5,7 @@
 #include <sstream>
 #include "PrimitiveForthWordFunction.h"
 #include "runtime/ForthThread.h"
-#include "StringUtils.h"
+#include "utils/StringUtils.h"
 
 PrimitiveForthWordFunction::PrimitiveForthWordFunction(Function funcIn, const std::string& nameIn)
         : PrimitiveForthWordFunction(funcIn, nameIn, splitName(nameIn))

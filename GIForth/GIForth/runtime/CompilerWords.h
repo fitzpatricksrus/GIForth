@@ -6,7 +6,7 @@
 #define GIFORTH_COMPILERWORDS_H
 
 #include <runtime/BasicForthVocab.h>
-#include <utils/PrimitiveForthWordFunction.h>
+#include <runtime/utils/PrimitiveForthWordFunction.h>
 
 class CompilerWords : public BasicForthVocab {
 public:

@@ -2,10 +2,10 @@
 // Created by Dad on 9/27/19.
 //
 
-#include "utils/CompositeForthWordBuilder.h"
+#include "runtime/utils/CompositeForthWordBuilder.h"
 #include "runtime/CompositeForthWord.h"
 #include "CoreForthWords.h"
-#include "PrimitiveForthWords.h"
+#include "runtime/PrimitiveForthWords.h"
 
 CoreForthWords::CoreForthWords(ForthVocab *next)
 		: BasicForthVocab(next)

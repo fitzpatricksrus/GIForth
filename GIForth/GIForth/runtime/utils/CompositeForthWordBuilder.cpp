@@ -4,7 +4,7 @@
 // Created by Dad on 9/28/19.
 //
 
-#include <words/PrimitiveForthWords.h>
+#include <runtime/PrimitiveForthWords.h>
 #include "CompositeForthWordBuilder.h"
 
 CompositeForthWordBuilder::CompositeForthWordBuilder(const std::string &nameIn)

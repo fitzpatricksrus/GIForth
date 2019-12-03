@@ -3,11 +3,11 @@
 //
 
 #include <utils/StringUtils.h>
-#include <utils/NativeOSFunctions.hpp>
-#include "words/PrimitiveForthWords.h"
+#include <runtime/NativeOSFunctions.hpp>
+#include "PrimitiveForthWords.h"
 #include "ForthThread.h"
 #include "CompositeForthWord.h"
-#include "utils/CompositeForthWordBuilder.h"
+#include "runtime/utils/CompositeForthWordBuilder.h"
 
 #include "utils/testing/debug.h"
 

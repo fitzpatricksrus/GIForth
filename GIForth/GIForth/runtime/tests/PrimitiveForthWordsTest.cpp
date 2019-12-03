@@ -3,17 +3,17 @@
 //
 
 #include <runtime/ForthThread.h>
-#include <words/PrimitiveForthWords.h>
-#include <utils/CompositeForthWordBuilder.h>
+#include <runtime/PrimitiveForthWords.h>
+#include <runtime/utils/CompositeForthWordBuilder.h>
 #include "utils/testing/catch.hpp"
 
-TEST_CASE("words/PrimitiveForthWords::NOP", "[PrimitiveForthWords]") {
+TEST_CASE("runtime/tests/PrimitiveForthWords::NOP", "[RuntimeTests]") {
 	ForthThread thread;
 	PrimitiveForthWords::NOP.execute(thread);
 	REQUIRE(thread.getDataStackSize() == 0);
 }
 
-TEST_CASE("words/PrimitiveForthWords::JUMP", "[PrimitiveForthWords]") {
+TEST_CASE("runtime/tests/PrimitiveForthWords::JUMP", "[RuntimeTests]") {
 	CompositeForthWord word(
 		CompositeForthWordBuilder("PrimitiveForthWordsTest::JUMP")
 			.compileCell(&PrimitiveForthWords::JUMP)
