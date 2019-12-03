@@ -155,6 +155,10 @@ void ForthThread::join(const CompositeForthWord& word) {
 	join();
 }
 
+ForthThread* ForthThread::getCurrentThread() {
+	return static_cast<ForthThread*>(PrimitiveForthWords::registers[PrimitiveForthWords::THREAD_STATE].pointer);
+}
+
 void ForthThread::enableTrace(bool enable) {
     trace = enable;
 }

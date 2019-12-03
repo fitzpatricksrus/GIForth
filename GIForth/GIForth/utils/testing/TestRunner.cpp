@@ -13,6 +13,8 @@
 #include "utils/testing/catch.hpp"
 #include "runtime/CompositeForthWord.h"
 
+bool TestRunner::traceEnabled = false;
+
 int TestRunner::run( int argc, const char* argv[] ) {
     // global setup...
 
@@ -23,11 +25,32 @@ int TestRunner::run( int argc, const char* argv[] ) {
     return result;
 }
 
-bool TestRunner::enableTrace = false;
-
 ForthThread TestRunner::runTestWord(CompositeForthWord* word) {
 	ForthThread thread;
-	Tracer t(TestRunner::enableTrace);
+	bool s = thread.isTraceEnabled();
+	thread.enableTrace(traceEnabled);
 	thread.join(*word);
+	thread.enableTrace(s);
 	return thread;
+}
+
+TestRunner::Tracer::Tracer(bool e)
+{
+	ForthThread* currentThread = ForthThread::getCurrentThread();
+	if (currentThread) {
+		save = currentThread->isTraceEnabled();
+		currentThread->enableTrace(e);
+	} else {
+		save = traceEnabled;
+		traceEnabled = e;
+	}
+}
+
+TestRunner::Tracer::~Tracer() {
+	ForthThread* currentThread = ForthThread::getCurrentThread();
+	if (currentThread) {
+		currentThread->enableTrace(save);
+	} else {
+		traceEnabled = save;
+	}
 }

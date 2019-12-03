@@ -11,9 +11,9 @@ class CompositeForthWord;
 
 class TestRunner {
 public:
-	static bool enableTrace;
     static int run(int argc, const char* argv[]);
     static ForthThread runTestWord(CompositeForthWord* word);
+    static bool traceEnabled;
 
     class Tracer {
     public:
@@ -23,15 +23,5 @@ public:
 		bool save;
     };
 };
-
-inline TestRunner::Tracer::Tracer(bool e)
-: save(enableTrace)
-{
-	enableTrace = e;
-}
-
-inline TestRunner::Tracer::~Tracer() {
-	enableTrace = save;
-}
 
 #endif //GIFORTH_TESTRUNNER_H

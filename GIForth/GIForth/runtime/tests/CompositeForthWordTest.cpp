@@ -1,7 +1,3 @@
-//
-// Created by Dad on 9/17/19.
-//
-
 #include <string>
 #include <runtime/CompositeForthWord.h>
 #include <runtime/ForthThread.h>

@@ -93,6 +93,8 @@ static std::string testNumbersToCharacters(int number) {
 	return std::string(scratch);
 }
 TEST_CASE("words/tests/CoreForthWordsTest::testNumbersToCharacters", "[CoreForthWordsTest]") {
+//	TestRunner::Tracer t;
+
 	CHECK(testNumbersToCharacters(0) == "0");
 	CHECK(testNumbersToCharacters(1) == "1");
 	CHECK(testNumbersToCharacters(1234) == "1234");

@@ -23,7 +23,7 @@ public:
 	// -- word
 	static PrimitiveForthWordFunction COMPILE_END;
 
-	// --
+	// word --
 	static PrimitiveForthWordFunction FREE_WORD;
 };
 

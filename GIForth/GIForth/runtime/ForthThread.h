@@ -67,6 +67,7 @@ public:
 
 	void join();
 	void join(const CompositeForthWord& word);
+	static ForthThread* getCurrentThread();
 
 	void enableTrace(bool enable);
     bool isTraceEnabled() const;
