@@ -29,5 +29,7 @@ add_executable(GIForth
         GIForth/words/VocabWords.cpp
         GIForth/utils/tests/StringUtilsTest.cpp
         GIForth/runtime/tests/PrimitiveForthWordsTest.cpp
-        GIForth/runtime/CompilerWords.cpp
-        GIForth/runtime/tests/CompilerWordsTest.cpp GIForth/runtime/tests/CompilerWordsTest.h)
+        GIForth/runtime/CompositeForthWordWords.cpp
+        GIForth/runtime/tests/CompositeForthWordWordsTest.cpp
+        GIForth/words/compiler/CompilerWords.cpp
+        )

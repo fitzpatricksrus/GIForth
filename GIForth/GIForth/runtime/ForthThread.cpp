@@ -137,14 +137,12 @@ void ForthThread::join() {
 			checkTrue(ip.ndx < ip.word->size());
 			ForthWord *word = (*ip.word)[ip.ndx++].word;
 			doTrace(word);
-			try {
-				word->execute(*this);
-			} catch (const CheckException &e) {
-				NativeOSFunctions::printString(e.msg);
-				NativeOSFunctions::endLine();
-			} catch (const std::exception &e) {
-			}
+			word->execute(*this);
 		}
+	} catch (const CheckException &e) {
+		NativeOSFunctions::printString(e.msg);
+		NativeOSFunctions::endLine();
+		throw e;
 	} catch (const ThreadExitException &e) {
 	}
 	PrimitiveForthWords::registers[PrimitiveForthWords::THREAD_STATE] = static_cast<ForthCell::PTR_TYPE>(nullptr);
