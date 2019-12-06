@@ -54,7 +54,7 @@ static CompositeForthWord F_COMPILE_WORD(
 		CompositeForthWordBuilder("CompilerWords::COMPILE_WORD")
 			.compileWord(&BootstrapWords::NEXT_TOKEN)							// -- char*
 			.compileWord(&CompositeForthWordWords::COMPILE_BEGIN)				// char* --
-			.compileDo()														// --
+			.compileRepeat()														// --
 				.compileWord(&BootstrapWords::NEXT_TOKEN)						// -- char*
 				.compileWord(&CoreForthWords::PARSE_NUMBER)						// char* -- [ value true | char* false ]
 				.compileIf()													// [ value true | char* false ] = [ value | char* ]
@@ -92,6 +92,7 @@ static CompositeForthWord F_COLON(
 		.compileWord(&F_COMPILE_WORD)
 		.compileIf()
 			.compileWord(&VocabWords::CURRENT_VOCAB)
+			.compileWord(&PrimitiveForthWords::CELL_AT)
 			.compileWord(&VocabWords::ADD_WORD_TO_VOCAB)
 		.compileEndIf()
 		.build()
@@ -110,7 +111,7 @@ ForthWord& CompilerWords::COLON = F_COLON;
  static CompositeForthWord SEMICOLON(
 		CompositeForthWordBuilder("CompilerWords::SEMICOLON")
 			.compileWord(&CompositeForthWordWords::COMPILE_END)
-			.compileWord(&PrimitiveForthWords::FROM_RETURN_STACK)
+			.compileWord(&PrimitiveForthWords::FROM_RETURN_STACK)		//TODO: this needs to change trace indent somehow
 			.compileWord(&PrimitiveForthWords::DROP)
 			.compileWord(&PrimitiveForthWords::TRUE)
 			.compileWord(&PrimitiveForthWords::RETURN)
