@@ -8,7 +8,6 @@
 class BootstrapInterpTest {
 public:
 	static void test();
-
 };
 
 #endif //GIFORTH_BOOTSTRAPINTERPTEST_H

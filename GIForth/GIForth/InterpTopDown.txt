@@ -1,34 +1,48 @@
+: :	( -- word true | false)
+ 	// get word name
+ 	nextToken
+ 	// start compiling
+ 	compileBegin
+	do
+ 		nextToken str2Int if
+			(PUSH_NEXT_CELL) (PUSH_NEXT_CELL) compileTOS
+			compileTOS
+		else
+			findWord if
+				compileTOS
+			else
+				CompilerWords searchVocab if
+					execute
+				else
+					compileEnd freeWord
+					printString
+					'?' printChar
+					'\n' printChar
+					false
+					return
+				endif
+			endif
+		endif
+	forever
+ 	;
 
-
-: nextToken     // -- stringAddr
-: findWord      // stringAddr -- [ wordAddr true | stringAddr false ]
-: (jumpIfFalse) // bool --
-: execute       // wordAddr --
-: (jump)
-: parseNumber   // stringAddr -- [ value true | string addr false ]
-: printString   // stringAddr --
-: (pusHNextCell) // -- value
-: printChar     // char --
+ : ;
+ 	compileEnd
+  	r> drop
+  	true
+  	return
+  	;
 
 : interp
     do
-        nextToken                   // -- stringAddr
-        findWord                    // stringAddr -- [ wordAddr true | stringAddr false ]
-        if                          // bool --
-            // found the word.  Execute it
-            execute                 // wordAddr --
-        else
-            // may be a number
-            parseNumber             // stringAddr -- [ value true | string addr false ]
-            if                      //
-                // it's a number and it's on the stack.  We're done
+        nextToken
+        str2Int not if
+            findWord if
+                execute
             else
-                printString         // stringAddr
-                63 printChar        // '?'
-                13 printChar        // '\n'
+                printString
+                '?' printChar
+                '\n' printChar
             endif
         endif
-    false until
-;
-
-
+    forever

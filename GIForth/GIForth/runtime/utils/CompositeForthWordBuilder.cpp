@@ -28,6 +28,23 @@ CompositeForthWordBuilder& CompositeForthWordBuilder::compileConstant(const Fort
 	return *this;
 }
 
+CompositeForthWordBuilder &CompositeForthWordBuilder::compileWord(const ForthCell::WORD_TYPE& wordIn) {
+	word.push_back(wordIn);
+	return *this;
+}
+
+CompositeForthWordBuilder &CompositeForthWordBuilder::compileInt(const ForthCell::INT_TYPE &intIn) {
+	word.push_back(&PrimitiveForthWords::PUSH_NEXT_CELL);
+	word.push_back(intIn);
+	return *this;
+}
+
+CompositeForthWordBuilder &CompositeForthWordBuilder::compilePtr(const ForthCell::PTR_TYPE &ptrIn) {
+	word.push_back(&PrimitiveForthWords::PUSH_NEXT_CELL);
+	word.push_back(ptrIn);
+	return *this;
+}
+
 CompositeForthWordBuilder& CompositeForthWordBuilder::compileIf() {
 	word.push_back(&PrimitiveForthWords::JUMP_IF_FALSE);
 	ifStack.push(word.size());

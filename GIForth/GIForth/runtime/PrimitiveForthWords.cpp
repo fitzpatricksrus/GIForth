@@ -202,7 +202,7 @@ PrimitiveForthWordFunction PrimitiveForthWords::INT_INDEX(&F_INT_INDEX,
 
 // addr - CELL
 static void F_CELL_AT(ForthThread& thread) {
-	ForthCell::CELL_TYPE* ptr = static_cast<ForthCell::CELL_TYPE*>(thread.popDataStack().pointer);
+	ForthCell::WORD_TYPE* ptr = static_cast<ForthCell::WORD_TYPE*>(thread.popDataStack().pointer);
 	thread.pushDataStack(*ptr);
 }
 PrimitiveForthWordFunction PrimitiveForthWords::CELL_AT(&F_CELL_AT,
@@ -210,7 +210,7 @@ PrimitiveForthWordFunction PrimitiveForthWords::CELL_AT(&F_CELL_AT,
 
 // CELL addr --
 static void F_CELL_PUT(ForthThread& thread) {
-	ForthCell::CELL_TYPE* ptr = static_cast<ForthCell::CELL_TYPE*>(thread.popDataStack().pointer);
+	ForthCell::WORD_TYPE* ptr = static_cast<ForthCell::WORD_TYPE*>(thread.popDataStack().pointer);
 	(*ptr) = thread.popDataStack().word;
 }
 PrimitiveForthWordFunction PrimitiveForthWords::CELL_PUT(&F_CELL_PUT,
@@ -218,7 +218,7 @@ PrimitiveForthWordFunction PrimitiveForthWords::CELL_PUT(&F_CELL_PUT,
 
 // ndx addr -- addr
 static void F_CELL_INDEX(ForthThread& thread) {
-	ForthCell::CELL_TYPE* ptr = static_cast<ForthCell::CELL_TYPE*>(thread.popDataStack().pointer);
+	ForthCell::WORD_TYPE* ptr = static_cast<ForthCell::WORD_TYPE*>(thread.popDataStack().pointer);
 	ForthCell::INT_TYPE ndx = thread.popDataStack().integer;
 	thread.pushDataStack(&ptr[ndx]);
 }

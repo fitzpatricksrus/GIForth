@@ -7,11 +7,13 @@
 //
 
 #include <words/interpreter/tests/BootstrapInterpTest.h>
+#include <words/interpreter/tests/OuterInterpTest.h>
 #include "utils/testing/TestRunner.h"
 
 int main(int argc, const char * argv[]) {
-#if 0
-	BootstrapInterpTest::test();
+#if 1
+//	BootstrapInterpTest::test();
+	OuterInterpTest::test();
 #else
 	const char* testArgs[] = {
 			"dummy", //"--list-tags"

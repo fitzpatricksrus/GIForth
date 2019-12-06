@@ -17,7 +17,6 @@ add_executable(GIForth
         GIForth/words/interpreter/BootstrapWords.cpp
         GIForth/runtime/PrimitiveForthWords.cpp
         GIForth/main.cpp
-        CMakeLists.txt
         GIForth/words/interpreter/tests/BootstrapInterpTest.cpp
         GIForth/words/CoreForthWords.cpp
         GIForth/runtime/utils/CompositeForthWordBuilder.cpp
@@ -32,4 +31,5 @@ add_executable(GIForth
         GIForth/runtime/CompositeForthWordWords.cpp
         GIForth/runtime/tests/CompositeForthWordWordsTest.cpp
         GIForth/words/compiler/CompilerWords.cpp
-        )
+        GIForth/words/interpreter/OuterInterp.cpp
+        GIForth/words/interpreter/tests/OuterInterpTest.cpp GIForth/words/interpreter/tests/OuterInterpTest.h)

@@ -13,7 +13,7 @@ public:
 	// str --
 	static PrimitiveForthWordFunction COMPILE_BEGIN;
 
-	// word --
+	// --
 	static PrimitiveForthWordFunction COMPILE_TOS;
 
 	// -- word

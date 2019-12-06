@@ -16,6 +16,7 @@ public:
 
 	static ForthWord& SEARCH_VOCAB;			// char* vocab -- ( word true | char* false )
 	static ForthWord& CURRENT_VOCAB;		// -- vocab
+	static ForthWord& ADD_WORD_TO_VOCAB;	// word vocab --
 };
 
 

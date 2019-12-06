@@ -5,9 +5,12 @@
 
 class CompilerWords : public BasicForthVocab {
 public:
+	CompilerWords(ForthVocab* parent);
+	virtual ~CompilerWords() = default;
 
+	static ForthVocab* getCompilerVocabInstance();
+	static ForthWord& COMPILE_WORD;
 	static ForthWord& COLON;
-	static ForthWord& SEMICOLON;
 };
 
 #endif //GIFORTH_COMPILERWORDS_H

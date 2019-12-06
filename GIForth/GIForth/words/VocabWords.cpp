@@ -29,11 +29,20 @@ static void findTheWord(ForthThread& thread) {
 		thread.pushDataStack(false);
 	}
 }
-static PrimitiveForthWordFunction F_SEARCH_VOCAB(&findTheWord, "COMPILER::SEARCH_VOCAB");
+static PrimitiveForthWordFunction F_SEARCH_VOCAB(&findTheWord, "VocabWords::SEARCH_VOCAB");
 ForthWord& VocabWords::SEARCH_VOCAB = F_SEARCH_VOCAB;
 
 static CompositeForthWord F_CURRENT_VOCAB(  // char* -- len
-		CompositeForthWordBuilder("CoreForthWords::CURRENT_VOCAB")
+		CompositeForthWordBuilder("VocabWords::CURRENT_VOCAB")
 				.compileConstant(&PrimitiveForthWords::registers + PrimitiveForthWords::VOCAB_STATE)
 				.build());
 ForthWord& VocabWords::CURRENT_VOCAB = F_CURRENT_VOCAB;
+
+// word vocab --
+static void addWordToVocab(ForthThread& thread) {
+	BasicForthVocab* vocab = static_cast<BasicForthVocab*>(thread.popDataStack().pointer);
+	ForthWord* word = static_cast<ForthWord*>(thread.popDataStack().pointer);
+	vocab->add(word);
+}
+static PrimitiveForthWordFunction F_ADD_WORD_TO_VOCAB(&addWordToVocab, "VocabWords::ADD_WORD_TO_VOCAB");
+ForthWord& VocabWords::ADD_WORD_TO_VOCAB = F_ADD_WORD_TO_VOCAB;

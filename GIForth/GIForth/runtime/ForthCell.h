@@ -13,18 +13,18 @@ typedef union ForthCell {
     typedef long INT_TYPE;
     // typedef float FLOAT_TYPE;
     typedef void* PTR_TYPE;
-    typedef ForthWord* CELL_TYPE;
+    typedef ForthWord* WORD_TYPE;
 	
 	ForthCell() = default;
 	ForthCell(const ForthCell& other) = default;
     ~ForthCell() = default;
 	ForthCell& operator=(const ForthCell& other) = default;
 	
-	ForthCell(const CELL_TYPE& wordIn) : word(wordIn) {}
+	ForthCell(const WORD_TYPE& wordIn) : word(wordIn) {}
     ForthCell(const INT_TYPE& intIn) : integer(intIn) {}
     ForthCell(const PTR_TYPE& ptrIn) : pointer(ptrIn) {}
 
-    CELL_TYPE word;
+    WORD_TYPE word;
     PTR_TYPE pointer;
     INT_TYPE integer;
 } ForthCell;
