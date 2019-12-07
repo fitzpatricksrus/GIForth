@@ -65,7 +65,6 @@ public:
     void pushFrame(const ForthExecutionFrame& frame);
     void popFrame();
 
-	void join();
 	void join(const CompositeForthWord& word);
 	static ForthThread* getCurrentThread();
 

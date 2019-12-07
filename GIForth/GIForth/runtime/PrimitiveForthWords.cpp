@@ -64,6 +64,7 @@ PrimitiveForthWords::PrimitiveForthWords(ForthVocab *next)
 	add(&NEGATIVE_ONE);
 	add(&ADD_ONE);
 	add(&SUBTRACT_ONE);
+	add(&TRACE);
 }
 
 using ParamType = PrimitiveForthWordFunction::ParamType;
@@ -457,4 +458,10 @@ static void F_SUBTRACT_ONE(ForthThread &thread) {
 }
 PrimitiveForthWordFunction PrimitiveForthWords::SUBTRACT_ONE(
 		&F_SUBTRACT_ONE, "PrimitiveForthWords::SUBTRACT_ONE", "-=1");
+
+static void F_TRACE(ForthThread &thread) {
+	thread.enableTrace(thread.popDataStack().integer);
+}
+PrimitiveForthWordFunction PrimitiveForthWords::TRACE(
+		&F_TRACE, "PrimitiveForthWords::TRACE", "trace");
 

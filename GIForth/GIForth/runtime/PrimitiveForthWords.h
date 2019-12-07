@@ -101,6 +101,8 @@ public:
 		THREAD_STORAGE_SIZE
 	};
 	static /*thread_local*/ ForthCell registers[THREAD_STORAGE_SIZE];
+
+	static PrimitiveForthWordFunction TRACE;	// bool --
 };
 
 #endif //GIFORTH_PRIMITIVEFORTHWORDS_H

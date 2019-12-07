@@ -33,9 +33,11 @@ CompilerWords::CompilerWords(ForthVocab* parent)
  		nextToken str2Int if
 			(PUSH_NEXT_CELL) (PUSH_NEXT_CELL) compileTOS
 			compileTOS
+			false
 		else
 			findWord if
 				compileTOS
+				false
 			else
 				CompilerWords searchVocab if
 					execute
@@ -43,11 +45,11 @@ CompilerWords::CompilerWords(ForthVocab* parent)
 					compileEnd freeWord
 					printString '?' printChar 13 printChar
 					false
-					return
+					true
 				endif
 			endif
 		endif
-	forever
+	until
  	;
 */
 static CompositeForthWord F_COMPILE_WORD(
@@ -61,10 +63,12 @@ static CompositeForthWord F_COMPILE_WORD(
 					.compilePtr(&PrimitiveForthWords::PUSH_NEXT_CELL)			// value -- value &PUSH_NEXT_CELL
 					.compileWord(&CompositeForthWordWords::COMPILE_TOS)			// value &PUSH_NEXT_CELL --	value
 					.compileWord(&CompositeForthWordWords::COMPILE_TOS)			// value --
+					.compileWord(&PrimitiveForthWords::TRUE)
 				.compileElse()
 					.compileWord(&BootstrapWords::FIND_WORD)					// char* -- [ word true | char* false ]
 					.compileIf()												// [ word true | char* false ] -- [ word | char* ]
 						.compileWord(&CompositeForthWordWords::COMPILE_TOS)		// word --
+						.compileWord(&PrimitiveForthWords::TRUE)
 					.compileElse()
 						.compilePtr(CompilerWords::getCompilerVocabInstance())	// char* -- char* vocab
 						.compileWord(&VocabWords::SEARCH_VOCAB)					// char* vocab -- [ word true | char* false ]
@@ -81,12 +85,13 @@ static CompositeForthWord F_COMPILE_WORD(
 							.compileInt('\r')
 							.compileCell(&PrimitiveForthWords::PRINT_CHAR)
 							.compileCell(&PrimitiveForthWords::FLUSH_INPUT)
-							.compileWord(&PrimitiveForthWords::FALSE)			// -- false
-							.compileWord(&PrimitiveForthWords::RETURN)
+							.compileWord(&PrimitiveForthWords::FALSE)			// -- result of compile
+							.compileWord(&PrimitiveForthWords::FALSE)			// -- cause compile to exit
 						.compileEndIf()
 					.compileEndIf()
 				.compileEndIf()
-			.compileForever()
+			.compileWord(&PrimitiveForthWords::CONDITIONAL_NOT)
+			.compileUntil()
 			.build());
 ForthWord& CompilerWords::COMPILE_WORD = F_COMPILE_WORD;
 
@@ -113,10 +118,8 @@ ForthWord& CompilerWords::COLON = F_COLON;
  static CompositeForthWord SEMICOLON(
 		CompositeForthWordBuilder("CompilerWords::SEMICOLON")
 			.compileWord(&CompositeForthWordWords::COMPILE_END)
-			.compileWord(&PrimitiveForthWords::FROM_RETURN_STACK)		//TODO: this needs to change trace indent somehow
-			.compileWord(&PrimitiveForthWords::DROP)
-			.compileWord(&PrimitiveForthWords::TRUE)
-			.compileWord(&PrimitiveForthWords::RETURN)
+			.compileWord(&PrimitiveForthWords::TRUE)					//result of compile
+			.compileWord(&PrimitiveForthWords::FALSE)					//cause compile to exit
 			.build());
 ForthVocab* CompilerWords::getCompilerVocabInstance() {
 	static ForthVocab words(nullptr);

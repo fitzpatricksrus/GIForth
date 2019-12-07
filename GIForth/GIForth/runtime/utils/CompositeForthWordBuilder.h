@@ -13,8 +13,7 @@
  <bool> if ... else ... endif
  while <bool> do ... endWhile
  repeat ... forever
-
-
+ repeat ... <bool> until
  */
 
 class CompositeForthWordBuilder {
@@ -23,9 +22,9 @@ public:
 	CompositeForthWordBuilder& operator+=(const ForthCell& cell);
 	CompositeForthWordBuilder& compileCell(const ForthCell& cell);
 	CompositeForthWordBuilder& compileConstant(const ForthCell& cell);
-	CompositeForthWordBuilder& compileWord(const ForthCell::WORD_TYPE& wordIn);
-	CompositeForthWordBuilder& compileInt(const ForthCell::INT_TYPE& intIn);
-	CompositeForthWordBuilder& compilePtr(const ForthCell::PTR_TYPE& ptrIn);
+	CompositeForthWordBuilder& compileWord(const ForthCell::WORD_TYPE wordIn);
+	CompositeForthWordBuilder& compileInt(const ForthCell::INT_TYPE intIn);
+	CompositeForthWordBuilder& compilePtr(const ForthCell::PTR_TYPE ptrIn);
 	CompositeForthWordBuilder& compileIf();
 	CompositeForthWordBuilder& compileElse();
 	CompositeForthWordBuilder& compileEndIf();
@@ -33,7 +32,8 @@ public:
 	CompositeForthWordBuilder& compileDo();
     CompositeForthWordBuilder& compileEndWhile();
     CompositeForthWordBuilder& compileRepeat();
-    CompositeForthWordBuilder& compileForever();
+	CompositeForthWordBuilder& compileForever();
+	CompositeForthWordBuilder& compileUntil();
 
 	
 	CompositeForthWord build();

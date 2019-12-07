@@ -10,15 +10,11 @@
 #include "utils/testing/TestRunner.h"
 
 int main(int argc, const char * argv[]) {
-#if 1
-//	BootstrapInterpTest::test();
-	OuterInterpTest::test();
-#else
 	const char* testArgs[] = {
 			"dummy", //"--listtags"
 	};
 	int testArgCount = sizeof(testArgs) / sizeof(testArgs[0]);
 	TestRunner::run(testArgCount, testArgs);
+	OuterInterpTest::test();
 	return 0;
-#endif
 }

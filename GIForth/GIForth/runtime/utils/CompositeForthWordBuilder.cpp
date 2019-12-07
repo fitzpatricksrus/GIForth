@@ -28,18 +28,18 @@ CompositeForthWordBuilder& CompositeForthWordBuilder::compileConstant(const Fort
 	return *this;
 }
 
-CompositeForthWordBuilder &CompositeForthWordBuilder::compileWord(const ForthCell::WORD_TYPE& wordIn) {
+CompositeForthWordBuilder &CompositeForthWordBuilder::compileWord(const ForthCell::WORD_TYPE wordIn) {
 	word.push_back(wordIn);
 	return *this;
 }
 
-CompositeForthWordBuilder &CompositeForthWordBuilder::compileInt(const ForthCell::INT_TYPE &intIn) {
+CompositeForthWordBuilder &CompositeForthWordBuilder::compileInt(const ForthCell::INT_TYPE intIn) {
 	word.push_back(&PrimitiveForthWords::PUSH_NEXT_CELL);
 	word.push_back(intIn);
 	return *this;
 }
 
-CompositeForthWordBuilder &CompositeForthWordBuilder::compilePtr(const ForthCell::PTR_TYPE &ptrIn) {
+CompositeForthWordBuilder &CompositeForthWordBuilder::compilePtr(const ForthCell::PTR_TYPE ptrIn) {
 	word.push_back(&PrimitiveForthWords::PUSH_NEXT_CELL);
 	word.push_back(ptrIn);
 	return *this;
@@ -101,6 +101,13 @@ CompositeForthWordBuilder& CompositeForthWordBuilder::compileRepeat() {
 
 CompositeForthWordBuilder& CompositeForthWordBuilder::compileForever() {
 	word.push_back(&PrimitiveForthWords::JUMP);
+	word.push_back(static_cast<ForthCell::INT_TYPE>(ifStack.top()));
+	ifStack.pop();
+	return *this;
+}
+
+CompositeForthWordBuilder& CompositeForthWordBuilder::compileUntil() {
+	word.push_back(&PrimitiveForthWords::JUMP_IF_FALSE);
 	word.push_back(static_cast<ForthCell::INT_TYPE>(ifStack.top()));
 	ifStack.pop();
 	return *this;

@@ -129,7 +129,8 @@ int ForthThread::returnStackDepth() const {
     return returnStack.size();
 }
 
-void ForthThread::join() {
+void ForthThread::join(const CompositeForthWord& word) {
+	pushFrame(&word);
 	PrimitiveForthWords::registers[PrimitiveForthWords::THREAD_STATE] = this;
 	try {
 		while (true) {
@@ -146,11 +147,6 @@ void ForthThread::join() {
 	} catch (const ThreadExitException &e) {
 	}
 	PrimitiveForthWords::registers[PrimitiveForthWords::THREAD_STATE] = static_cast<ForthCell::PTR_TYPE>(nullptr);
-}
-
-void ForthThread::join(const CompositeForthWord& word) {
-	pushFrame(&word);
-	join();
 }
 
 ForthThread* ForthThread::getCurrentThread() {
