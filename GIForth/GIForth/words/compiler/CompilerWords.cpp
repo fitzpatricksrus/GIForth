@@ -78,6 +78,9 @@ static CompositeForthWord F_COMPILE_WORD(
 							.compileWord(&PrimitiveForthWords::PRINT_CHAR)
 							.compileInt('\n')
 							.compileCell(&PrimitiveForthWords::PRINT_CHAR)
+							.compileInt('\r')
+							.compileCell(&PrimitiveForthWords::PRINT_CHAR)
+							.compileCell(&PrimitiveForthWords::FLUSH_INPUT)
 							.compileWord(&PrimitiveForthWords::FALSE)			// -- false
 							.compileWord(&PrimitiveForthWords::RETURN)
 						.compileEndIf()

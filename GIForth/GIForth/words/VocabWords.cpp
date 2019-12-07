@@ -45,14 +45,14 @@ ForthWord& VocabWords::ADD_WORD_TO_VOCAB = F_ADD_WORD_TO_VOCAB;
 
 static CompositeForthWord F_SOURCE_VOCAB(
 		CompositeForthWordBuilder("VocabWords::SOURCE_VOCAB")
-				.compileConstant(PrimitiveForthWords::registers + PrimitiveForthWords::SOURCE_VOCAB_STATE)
+				.compileConstant(&PrimitiveForthWords::registers[PrimitiveForthWords::SOURCE_VOCAB_STATE])
 				.compileWord(&PrimitiveForthWords::CELL_AT)
 				.build());
 ForthWord& VocabWords::SOURCE_VOCAB = F_SOURCE_VOCAB;
 
 static CompositeForthWord F_DEST_VOCAB(
 		CompositeForthWordBuilder("VocabWords::DEST_VOCAB")
-				.compileConstant(PrimitiveForthWords::registers + PrimitiveForthWords::DEST_VOCAB_STATE)
+				.compileConstant(&PrimitiveForthWords::registers[PrimitiveForthWords::DEST_VOCAB_STATE])
 				.compileWord(&PrimitiveForthWords::CELL_AT)
 				.build());
 ForthWord& VocabWords::DEST_VOCAB = F_DEST_VOCAB;

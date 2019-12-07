@@ -11,6 +11,6 @@ void OuterInterpTest::test() {
 	CompositeForthWord *interp = OuterInterp::getInstance();
 
 	ForthThread thread;
-	thread.enableTrace(true);
+//	thread.enableTrace(true);
 	thread.join(*interp);
 }

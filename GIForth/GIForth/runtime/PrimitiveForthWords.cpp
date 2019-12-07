@@ -409,6 +409,12 @@ static void F_GET_NEXT_INPUT_CHAR(ForthThread& thread) {
 PrimitiveForthWordFunction PrimitiveForthWords::GET_NEXT_INPUT_CHAR(&F_GET_NEXT_INPUT_CHAR,
 		"PrimitiveForthWords::GET_NEXT_INPUT_CHAR", "getInput");
 
+static void F_FLUSH_INPUT(ForthThread& thread) {
+	NativeOSFunctions::flushInput();
+}
+PrimitiveForthWordFunction PrimitiveForthWords::FLUSH_INPUT(&F_FLUSH_INPUT,
+		"PrimitiveForthWords::FLUSH_INPUT", "flushInput");
+
 static void F_PRINT_CHAR(ForthThread& thread) {
 	NativeOSFunctions::printChar(static_cast<char>(thread.popDataStack().integer));
 }

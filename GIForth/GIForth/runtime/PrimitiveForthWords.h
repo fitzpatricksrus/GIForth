@@ -78,7 +78,8 @@ public:
 
     static PrimitiveForthWordFunction ACCEPT_INPUT;     // charPtr size -- inputSize
     static PrimitiveForthWordFunction PEEK_NEXT_INPUT_CHAR;
-    static PrimitiveForthWordFunction GET_NEXT_INPUT_CHAR;
+	static PrimitiveForthWordFunction GET_NEXT_INPUT_CHAR;
+	static PrimitiveForthWordFunction FLUSH_INPUT;
     static PrimitiveForthWordFunction PRINT_CHAR;
 
     static PrimitiveForthWordFunction FALSE;

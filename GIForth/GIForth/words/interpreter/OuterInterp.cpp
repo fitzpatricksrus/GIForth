@@ -7,6 +7,7 @@
 #include <words/VocabWords.h>
 #include <words/compiler/CompilerWords.h>
 #include <runtime/utils/CompositeForthWordBuilder.h>
+#include <runtime/NativeOSFunctions.hpp>
 
 /*
 : interp
@@ -50,6 +51,9 @@ CompositeForthWord* OuterInterp::getInstance() {
 							.compileWord(&PrimitiveForthWords::PRINT_CHAR)
 							.compileConstant(static_cast<ForthCell::INT_TYPE>('\n'))
 							.compileWord(&PrimitiveForthWords::PRINT_CHAR)
+							.compileConstant(static_cast<ForthCell::INT_TYPE>('\r'))
+							.compileWord(&PrimitiveForthWords::PRINT_CHAR)
+							.compileWord(&PrimitiveForthWords::FLUSH_INPUT)
 						.compileEndIf()
 					.compileEndIf()
 				.compileForever()
