@@ -33,11 +33,11 @@ CompilerWords::CompilerWords(ForthVocab* parent)
  		nextToken str2Int if
 			(PUSH_NEXT_CELL) (PUSH_NEXT_CELL) compileTOS
 			compileTOS
-			false
+			true
 		else
 			findWord if
 				compileTOS
-				false
+				true
 			else
 				CompilerWords searchVocab if
 					execute
@@ -45,7 +45,7 @@ CompilerWords::CompilerWords(ForthVocab* parent)
 					compileEnd freeWord
 					printString '?' printChar 13 printChar
 					false
-					true
+					false
 				endif
 			endif
 		endif
@@ -109,8 +109,8 @@ ForthWord& CompilerWords::COLON = F_COLON;
 /*
 : ;
 	compileEnd
- 	r> drop
  	true
+ 	false
  	return
  	;
 
