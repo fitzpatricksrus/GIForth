@@ -11,7 +11,7 @@
 #include "runtime/ForthThread.h"
 
 BootstrapWords::BootstrapWords(ForthVocab* next)
-: BasicForthVocab(next)
+: ForthVocab(next)
 {
 	add("nextToken", &NEXT_TOKEN);
 	add("findWord", &FIND_WORD);
@@ -51,10 +51,9 @@ void BootstrapWords::F_NEXT_TOKEN(ForthThread& thread) {
 
 static CompositeForthWord F_FIND_WORD(  // char* -- len
 		CompositeForthWordBuilder("BootstrapWords::FIND_WORD")
-				.compileCell(&VocabWords::CURRENT_VOCAB)
-				.compileCell(&PrimitiveForthWords::CELL_AT)
-				.compileCell(&VocabWords::SEARCH_VOCAB)
-				.build());
+			.compileCell(&VocabWords::SOURCE_VOCAB)
+			.compileCell(&VocabWords::SEARCH_VOCAB)
+			.build());
 ForthWord& BootstrapWords::FIND_WORD = F_FIND_WORD;
 
 // stringAddr --

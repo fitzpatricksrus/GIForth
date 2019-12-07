@@ -8,7 +8,7 @@
 #include "runtime/PrimitiveForthWords.h"
 
 CoreForthWords::CoreForthWords(ForthVocab *next)
-		: BasicForthVocab(next)
+		: ForthVocab(next)
 {
 	add("strlen", &STRLEN);
 	add("strcpy", &STRCPY);

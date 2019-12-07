@@ -7,7 +7,7 @@
 using ParamType = PrimitiveForthWordFunction::ParamType;
 
 CompositeForthWordWords::CompositeForthWordWords(ForthVocab *next)
-		: BasicForthVocab(next)
+		: ForthVocab(next)
 {
 	add(&COMPILE_BEGIN);
 	add(&COMPILE_TOS);

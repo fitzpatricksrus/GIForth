@@ -1,9 +1,9 @@
 #ifndef GIFORTH_COMPILERWORDS_H
 #define GIFORTH_COMPILERWORDS_H
 
-#include <runtime/BasicForthVocab.h>
+#include <runtime/ForthVocab.h>
 
-class CompilerWords : public BasicForthVocab {
+class CompilerWords : public ForthVocab {
 public:
 	CompilerWords(ForthVocab* parent);
 	virtual ~CompilerWords() = default;

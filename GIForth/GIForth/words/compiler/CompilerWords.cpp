@@ -10,7 +10,7 @@
 #include <words/CoreForthWords.h>
 
 CompilerWords::CompilerWords(ForthVocab* parent)
-: BasicForthVocab(parent)
+: ForthVocab(parent)
 {
 	add("compileWord", &COMPILE_WORD);
 	add(":", &COLON);
@@ -91,8 +91,7 @@ static CompositeForthWord F_COLON(
 		CompositeForthWordBuilder("CompilerWords::COLON")
 		.compileWord(&F_COMPILE_WORD)
 		.compileIf()
-			.compileWord(&VocabWords::CURRENT_VOCAB)
-			.compileWord(&PrimitiveForthWords::CELL_AT)
+			.compileWord(&VocabWords::DEST_VOCAB)
 			.compileWord(&VocabWords::ADD_WORD_TO_VOCAB)
 		.compileEndIf()
 		.build()
@@ -117,7 +116,7 @@ ForthWord& CompilerWords::COLON = F_COLON;
 			.compileWord(&PrimitiveForthWords::RETURN)
 			.build());
 ForthVocab* CompilerWords::getCompilerVocabInstance() {
-	static BasicForthVocab words(nullptr);
+	static ForthVocab words(nullptr);
 	static bool addCompilerWords = true;
 	if (addCompilerWords) {
 		words.add(";", &SEMICOLON);

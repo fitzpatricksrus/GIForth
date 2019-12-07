@@ -1,10 +1,10 @@
 #ifndef GIFORTH_COMPOSITEFORTHWORDWORDS_H
 #define GIFORTH_COMPOSITEFORTHWORDWORDS_H
 
-#include <runtime/BasicForthVocab.h>
+#include <runtime/ForthVocab.h>
 #include <runtime/utils/PrimitiveForthWordFunction.h>
 
-class CompositeForthWordWords : public BasicForthVocab {
+class CompositeForthWordWords : public ForthVocab {
 public:
 	explicit CompositeForthWordWords(ForthVocab* next);
 	CompositeForthWordWords(const CompositeForthWordWords& other) = default;

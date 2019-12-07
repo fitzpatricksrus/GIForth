@@ -6,10 +6,10 @@
 #define GIFORTH_COREFORTHWORDS_H
 
 
-#include "runtime/BasicForthVocab.h"
+#include "runtime/ForthVocab.h"
 #include "runtime/CompositeForthWord.h"
 
-class CoreForthWords : public BasicForthVocab {
+class CoreForthWords : public ForthVocab {
 public:
 	explicit CoreForthWords(ForthVocab* next);
 	CoreForthWords(const CoreForthWords& other) = default;

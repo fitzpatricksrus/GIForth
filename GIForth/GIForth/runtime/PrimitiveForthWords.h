@@ -5,11 +5,11 @@
 #ifndef GIFORTH_PRIMITIVEFORTHWORDS_H
 #define GIFORTH_PRIMITIVEFORTHWORDS_H
 
-#include "runtime/BasicForthVocab.h"
+#include "runtime/ForthVocab.h"
 #include "runtime/utils/PrimitiveForthWordFunction.h"
 #include "runtime/ForthCell.h"
 
-class PrimitiveForthWords : public BasicForthVocab {
+class PrimitiveForthWords : public ForthVocab {
 public:
 	explicit PrimitiveForthWords(ForthVocab* next);
 	PrimitiveForthWords(const PrimitiveForthWords& other) = default;
@@ -92,12 +92,14 @@ public:
 	static PrimitiveForthWordFunction REGISTER;
     enum THREAD_STORAGE {
 		THREAD_STATE,
-		VOCAB_STATE,
+		SOURCE_VOCAB_STATE,
+		DEST_VOCAB_STATE,
+
 		COMPILE_STATE,
 
 		THREAD_STORAGE_SIZE
 	};
-	static thread_local ForthCell registers[THREAD_STORAGE_SIZE];
+	static /*thread_local*/ ForthCell registers[THREAD_STORAGE_SIZE];
 };
 
 #endif //GIFORTH_PRIMITIVEFORTHWORDS_H

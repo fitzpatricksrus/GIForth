@@ -2,9 +2,9 @@
 #define GIFORTH_BOOTSTRAPWORDS_H
 
 #include "runtime/utils/PrimitiveForthWordFunction.h"
-#include "runtime/BasicForthVocab.h"
+#include "runtime/ForthVocab.h"
 
-class BootstrapWords : public BasicForthVocab {
+class BootstrapWords : public ForthVocab {
 public:
 	explicit BootstrapWords(ForthVocab* next);
 	BootstrapWords(const BootstrapWords& other) = default;

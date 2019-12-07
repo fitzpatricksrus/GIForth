@@ -30,29 +30,29 @@ CompositeForthWord* OuterInterp::getInstance() {
 	static VocabWords cw(&cfw);
 	static BootstrapWords bw(&cw);
 	static CompilerWords compw(&bw);
+	static ForthVocab userVocab(&compw);
+	PrimitiveForthWords::registers[PrimitiveForthWords::SOURCE_VOCAB_STATE] = static_cast<ForthCell::PTR_TYPE>(&userVocab);
+	PrimitiveForthWords::registers[PrimitiveForthWords::DEST_VOCAB_STATE] = static_cast<ForthCell::PTR_TYPE>(&userVocab);
 
 	static CompositeForthWord INSTANCE(
 			CompositeForthWordBuilder("OuterInterp")
-					.compileConstant(static_cast<ForthCell::PTR_TYPE>(&compw))
-					.compileWord(&VocabWords::CURRENT_VOCAB)
-					.compileWord(&PrimitiveForthWords::CELL_PUT)
-					.compileRepeat()
-						.compileWord(&BootstrapWords::NEXT_TOKEN)
-						.compileWord(&CoreForthWords::PARSE_NUMBER)
-						.compileWord(&PrimitiveForthWords::CONDITIONAL_NOT)
+				.compileRepeat()
+					.compileWord(&BootstrapWords::NEXT_TOKEN)
+					.compileWord(&CoreForthWords::PARSE_NUMBER)
+					.compileWord(&PrimitiveForthWords::CONDITIONAL_NOT)
+					.compileIf()
+						.compileWord(&BootstrapWords::FIND_WORD)
 						.compileIf()
-							.compileWord(&BootstrapWords::FIND_WORD)
-							.compileIf()
-								.compileWord(&PrimitiveForthWords::EXECUTE)
-							.compileElse()
-								.compileWord(&BootstrapWords::PRINT_STRING)
-								.compileConstant(static_cast<ForthCell::INT_TYPE>('?'))
-								.compileWord(&PrimitiveForthWords::PRINT_CHAR)
-								.compileConstant(static_cast<ForthCell::INT_TYPE>('\n'))
-								.compileWord(&PrimitiveForthWords::PRINT_CHAR)
-							.compileEndIf()
+							.compileWord(&PrimitiveForthWords::EXECUTE)
+						.compileElse()
+							.compileWord(&BootstrapWords::PRINT_STRING)
+							.compileConstant(static_cast<ForthCell::INT_TYPE>('?'))
+							.compileWord(&PrimitiveForthWords::PRINT_CHAR)
+							.compileConstant(static_cast<ForthCell::INT_TYPE>('\n'))
+							.compileWord(&PrimitiveForthWords::PRINT_CHAR)
 						.compileEndIf()
-					.compileForever()
+					.compileEndIf()
+				.compileForever()
 			.build()
 	);
 	return &INSTANCE;
