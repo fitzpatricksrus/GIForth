@@ -19,6 +19,8 @@ public:
 	static PrimitiveForthWordFunction FORWARD_MARK;
 	static PrimitiveForthWordFunction FORWARD_RESOLVE;
 
+	static PrimitiveForthWordFunction FORWARD_MARK_RESOLVE;
+
 	static PrimitiveForthWordFunction BACKWARD_MARK;
 	static PrimitiveForthWordFunction BACKWARD_RESOLVE;
 

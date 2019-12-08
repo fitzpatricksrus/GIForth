@@ -15,6 +15,7 @@ CompositeForthWordWords::CompositeForthWordWords(ForthVocab *next)
 	add(&FREE_WORD);
 	add(&FORWARD_MARK);
 	add(&FORWARD_RESOLVE);
+	add(&FORWARD_MARK_RESOLVE);
 	add(&BACKWARD_MARK);
 	add(&BACKWARD_RESOLVE);
 	add(&THREAD_AT);
@@ -52,6 +53,13 @@ static void F_FORWARD_RESOLVE(ForthThread &thread) {
 }
 PrimitiveForthWordFunction CompositeForthWordWords::FORWARD_RESOLVE(&F_FORWARD_RESOLVE,
 																	"CompilerWords::FORWARD_RESOLVE", ">resolve");
+
+static void F_FORWARD_MARK_RESOLVE(ForthThread &thread) {
+	checkTrue(PrimitiveForthWords::registers[PrimitiveForthWords::COMPILE_STATE].pointer != nullptr);
+	builder()->forwardMarkResolve();
+}
+PrimitiveForthWordFunction CompositeForthWordWords::FORWARD_MARK_RESOLVE(&F_FORWARD_MARK_RESOLVE,
+																	"CompilerWords::FORWARD_MARK_RESOLVE", ">markResolve");
 
 static void F_BACKWARD_MARK(ForthThread &thread) {
 	checkTrue(PrimitiveForthWords::registers[PrimitiveForthWords::COMPILE_STATE].pointer != nullptr);

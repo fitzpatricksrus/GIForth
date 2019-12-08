@@ -128,6 +128,15 @@ CompositeForthWordBuilder &CompositeForthWordBuilder::forwardResolve() {
 	word[markNdx] = static_cast<ForthCell::INT_TYPE>(word.size());
 	return *this;
 }
+CompositeForthWordBuilder &CompositeForthWordBuilder::forwardMarkResolve() {
+	int nextPatch = word.size();
+	word.push_back(static_cast<ForthCell::INT_TYPE>(0));
+	int ifNdx = ifStack.top();
+	ifStack.pop();
+	word[ifNdx] = static_cast<ForthCell::INT_TYPE>(word.size());
+	ifStack.push(nextPatch);
+	return *this;
+}
 CompositeForthWordBuilder &CompositeForthWordBuilder::backwardMark() {
 	ifStack.push(word.size());
 	return *this;
