@@ -30,4 +30,4 @@ add_executable(GIForth
         GIForth/words/compiler/CompilerWords.cpp
         GIForth/words/interpreter/OuterInterp.cpp
         GIForth/words/interpreter/tests/OuterInterpTest.cpp
-        GIForth/runtime/tests/ForthVocabTest.cpp)
+        GIForth/runtime/tests/ForthVocabTest.cpp GIForth/words/interpreter/OuterInterpVocab.cpp GIForth/words/interpreter/OuterInterpVocab.h GIForth/words/compiler/CompilerImmediateVocab.cpp GIForth/words/compiler/CompilerImmediateVocab.h GIForth/words/compiler/CompilerDeferredVocab.cpp GIForth/words/compiler/CompilerDeferredVocab.h)
