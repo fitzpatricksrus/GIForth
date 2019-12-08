@@ -150,7 +150,7 @@ static void F_FREE(ForthThread& thread) {
 }
 PrimitiveForthWordFunction PrimitiveForthWords::FREE(&F_FREE, "PrimitiveForthWords::FREE", "freeMem");
 
-/*thread_local*/ ForthCell PrimitiveForthWords::registers[THREAD_STORAGE_SIZE];
+thread_local ForthCell PrimitiveForthWords::registers[THREAD_STORAGE_SIZE];
 static void F_REGISTERS(ForthThread& thread) {
 	thread.pushDataStack(static_cast<ForthCell::PTR_TYPE>(PrimitiveForthWords::registers));
 }

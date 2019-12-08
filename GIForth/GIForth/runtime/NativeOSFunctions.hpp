@@ -22,6 +22,7 @@ public:
 	static void flushInput();
 
 	static void pushInputStream(std::istream& input);
+	static void popInputStream(std::istream& input);
 	static void popInputStream();
 	static std::istream& currentInputStream();
 
@@ -30,27 +31,32 @@ public:
     static void printString(const std::string& string);
     static void endLine();
 	static void pushOutputStream(std::ostream& output);
+	static void popOutputStream(std::ostream& output);
 	static void popOutputStream();
 	static std::ostream& currentOutputStream();
 
 	class InputPatch {
 	public:
-		InputPatch(std::istream& input) {
+		InputPatch(std::istream& input)
+		: str(input) {
 			pushInputStream(input);
 		}
 		~InputPatch() {
-			popInputStream();
+			popInputStream(str);
 		}
+		std::istream& str;
 	};
 
 	class OutputPatch {
 	public:
-		OutputPatch(std::ostream& output) {
+		OutputPatch(std::ostream& output)
+		: out(output) {
 			pushOutputStream(output);
 		}
 		~OutputPatch() {
-			popOutputStream();
+			popOutputStream(out);
 		}
+		std::ostream& out;
 	};
 
 private:

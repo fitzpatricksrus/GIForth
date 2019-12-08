@@ -14,7 +14,7 @@
 
 int NativeOSFunctions::accept(char* buffer, int size) {
     std::string buff;
-    std::getline(std::cin, buff);
+    std::getline(currentInputStream(), buff);
     while (buff.size() > size) {
         std::cout << "WARNING: Input exceeded maximum length of " << std::to_string(size) << " characters.  Ignored." << std::endl;
         std::getline(std::cin, buff);
@@ -40,7 +40,10 @@ char NativeOSFunctions::nextChar() {
     if (inputPos > inputBuffer.size()) {
         do {
 			currentOutputStream().flush();
-			std::getline(currentInputStream(), inputBuffer);
+			if (!std::getline(currentInputStream(), inputBuffer)) {
+				flushInput();
+				popInputStream();
+			}
         } while (inputBuffer.empty());
         inputPos = 1;
         return inputBuffer[0];
@@ -61,8 +64,17 @@ void NativeOSFunctions::pushInputStream(std::istream &input) {
 	inputStreams.push(&input);
 }
 
+void NativeOSFunctions::popInputStream(std::istream &input) {
+	// pop only if the current stream is the stream passed in.
+	if ((!inputStreams.empty()) && (inputStreams.top() == &input)) {
+		inputStreams.pop();
+	}
+}
+
 void NativeOSFunctions::popInputStream() {
-	inputStreams.pop();
+	if (!inputStreams.empty()) {
+		inputStreams.pop();
+	}
 }
 
 std::istream& NativeOSFunctions::currentInputStream() {
@@ -91,6 +103,12 @@ void NativeOSFunctions::endLine() {
 
 void NativeOSFunctions::pushOutputStream(std::ostream &output) {
 	outputStreams.push(&output);
+}
+
+void NativeOSFunctions::popOutputStream(std::ostream &output) {
+	if ((!outputStreams.empty()) && (outputStreams.top() == &output)) {
+		outputStreams.pop();
+ 	}
 }
 
 void NativeOSFunctions::popOutputStream() {
