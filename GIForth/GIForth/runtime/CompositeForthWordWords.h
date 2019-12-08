@@ -13,14 +13,23 @@ public:
 	// str --
 	static PrimitiveForthWordFunction COMPILE_BEGIN;
 
-	// --
+	// value/word --
 	static PrimitiveForthWordFunction COMPILE_TOS;
+
+	static PrimitiveForthWordFunction FORWARD_MARK;
+	static PrimitiveForthWordFunction FORWARD_RESOLVE;
+
+	static PrimitiveForthWordFunction BACKWARD_MARK;
+	static PrimitiveForthWordFunction BACKWARD_RESOLVE;
 
 	// -- word
 	static PrimitiveForthWordFunction COMPILE_END;
 
 	// word --
 	static PrimitiveForthWordFunction FREE_WORD;
+
+	// ndx word --
+	static PrimitiveForthWordFunction THREAD_AT;
 };
 
 #endif //GIFORTH_COMPOSITEFORTHWORDWORDS_H

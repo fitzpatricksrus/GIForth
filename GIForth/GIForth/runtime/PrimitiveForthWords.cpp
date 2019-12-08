@@ -71,13 +71,13 @@ using ParamType = PrimitiveForthWordFunction::ParamType;
 
 static void F_NOP(ForthThread& thread) {
 }
-PrimitiveForthWordFunction PrimitiveForthWords::NOP(&F_NOP, "PrimitiveForthWords::NOP", "NOP");
+PrimitiveForthWordFunction PrimitiveForthWords::NOP(&F_NOP, "PrimitiveForthWords::NOP", "nop");
 
 static void F_JUMP(ForthThread &thread) {
 	thread.setIndex(thread.getNextCell().integer);
 }
 PrimitiveForthWordFunction PrimitiveForthWords::JUMP(&F_JUMP,
-		"PrimitiveForthWords::JUMP", "(JUMP)",{ParamType::INT });
+		"PrimitiveForthWords::JUMP", "(branch)",{ParamType::INT });
 
 // bool --   if the tos is false, the next cell is set as the ip.ndx else it's just skipped
 static void F_JUMP_IF_FALSE(ForthThread &thread) {
@@ -87,20 +87,20 @@ static void F_JUMP_IF_FALSE(ForthThread &thread) {
 	}
 }
 PrimitiveForthWordFunction PrimitiveForthWords::JUMP_IF_FALSE(&F_JUMP_IF_FALSE,
-		"PrimitiveForthWords::JUMP_IF_FALSE", "(JUMP_IF_FALSE)",{ParamType::INT });
+		"PrimitiveForthWords::JUMP_IF_FALSE", "(?branch)",{ParamType::INT });
 
 static void F_RETURN(ForthThread &thread) {
 	thread.popFrame();
 	thread.setTraceDepth(thread.getTraceDepth() - 1);
 }
 PrimitiveForthWordFunction PrimitiveForthWords::RETURN(&F_RETURN,
-		"PrimitiveForthWords::RETURN", "(RETURN)");
+		"PrimitiveForthWords::RETURN", "(return)");
 
 static void F_EXIT_THREAD(ForthThread &thread) {
 	throw ForthThread::ThreadExitException();
 }
 PrimitiveForthWordFunction PrimitiveForthWords::EXIT_THREAD(&F_EXIT_THREAD,
-		"PrimitiveForthWords::EXIT_THREAD", "(EXIT_THREAD)");
+		"PrimitiveForthWords::EXIT_THREAD", "exitThread");
 
 static void F_EXECUTE(ForthThread &thread) {
 	ForthWord *word = thread.popDataStack().word;

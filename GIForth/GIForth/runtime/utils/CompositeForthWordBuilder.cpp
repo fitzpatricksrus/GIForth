@@ -117,5 +117,26 @@ CompositeForthWord CompositeForthWordBuilder::build() {
 	compileCell(&PrimitiveForthWords::RETURN);
 	return CompositeForthWord(name, word);
 }
+CompositeForthWordBuilder &CompositeForthWordBuilder::forwardMark() {
+	ifStack.push(word.size());
+	word.push_back(static_cast<ForthCell::INT_TYPE>(0));
+	return *this;
+}
+CompositeForthWordBuilder &CompositeForthWordBuilder::forwardResolve() {
+	int markNdx = ifStack.top();
+	ifStack.pop();
+	word[markNdx] = static_cast<ForthCell::INT_TYPE>(word.size());
+	return *this;
+}
+CompositeForthWordBuilder &CompositeForthWordBuilder::backwardMark() {
+	ifStack.push(word.size());
+	return *this;
+}
+CompositeForthWordBuilder &CompositeForthWordBuilder::backwardResolve() {
+	int markNdx = ifStack.top();
+	ifStack.pop();
+	word.push_back(static_cast<ForthCell::INT_TYPE>(markNdx));
+	return *this;
+}
 
 #pragma clang diagnostic pop

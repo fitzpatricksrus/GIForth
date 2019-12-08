@@ -35,7 +35,12 @@ public:
 	CompositeForthWordBuilder& compileForever();
 	CompositeForthWordBuilder& compileUntil();
 
-	
+	CompositeForthWordBuilder& forwardMark();
+	CompositeForthWordBuilder& forwardResolve();
+	CompositeForthWordBuilder& backwardMark();
+	CompositeForthWordBuilder& backwardResolve();
+
+
 	CompositeForthWord build();
 	
 private:
