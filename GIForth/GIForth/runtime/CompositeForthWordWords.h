@@ -24,6 +24,16 @@ public:
 	static ForthWord& BACKWARD_MARK();
 	static ForthWord& BACKWARD_RESOLVE();
 
+	static ForthWord& COMPILE_IF();
+	static ForthWord& COMPILE_ELSE();
+	static ForthWord& COMPILE_ENDIF();
+	static ForthWord& COMPILE_WHILE();
+	static ForthWord& COMPILE_DO();
+	static ForthWord& COMPILE_ENDWHILE();
+	static ForthWord& COMPILE_REPEAT();
+	static ForthWord& COMPILE_FOREVER();
+	static ForthWord& COMPILE_UNTIL();
+
 	// -- word
 	static ForthWord& COMPILE_END();
 

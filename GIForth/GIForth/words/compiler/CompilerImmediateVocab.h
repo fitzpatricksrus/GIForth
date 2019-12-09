@@ -8,6 +8,15 @@ public:
 	static ForthVocab& getInstance();
 
 	static ForthWord& SEMI_COLON();
+	static ForthWord& IF();
+	static ForthWord& ELSE();
+	static ForthWord& ENDIF();
+	static ForthWord& WHILE();
+	static ForthWord& DO();
+	static ForthWord& ENDWHILE();
+	static ForthWord& REPEAT();
+	static ForthWord& UNTIL();
+	static ForthWord& FOREVER();
 };
 
 
