@@ -52,6 +52,11 @@ void ForthThread::pushFrame(const ForthExecutionFrame& frame) {
     ip = frame;
 }
 
+void ForthThread::recurse() {
+	toReturnStack(ip);
+	ip.ndx = 0;
+}
+
 void ForthThread::popFrame() {
     ip = fromReturnStack().execution;
 }

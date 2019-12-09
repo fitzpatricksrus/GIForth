@@ -108,6 +108,16 @@ ForthWord& PrimitiveForthWords::RETURN() {
 	return word;
 }
 
+static void F_RECURSE(ForthThread &thread) {
+	thread.recurse();
+	thread.setTraceDepth(thread.getTraceDepth() + 1);
+}
+ForthWord& PrimitiveForthWords::RECURSE() {
+	static PrimitiveForthWordFunction word(&F_RECURSE,
+			"PrimitiveForthWords::RECURSE", "(recurse)");
+	return word;
+}
+
 static void F_EXIT_THREAD(ForthThread &thread) {
 	throw ForthThread::ThreadExitException();
 }

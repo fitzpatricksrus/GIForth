@@ -62,7 +62,8 @@ public:
     void offsetIndex(int offset);
     const ForthCell& getCellAt(int ndx) const;
     const ForthCell& getNextCell();
-    void pushFrame(const ForthExecutionFrame& frame);
+	void pushFrame(const ForthExecutionFrame& frame);
+	void recurse();
     void popFrame();
 
 	void join(const CompositeForthWord& word);

@@ -12,7 +12,7 @@ ForthVocab& OuterInterpVocab::getInstance() {
 	if (doInit) {
 		doInit = false;
 		vocab.add(&PrimitiveForthWords::NOP());
-		vocab.add(&PrimitiveForthWords::JUMP());
+		vocab.add(&PrimitiveForthWords::AT_RETURN_STACK());
 		vocab.add(&PrimitiveForthWords::EXIT_THREAD());
 		vocab.add(&PrimitiveForthWords::EXECUTE());
 		vocab.add(&PrimitiveForthWords::CHAR_SIZE());

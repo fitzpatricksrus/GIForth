@@ -23,6 +23,7 @@ public:
 	static ForthWord& JUMP_IF_FALSE();
 	// --
 	static ForthWord& RETURN();
+	static ForthWord& RECURSE();
 	// -- value pushes next cell in word onto data stack
 	static ForthWord& PUSH_NEXT_CELL();
 	static ForthWord& TO_RETURN_STACK();

@@ -14,12 +14,13 @@ ForthVocab& CompilerDeferredVocab::getInstance() {
 
 	if (doInit) {
 		doInit = false;
+		vocab.add(&PrimitiveForthWords::JUMP());
 		vocab.add(&PrimitiveForthWords::JUMP_IF_FALSE());
 		vocab.add(&PrimitiveForthWords::RETURN());
+		vocab.add(&PrimitiveForthWords::RECURSE());
 		vocab.add(&PrimitiveForthWords::PUSH_NEXT_CELL());
 		vocab.add(&PrimitiveForthWords::TO_RETURN_STACK());
 		vocab.add(&PrimitiveForthWords::FROM_RETURN_STACK());
-		vocab.add(&PrimitiveForthWords::AT_RETURN_STACK());
 	}
 	return vocab;
 }
