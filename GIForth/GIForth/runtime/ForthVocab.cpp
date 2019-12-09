@@ -1,10 +1,6 @@
-//
-// Created by stuff on 10/8/2019.
-//
-
 #include "runtime/utils/PrimitiveForthWordFunction.h"
-#include "runtime/utils/CompositeForthWordBuilder.h"
 #include "ForthVocab.h"
+#include "utils/StringUtils.h"
 
 ForthVocab::ForthVocab(ForthVocab* nextIn)
 : next(nextIn), words()
@@ -17,13 +13,9 @@ const ForthWord *ForthVocab::findWord(const char *strAddr) {
 }
 
 const ForthWord *ForthVocab::findWord(const std::string& str) {
-	//NOTE: OMG!  word[] has a side affect! If the key isn't found,
-	// the map INSERTS an entry for the key with a value of nullptr
-	const ForthWord* result = words.count(str) > 0 ? words[str] : nullptr;
-	if ((result == nullptr) && (next != nullptr)) {
-		result = next->findWord(str);
-	}
-	return result;
+	std::string n(str);
+	StringUtils::toLower(n);
+	return findWordWithLower(n);
 }
 
 void ForthVocab::add(ForthWord *word) {
@@ -31,9 +23,21 @@ void ForthVocab::add(ForthWord *word) {
 }
 
 void ForthVocab::add(const std::string& name, ForthWord *word) {
-	(*this)[name] = word;
+	std::string lower(name);
+	StringUtils::toLower(lower);
+	(*this)[lower] = word;
 }
 
 const ForthWord*& ForthVocab::operator[](const std::string& ndx) {
 	return words[ndx];
+}
+
+const ForthWord *ForthVocab::findWordWithLower(const std::string& str) {
+	//NOTE: OMG!  word[] has a side affect! If the key isn't found,
+	// the map INSERTS an entry for the key with a value of nullptr
+	const ForthWord* result = words.count(str) > 0 ? words[str] : nullptr;
+	if ((result == nullptr) && (next != nullptr)) {
+		result = next->findWordWithLower(str);
+	}
+	return result;
 }

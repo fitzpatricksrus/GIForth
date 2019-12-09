@@ -24,6 +24,8 @@ public:
 	// str* vocab* -- word true| false
 
 private:
+	const ForthWord* findWordWithLower(const std::string& str);
+
 	ForthVocab* next;
 	std::map<std::string, const ForthWord*> words;
 };
