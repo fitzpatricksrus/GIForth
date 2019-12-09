@@ -16,7 +16,7 @@ TEST_CASE( "words/interpreter/BootstrapWords::testNextToken", "[InterpreterTest]
 	std::string requiredOutput[] = { "this", "is", "a", "test", "1", "2", "3", "exit"};
 	for (const std::string& s : requiredOutput) {
 		ForthThread thread;
-		BootstrapWords::NEXT_TOKEN.execute(thread);
+		BootstrapWords::NEXT_TOKEN().execute(thread);
 		std::string token = static_cast<char*>(thread.popDataStack().pointer);
 		CHECK(token == s);
 	}

@@ -11,27 +11,27 @@ public:
 	~CompositeForthWordWords() override = default;
 
 	// str --
-	static PrimitiveForthWordFunction COMPILE_BEGIN;
+	static ForthWord& COMPILE_BEGIN();
 
 	// value/word --
-	static PrimitiveForthWordFunction COMPILE_TOS;
+	static ForthWord& COMPILE_TOS();
 
-	static PrimitiveForthWordFunction FORWARD_MARK;
-	static PrimitiveForthWordFunction FORWARD_RESOLVE;
+	static ForthWord& FORWARD_MARK();
+	static ForthWord& FORWARD_RESOLVE();
 
-	static PrimitiveForthWordFunction FORWARD_MARK_RESOLVE;
+	static ForthWord& FORWARD_MARK_RESOLVE();
 
-	static PrimitiveForthWordFunction BACKWARD_MARK;
-	static PrimitiveForthWordFunction BACKWARD_RESOLVE;
+	static ForthWord& BACKWARD_MARK();
+	static ForthWord& BACKWARD_RESOLVE();
 
 	// -- word
-	static PrimitiveForthWordFunction COMPILE_END;
+	static ForthWord& COMPILE_END();
 
 	// word --
-	static PrimitiveForthWordFunction FREE_WORD;
+	static ForthWord& FREE_WORD();
 
 	// ndx word --
-	static PrimitiveForthWordFunction THREAD_AT;
+	static ForthWord& THREAD_AT();
 };
 
 #endif //GIFORTH_COMPOSITEFORTHWORDWORDS_H

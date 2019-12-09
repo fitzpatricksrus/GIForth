@@ -13,7 +13,7 @@ TEST_CASE( "words/tests/CoreForthWordsTest::testStrLen", "[CoreForthWordsTest]" 
 	static char str[] = "Hello World";
 	CompositeForthWord word(CompositeForthWordBuilder("CoreForthWordsTest::testStrLen")
                 .compileConstant(static_cast<ForthCell::PTR_TYPE>(str))
-                .compileCell(&CoreForthWords::STRLEN)
+                .compileCell(&CoreForthWords::STRLEN())
                 .build());
 	ForthThread thread(TestRunner::runTestWord(&word));
 	CHECK(thread.getDataStackSize() == 1);
@@ -26,7 +26,7 @@ TEST_CASE( "words/tests/CoreForthWordsTest::testStrCpy", "[CoreForthWordsTest]" 
 	CompositeForthWord word(CompositeForthWordBuilder("CoreForthWordsTest::testStrCpy")
                 .compileConstant(static_cast<ForthCell::PTR_TYPE>(str))
                 .compileConstant(static_cast<ForthCell::PTR_TYPE>(dest))
-                .compileCell(&CoreForthWords::STRCPY)
+                .compileCell(&CoreForthWords::STRCPY())
                 .build());
 	ForthThread thread(TestRunner::runTestWord(&word));
 	CHECK(thread.getDataStackSize() == 0);
@@ -37,7 +37,7 @@ TEST_CASE( "words/tests/CoreForthWordsTest::testStrReverse", "[CoreForthWordsTes
 	static char str[] = "abc";
 	CompositeForthWord word(CompositeForthWordBuilder("CoreForthWordsTest::testStrReverse")
                 .compileConstant(static_cast<ForthCell::PTR_TYPE>(str))
-                .compileCell(&CoreForthWords::STRREVERSE)
+                .compileCell(&CoreForthWords::STRREVERSE())
                 .build());
 	ForthThread thread(TestRunner::runTestWord(&word));
 	CHECK(thread.getDataStackSize() == 0);
@@ -47,7 +47,7 @@ TEST_CASE( "words/tests/CoreForthWordsTest::testStrReverse", "[CoreForthWordsTes
 static int testParseDigitWith(char c) {
 	CompositeForthWord word(CompositeForthWordBuilder("CoreForthWordsTest::testParseDigitWith")
                 .compileConstant(static_cast<ForthCell::CHAR_TYPE>(c))
-                .compileCell(&CoreForthWords::PARSE_DIGIT)
+                .compileCell(&CoreForthWords::PARSE_DIGIT())
 				.build());
 	ForthThread thread(TestRunner::runTestWord(&word));
 	return thread.popDataStack().integer;
@@ -62,7 +62,7 @@ TEST_CASE( "words/tests/CoreForthWordsTest::testParseDigit", "[CoreForthWordsTes
 static int testParseNumberWith(const char* c) {
 	CompositeForthWord word(CompositeForthWordBuilder("CoreForthWordsTest::testParseNumber")
 			                        .compileConstant(static_cast<ForthCell::PTR_TYPE>(const_cast<char*>(c)))
-			                        .compileCell(&CoreForthWords::PARSE_NUMBER)
+			                        .compileCell(&CoreForthWords::PARSE_NUMBER())
 			                        .build());
 	ForthThread thread(TestRunner::runTestWord(&word));
 	int isNumber = thread.popDataStack().integer;
@@ -87,7 +87,7 @@ static std::string testNumbersToCharacters(int number) {
 	CompositeForthWord word(CompositeForthWordBuilder("CoreForthWordsTest::testNumbersToCharacters")
 									.compileConstant(static_cast<ForthCell::INT_TYPE >(number))
 									.compileConstant(static_cast<ForthCell::PTR_TYPE>(scratch))
-									.compileCell(&CoreForthWords::NUMBER_TO_CHARACERS)
+									.compileCell(&CoreForthWords::NUMBER_TO_CHARACERS())
 									.build());
 	ForthThread thread(TestRunner::runTestWord(&word));
 	return std::string(scratch);

@@ -17,7 +17,7 @@
  */
 static const CompositeForthWord deadFrameWord(
 		CompositeForthWordBuilder("ForthThread::THREAD_ROOT_STUB")
-			.compileCell(&PrimitiveForthWords::EXIT_THREAD)
+			.compileCell(&PrimitiveForthWords::EXIT_THREAD())
 		.build()
 		);
 

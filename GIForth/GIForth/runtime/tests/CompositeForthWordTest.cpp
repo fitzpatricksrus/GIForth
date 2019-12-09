@@ -8,13 +8,13 @@
 
 TEST_CASE("runtime/tests/CompositeWordTest", "[RuntimeTests]") {
 	CompositeForthWord innerWord(CompositeForthWordBuilder("CoreForthWordsTest::CompositeWordTest::innerWord")
-										 .compileCell(&PrimitiveForthWords::ADD_ONE)
-										 .compileCell(&PrimitiveForthWords::ADD_ONE)
+										 .compileCell(&PrimitiveForthWords::ADD_ONE())
+										 .compileCell(&PrimitiveForthWords::ADD_ONE())
 			                        .build());
 	CompositeForthWord outerWord(CompositeForthWordBuilder("CoreForthWordsTest::CompositeWordTest::outerWord")
 			                             .compileConstant(10)
 			                             .compileCell(&innerWord)
-			                             .compileCell(&PrimitiveForthWords::ADD_ONE)
+			                             .compileCell(&PrimitiveForthWords::ADD_ONE())
 			                        .build());
 	{
 //		TestRunner::Tracer t;

@@ -12,10 +12,10 @@
 VocabWords::VocabWords(ForthVocab *next)
 : ForthVocab(next)
 {
-	add("searchVocab", &SEARCH_VOCAB);
-	add("sourceVocab", &SOURCE_VOCAB);
-	add("destVocab", &DEST_VOCAB);
-	add("addWordToVocab", &ADD_WORD_TO_VOCAB);
+	add(&VocabWords::SEARCH_VOCAB());
+	add(&VocabWords::SOURCE_VOCAB());
+	add(&VocabWords::DEST_VOCAB());
+	add(&VocabWords::ADD_WORD_TO_VOCAB());
 }
 
 // str* vocab* -- word true| str* false
@@ -31,8 +31,10 @@ static void findTheWord(ForthThread& thread) {
 		thread.pushDataStack(false);
 	}
 }
-static PrimitiveForthWordFunction F_SEARCH_VOCAB(&findTheWord, "VocabWords::SEARCH_VOCAB");
-ForthWord& VocabWords::SEARCH_VOCAB = F_SEARCH_VOCAB;
+ForthWord& VocabWords::SEARCH_VOCAB() {
+	static PrimitiveForthWordFunction word(&findTheWord, "VocabWords::searchVocab");
+	return word;
+}
 
 // word vocab --
 static void addWordToVocab(ForthThread& thread) {
@@ -40,20 +42,26 @@ static void addWordToVocab(ForthThread& thread) {
 	ForthWord* word = static_cast<ForthWord*>(thread.popDataStack().pointer);
 	vocab->add(word);
 }
-static PrimitiveForthWordFunction F_ADD_WORD_TO_VOCAB(&addWordToVocab, "VocabWords::ADD_WORD_TO_VOCAB");
-ForthWord& VocabWords::ADD_WORD_TO_VOCAB = F_ADD_WORD_TO_VOCAB;
+ForthWord& VocabWords::ADD_WORD_TO_VOCAB() {
+	static PrimitiveForthWordFunction word(&addWordToVocab, "VocabWords::addWordToVocab");
+	return word;
+}
 
-static CompositeForthWord F_SOURCE_VOCAB(
-		CompositeForthWordBuilder("VocabWords::SOURCE_VOCAB")
-				.compileConstant(&PrimitiveForthWords::registers[PrimitiveForthWords::SOURCE_VOCAB_STATE])
-				.compileWord(&PrimitiveForthWords::CELL_AT)
-				.build());
-ForthWord& VocabWords::SOURCE_VOCAB = F_SOURCE_VOCAB;
+ForthWord& VocabWords::SOURCE_VOCAB() {
+	static CompositeForthWord word(
+			CompositeForthWordBuilder("VocabWords::sourceVocab")
+					.compileConstant(&PrimitiveForthWords::registers[PrimitiveForthWords::SOURCE_VOCAB_STATE])
+					.compileWord(&PrimitiveForthWords::CELL_AT())
+					.build());
+	return word;
+}
 
-static CompositeForthWord F_DEST_VOCAB(
-		CompositeForthWordBuilder("VocabWords::DEST_VOCAB")
-				.compileConstant(&PrimitiveForthWords::registers[PrimitiveForthWords::DEST_VOCAB_STATE])
-				.compileWord(&PrimitiveForthWords::CELL_AT)
-				.build());
-ForthWord& VocabWords::DEST_VOCAB = F_DEST_VOCAB;
+ForthWord& VocabWords::DEST_VOCAB() {
+	static CompositeForthWord word(
+			CompositeForthWordBuilder("VocabWords::destVocab")
+					.compileConstant(&PrimitiveForthWords::registers[PrimitiveForthWords::DEST_VOCAB_STATE])
+					.compileWord(&PrimitiveForthWords::CELL_AT())
+					.build());
+	return word;
+}
 

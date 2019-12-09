@@ -12,6 +12,6 @@ std::string ForthWord::getNameInVocabulary() const {
 	if (pos == std::string::npos) {
 		return name;
 	} else {
-		return name.substr(pos);
+		return name.substr(pos+2);
 	}
 }

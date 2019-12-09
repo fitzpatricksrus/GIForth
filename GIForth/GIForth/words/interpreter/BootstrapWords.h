@@ -11,16 +11,16 @@ public:
 	~BootstrapWords() override = default;
 
     // -- stringAddr
-    static PrimitiveForthWordFunction NEXT_TOKEN;
+    static ForthWord& NEXT_TOKEN();
 
     // stringAddr -- [ wordAddr true | stringAddr false ]
-    static ForthWord& FIND_WORD;
+    static ForthWord& FIND_WORD();
 
 	// stringAddr --
-	static PrimitiveForthWordFunction PRINT_STRING;
+	static ForthWord& PRINT_STRING();
 
 	// int --
-	static PrimitiveForthWordFunction PRINT_NUMBER;
+	static ForthWord& PRINT_NUMBER();
 
 private:
     static void F_NEXT_TOKEN(ForthThread& thread);

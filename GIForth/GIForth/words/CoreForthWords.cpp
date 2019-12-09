@@ -10,18 +10,21 @@
 CoreForthWords::CoreForthWords(ForthVocab *next)
 		: ForthVocab(next)
 {
-	add("strlen", &STRLEN);
-	add("strcpy", &STRCPY);
-	add("strreverse", &STRREVERSE);
-	add("char2Int", &PARSE_DIGIT);
-	add("str2Int", &PARSE_NUMBER);
-	add("int2Str", &NUMBER_TO_CHARACERS);
+	add(&STRLEN());
+	add(&STRCPY());
+	add(&STRREVERSE());
+	add(&PARSE_DIGIT());
+	add(&PARSE_NUMBER());
+	add(&NUMBER_TO_CHARACERS());
 }
 
-CompositeForthWord CoreForthWords::CURRENT_THREAD(  // char* -- len
-		CompositeForthWordBuilder("CoreForthWords::CURRENT_THREAD")
-			.compileConstant(&PrimitiveForthWords::registers[PrimitiveForthWords::THREAD_STATE])
-		.build());
+ForthWord& CoreForthWords::CURRENT_THREAD() {  // char* -- len
+	static CompositeForthWord word(
+			CompositeForthWordBuilder("CoreForthWords::currentThread")
+					.compileConstant(&PrimitiveForthWords::registers[PrimitiveForthWords::THREAD_STATE])
+					.build());
+	return word;
+}
 
 /*
 : strlen                ( char* -- len )
@@ -34,23 +37,26 @@ CompositeForthWord CoreForthWords::CURRENT_THREAD(  // char* -- len
  R>
  ;
 */
-CompositeForthWord CoreForthWords::STRLEN(  // char* -- len
-		CompositeForthWordBuilder("CoreForthWords::STRLEN")
-				.compileCell(&PrimitiveForthWords::ZERO)
-				.compileCell(&PrimitiveForthWords::TO_RETURN_STACK)
-				.compileWhile()
-					.compileCell(&PrimitiveForthWords::DUP)
-					.compileCell(&PrimitiveForthWords::CHAR_AT)
-				.compileDo()
-					.compileCell(&PrimitiveForthWords::FROM_RETURN_STACK)
-					.compileCell(&PrimitiveForthWords::ADD_ONE)
-					.compileCell(&PrimitiveForthWords::TO_RETURN_STACK)
-					.compileCell(&PrimitiveForthWords::ADD_ONE)
-				.compileEndWhile()
-				.compileCell(&PrimitiveForthWords::DROP)
-				.compileCell(&PrimitiveForthWords::FROM_RETURN_STACK)
-        .build()
-);
+ForthWord& CoreForthWords::STRLEN() {  // char* -- len
+	static CompositeForthWord word(
+			CompositeForthWordBuilder("CoreForthWords::strlen")
+					.compileWord(&PrimitiveForthWords::ZERO())
+					.compileWord(&PrimitiveForthWords::TO_RETURN_STACK())
+					.compileWhile()
+						.compileWord(&PrimitiveForthWords::DUP())
+						.compileWord(&PrimitiveForthWords::CHAR_AT())
+					.compileDo()
+						.compileWord(&PrimitiveForthWords::FROM_RETURN_STACK())
+						.compileWord(&PrimitiveForthWords::ADD_ONE())
+						.compileWord(&PrimitiveForthWords::TO_RETURN_STACK())
+						.compileWord(&PrimitiveForthWords::ADD_ONE())
+					.compileEndWhile()
+					.compileWord(&PrimitiveForthWords::DROP())
+					.compileWord(&PrimitiveForthWords::FROM_RETURN_STACK())
+					.build()
+	);
+	return word;
+}
 
 /*
 : STRCPY                ( src* dest* -- )
@@ -64,27 +70,30 @@ CompositeForthWord CoreForthWords::STRLEN(  // char* -- len
     endwhile
     drop drop
  */
-CompositeForthWord CoreForthWords::STRCPY(  // src* dest* --
-		CompositeForthWordBuilder("CoreForthWords::STRCPY")
-				.compileCell(&PrimitiveForthWords::SWAP)
-				.compileWhile()
-					.compileCell(&PrimitiveForthWords::DUP)
-					.compileCell(&PrimitiveForthWords::CHAR_AT)
-				.compileDo()
-					.compileCell(&PrimitiveForthWords::DUP)
-					.compileCell(&PrimitiveForthWords::CHAR_AT)
-					.compileCell(&PrimitiveForthWords::SWAP)
-					.compileCell(&PrimitiveForthWords::TO_RETURN_STACK)
-					.compileCell(&PrimitiveForthWords::OVER)
-					.compileCell(&PrimitiveForthWords::CHAR_PUT)
-					.compileCell(&PrimitiveForthWords::ADD_ONE)
-					.compileCell(&PrimitiveForthWords::FROM_RETURN_STACK)
-					.compileCell(&PrimitiveForthWords::ADD_ONE)
-				.compileEndWhile()
-				.compileCell(&PrimitiveForthWords::DROP)
-				.compileCell(&PrimitiveForthWords::DROP)
-        .build()
-);
+ForthWord& CoreForthWords::STRCPY() { // src* dest* --
+	static CompositeForthWord word(
+			CompositeForthWordBuilder("CoreForthWords::strcpy")
+					.compileWord(&PrimitiveForthWords::SWAP())
+					.compileWhile()
+						.compileWord(&PrimitiveForthWords::DUP())
+						.compileWord(&PrimitiveForthWords::CHAR_AT())
+					.compileDo()
+						.compileWord(&PrimitiveForthWords::DUP())
+						.compileWord(&PrimitiveForthWords::CHAR_AT())
+						.compileWord(&PrimitiveForthWords::SWAP())
+						.compileWord(&PrimitiveForthWords::TO_RETURN_STACK())
+						.compileWord(&PrimitiveForthWords::OVER())
+						.compileWord(&PrimitiveForthWords::CHAR_PUT())
+						.compileWord(&PrimitiveForthWords::ADD_ONE())
+						.compileWord(&PrimitiveForthWords::FROM_RETURN_STACK())
+						.compileWord(&PrimitiveForthWords::ADD_ONE())
+					.compileEndWhile()
+					.compileWord(&PrimitiveForthWords::DROP())
+					.compileWord(&PrimitiveForthWords::DROP())
+					.build()
+	);
+	return word;
+}
 
 /**
 src* dest* len --
@@ -102,30 +111,30 @@ src* dest* len --
  
 CompositeForthWord CoreForthWords::STRNCPY(  // src start len dest
 		CompositeForthWordBuilder("CoreForthWords::STRNCPY")
-				.compileCell(&PrimitiveForthWords::TO_RETURN_STACK)
-				.compileCell(&PrimitiveForthWords::SWAP)
+				.compileWord(&PrimitiveForthWords::TO_RETURN_STACK)
+				.compileWord(&PrimitiveForthWords::SWAP)
 				.compileWhile()
-					.compileCell(&PrimitiveForthWords::FROM_RETURN_STACK)
-					.compileCell(&PrimitiveForthWords::DUP)
-					.compileCell(&PrimitiveForthWords::ZERO)
-					.compileCell(&PrimitiveForthWords::GREATER_THAN)
+					.compileWord(&PrimitiveForthWords::FROM_RETURN_STACK)
+					.compileWord(&PrimitiveForthWords::DUP)
+					.compileWord(&PrimitiveForthWords::ZERO)
+					.compileWord(&PrimitiveForthWords::GREATER_THAN)
 				.compileDo()
-					.compileCell(&PrimitiveForthWords::ONE)
-					.compileCell(&PrimitiveForthWords::SUBTRACT)
-					.compileCell(&PrimitiveForthWords::TO_RETURN_STACK)
-					.compileCell(&PrimitiveForthWords::DUP)
-					.compileCell(&PrimitiveForthWords::TO_RETURN_STACK)
-					.compileCell(&PrimitiveForthWords::CHAR_AT)
-					.compileCell(&PrimitiveForthWords::OVER)
-					.compileCell(&PrimitiveForthWords::CHAR_PUT)
-					.compileCell(&PrimitiveForthWords::ADD_ONE)
-					.compileCell(&PrimitiveForthWords::TO_RETURN_STACK)
-					.compileCell(&PrimitiveForthWords::ADD_ONE)
+					.compileWord(&PrimitiveForthWords::ONE)
+					.compileWord(&PrimitiveForthWords::SUBTRACT)
+					.compileWord(&PrimitiveForthWords::TO_RETURN_STACK)
+					.compileWord(&PrimitiveForthWords::DUP)
+					.compileWord(&PrimitiveForthWords::TO_RETURN_STACK)
+					.compileWord(&PrimitiveForthWords::CHAR_AT)
+					.compileWord(&PrimitiveForthWords::OVER)
+					.compileWord(&PrimitiveForthWords::CHAR_PUT)
+					.compileWord(&PrimitiveForthWords::ADD_ONE)
+					.compileWord(&PrimitiveForthWords::TO_RETURN_STACK)
+					.compileWord(&PrimitiveForthWords::ADD_ONE)
 				.compileEndWhile()
-				.compileCell(&PrimitiveForthWords::DROP)
-				.compileCell(&PrimitiveForthWords::DROP)
+				.compileWord(&PrimitiveForthWords::DROP)
+				.compileWord(&PrimitiveForthWords::DROP)
 				.compileConstant(static_cast<ForthCell::CHAR_TYPE>('\0'))
-				.compileCell(&PrimitiveForthWords::CHAR_PUT)
+				.compileWord(&PrimitiveForthWords::CHAR_PUT)
         .build()
 );
 */
@@ -147,33 +156,36 @@ CompositeForthWord CoreForthWords::STRNCPY(  // src start len dest
 ;
 */
 
-CompositeForthWord CoreForthWords::STRREVERSE(
-		CompositeForthWordBuilder("CoreForthWords::STR_REVERSE")
-				.compileCell(&PrimitiveForthWords::DUP)
-				.compileCell(&PrimitiveForthWords::ZERO)
-				.compileCell(&PrimitiveForthWords::TO_RETURN_STACK)
-				.compileWhile()
-					.compileCell(&PrimitiveForthWords::DUP)
-					.compileCell(&PrimitiveForthWords::CHAR_AT)
-				.compileDo()
-					.compileCell(&PrimitiveForthWords::DUP)
-					.compileCell(&PrimitiveForthWords::CHAR_AT)
-					.compileCell(&PrimitiveForthWords::TO_RETURN_STACK)
-					.compileCell(&PrimitiveForthWords::ADD_ONE)
-				.compileEndWhile()
-				.compileCell(&PrimitiveForthWords::DROP)
-				.compileWhile()
-					.compileCell(&PrimitiveForthWords::FROM_RETURN_STACK)
-					.compileCell(&PrimitiveForthWords::DUP)
-				.compileDo()
-					.compileCell(&PrimitiveForthWords::OVER)
-					.compileCell(&PrimitiveForthWords::CHAR_PUT)
-					.compileCell(&PrimitiveForthWords::ADD_ONE)
-				.compileEndWhile()
-				.compileCell(&PrimitiveForthWords::SWAP)
-				.compileCell(&PrimitiveForthWords::CHAR_PUT)
-				.build()
-);
+ForthWord& CoreForthWords::STRREVERSE() {
+	static CompositeForthWord word(
+		CompositeForthWordBuilder("CoreForthWords::strReverse")
+			.compileWord(&PrimitiveForthWords::DUP())
+			.compileWord(&PrimitiveForthWords::ZERO())
+			.compileWord(&PrimitiveForthWords::TO_RETURN_STACK())
+			.compileWhile()
+				.compileWord(&PrimitiveForthWords::DUP())
+				.compileWord(&PrimitiveForthWords::CHAR_AT())
+			.compileDo()
+				.compileWord(&PrimitiveForthWords::DUP())
+				.compileWord(&PrimitiveForthWords::CHAR_AT())
+				.compileWord(&PrimitiveForthWords::TO_RETURN_STACK())
+				.compileWord(&PrimitiveForthWords::ADD_ONE())
+			.compileEndWhile()
+			.compileWord(&PrimitiveForthWords::DROP())
+			.compileWhile()
+				.compileWord(&PrimitiveForthWords::FROM_RETURN_STACK())
+				.compileWord(&PrimitiveForthWords::DUP())
+			.compileDo()
+				.compileWord(&PrimitiveForthWords::OVER())
+				.compileWord(&PrimitiveForthWords::CHAR_PUT())
+				.compileWord(&PrimitiveForthWords::ADD_ONE())
+			.compileEndWhile()
+			.compileWord(&PrimitiveForthWords::SWAP())
+			.compileWord(&PrimitiveForthWords::CHAR_PUT())
+			.build()
+	);
+	return word;
+}
 
 /*
 : parse_digit				( char -- value | -1 )
@@ -190,28 +202,31 @@ CompositeForthWord CoreForthWords::STRREVERSE(
 	endif
  ;
  */
-CompositeForthWord CoreForthWords::PARSE_DIGIT(
-		CompositeForthWordBuilder("CoreForthWords::PARSE_DIGIT")
-			.compileCell(&PrimitiveForthWords::DUP)
+ForthWord& CoreForthWords::PARSE_DIGIT() {
+	static CompositeForthWord word(
+		CompositeForthWordBuilder("CoreForthWords::char2Int")
+			.compileWord(&PrimitiveForthWords::DUP())
 			.compileConstant(static_cast<ForthCell::CHAR_TYPE>('0'))
-			.compileCell(&PrimitiveForthWords::LESS_THAN)
+			.compileWord(&PrimitiveForthWords::LESS_THAN())
 			.compileIf()
-				.compileCell(&PrimitiveForthWords::DROP)
-				.compileCell(&PrimitiveForthWords::NEGATIVE_ONE)
+				.compileWord(&PrimitiveForthWords::DROP())
+				.compileWord(&PrimitiveForthWords::NEGATIVE_ONE())
 			.compileElse()
-				.compileCell(&PrimitiveForthWords::DUP)
+				.compileWord(&PrimitiveForthWords::DUP())
 				.compileConstant(static_cast<ForthCell::CHAR_TYPE>('9'))
-				.compileCell(&PrimitiveForthWords::GREATER_THAN)
+				.compileWord(&PrimitiveForthWords::GREATER_THAN())
 				.compileIf()
-					.compileCell(&PrimitiveForthWords::DROP)
-					.compileCell(&PrimitiveForthWords::NEGATIVE_ONE)
+					.compileWord(&PrimitiveForthWords::DROP())
+					.compileWord(&PrimitiveForthWords::NEGATIVE_ONE())
 				.compileElse()
 					.compileConstant(static_cast<ForthCell::CHAR_TYPE>('0'))
-					.compileCell(&PrimitiveForthWords::SUBTRACT)
+					.compileWord(&PrimitiveForthWords::SUBTRACT())
 	            .compileEndIf()
 	        .compileEndIf()
 		.build()
 	);
+	return word;
+}
 
 /*
  : parse_positive_number	// stringAddr -- [ value true | stringAddr false ]
@@ -235,47 +250,50 @@ CompositeForthWord CoreForthWords::PARSE_DIGIT(
  	true					// value true
  	R> drop					// value true (drop original strAddr)
  */
-CompositeForthWord CoreForthWords::PARSE_NUMBER(
-		CompositeForthWordBuilder("CoreForthWords::PARSE_NUMBER")
-				.compileCell(&PrimitiveForthWords::DUP)
-				.compileCell(&PrimitiveForthWords::TO_RETURN_STACK)
-				.compileCell(&PrimitiveForthWords::ZERO)
-				.compileCell(&PrimitiveForthWords::TO_RETURN_STACK)
-				.compileWhile()
-					.compileCell(&PrimitiveForthWords::DUP)
-					.compileCell(&PrimitiveForthWords::CHAR_AT)
-				.compileDo()
-					.compileCell(&PrimitiveForthWords::DUP)
-					.compileCell(&PrimitiveForthWords::CHAR_AT)
-					.compileCell(&PARSE_DIGIT)
-					.compileCell(&PrimitiveForthWords::DUP)
-					.compileCell(&PrimitiveForthWords::ZERO)
-					.compileCell(&PrimitiveForthWords::LESS_THAN)
-					.compileIf()
-						.compileCell(&PrimitiveForthWords::DROP)
-						.compileCell(&PrimitiveForthWords::DROP)
-						.compileCell(&PrimitiveForthWords::FROM_RETURN_STACK)
-						.compileCell(&PrimitiveForthWords::DROP)
-						.compileCell(&PrimitiveForthWords::FROM_RETURN_STACK)
-						.compileCell(&PrimitiveForthWords::FALSE)
-						.compileCell(&PrimitiveForthWords::RETURN)
-					.compileElse()
-						.compileCell(&PrimitiveForthWords::FROM_RETURN_STACK)
-						.compileConstant(static_cast<ForthCell::INT_TYPE>(10))
-						.compileCell(&PrimitiveForthWords::MULTIPLY)
-						.compileCell(&PrimitiveForthWords::ADD)
-						.compileCell(&PrimitiveForthWords::TO_RETURN_STACK)
-						.compileCell(&PrimitiveForthWords::ONE)
-						.compileCell(&PrimitiveForthWords::ADD)
-					.compileEndIf()
-				.compileEndWhile()
-				.compileCell(&PrimitiveForthWords::DROP)
-				.compileCell(&PrimitiveForthWords::FROM_RETURN_STACK)
-				.compileCell(&PrimitiveForthWords::TRUE)
-				.compileCell(&PrimitiveForthWords::FROM_RETURN_STACK)
-				.compileCell(&PrimitiveForthWords::DROP)
+ForthWord& CoreForthWords::PARSE_NUMBER() {
+	static CompositeForthWord word(
+		CompositeForthWordBuilder("CoreForthWords::str2Int")
+		.compileWord(&PrimitiveForthWords::DUP())
+		.compileWord(&PrimitiveForthWords::TO_RETURN_STACK())
+		.compileWord(&PrimitiveForthWords::ZERO())
+		.compileWord(&PrimitiveForthWords::TO_RETURN_STACK())
+		.compileWhile()
+			.compileWord(&PrimitiveForthWords::DUP())
+			.compileWord(&PrimitiveForthWords::CHAR_AT())
+		.compileDo()
+			.compileWord(&PrimitiveForthWords::DUP())
+			.compileWord(&PrimitiveForthWords::CHAR_AT())
+			.compileWord(&PARSE_DIGIT())
+			.compileWord(&PrimitiveForthWords::DUP())
+			.compileWord(&PrimitiveForthWords::ZERO())
+			.compileWord(&PrimitiveForthWords::LESS_THAN())
+			.compileIf()
+				.compileWord(&PrimitiveForthWords::DROP())
+				.compileWord(&PrimitiveForthWords::DROP())
+				.compileWord(&PrimitiveForthWords::FROM_RETURN_STACK())
+				.compileWord(&PrimitiveForthWords::DROP())
+				.compileWord(&PrimitiveForthWords::FROM_RETURN_STACK())
+				.compileWord(&PrimitiveForthWords::FALSE())
+				.compileWord(&PrimitiveForthWords::RETURN())
+			.compileElse()
+				.compileWord(&PrimitiveForthWords::FROM_RETURN_STACK())
+				.compileConstant(static_cast<ForthCell::INT_TYPE>(10))
+				.compileWord(&PrimitiveForthWords::MULTIPLY())
+				.compileWord(&PrimitiveForthWords::ADD())
+				.compileWord(&PrimitiveForthWords::TO_RETURN_STACK())
+				.compileWord(&PrimitiveForthWords::ONE())
+				.compileWord(&PrimitiveForthWords::ADD())
+			.compileEndIf()
+		.compileEndWhile()
+		.compileWord(&PrimitiveForthWords::DROP())
+		.compileWord(&PrimitiveForthWords::FROM_RETURN_STACK())
+		.compileWord(&PrimitiveForthWords::TRUE())
+		.compileWord(&PrimitiveForthWords::FROM_RETURN_STACK())
+		.compileWord(&PrimitiveForthWords::DROP())
 		.build()
-);
+	);
+	return word;
+}
 
 /*
 : NUMBER_TO_CHARS       ( value char* -- )
@@ -314,69 +332,72 @@ CompositeForthWord CoreForthWords::PARSE_NUMBER(
 	endif
 ;
  */
-CompositeForthWord CoreForthWords::NUMBER_TO_CHARACERS(
-        CompositeForthWordBuilder("CoreForthWords::NUMBER_TO_CHARACERS")
-				.compileCell(&PrimitiveForthWords::OVER)
+ForthWord& CoreForthWords::NUMBER_TO_CHARACERS() {
+	static CompositeForthWord word(
+		CompositeForthWordBuilder("CoreForthWords::int2Str")
+			.compileWord(&PrimitiveForthWords::OVER())
+			.compileIf()
+				.compileWord(&PrimitiveForthWords::DUP())
+				.compileWord(&PrimitiveForthWords::TO_RETURN_STACK())
+				.compileWord(&PrimitiveForthWords::TO_RETURN_STACK())
+				.compileWord(&PrimitiveForthWords::DUP())
+				.compileWord(&PrimitiveForthWords::CONDITIONAL_NOT())
 				.compileIf()
-					.compileCell(&PrimitiveForthWords::DUP)
-					.compileCell(&PrimitiveForthWords::TO_RETURN_STACK)
-					.compileCell(&PrimitiveForthWords::TO_RETURN_STACK)
-					.compileCell(&PrimitiveForthWords::DUP)
-					.compileCell(&PrimitiveForthWords::CONDITIONAL_NOT)
-					.compileIf()
-						.compileCell(&PrimitiveForthWords::ZERO)
-						.compileCell(&PrimitiveForthWords::AT_RETURN_STACK)
-						.compileCell(&PrimitiveForthWords::CHAR_PUT)
-						.compileCell(&PrimitiveForthWords::FROM_RETURN_STACK)
-						.compileCell(&PrimitiveForthWords::ADD_ONE)
-						.compileCell(&PrimitiveForthWords::TO_RETURN_STACK)
-					.compileElse()
-						.compileCell(&PrimitiveForthWords::DUP)
-						.compileCell(&PrimitiveForthWords::ZERO)
-						.compileCell(&PrimitiveForthWords::LESS_THAN)
-						.compileIf()
-							.compileConstant(static_cast<ForthCell::CHAR_TYPE>('-'))
-							.compileCell(&PrimitiveForthWords::AT_RETURN_STACK)
-							.compileCell(&PrimitiveForthWords::CHAR_PUT)
-							.compileCell(&PrimitiveForthWords::FROM_RETURN_STACK)
-							.compileCell(&PrimitiveForthWords::ADD_ONE)
-							.compileCell(&PrimitiveForthWords::TO_RETURN_STACK)
-							.compileCell(&PrimitiveForthWords::NEGATIVE_ONE)
-							.compileCell(&PrimitiveForthWords::MULTIPLY)
-						.compileEndIf()
-						.compileWhile()
-							.compileCell(&PrimitiveForthWords::DUP)
-						.compileDo()
-							.compileCell(&PrimitiveForthWords::DUP)
-							.compileConstant(static_cast<ForthCell::INT_TYPE >(10))
-							.compileCell(&PrimitiveForthWords::MOD)
-							.compileConstant(static_cast<ForthCell::CHAR_TYPE>('0'))
-							.compileCell(&PrimitiveForthWords::ADD)
-							.compileCell(&PrimitiveForthWords::AT_RETURN_STACK)
-							.compileCell(&PrimitiveForthWords::CHAR_PUT)
-							.compileCell(&PrimitiveForthWords::FROM_RETURN_STACK)
-							.compileCell(&PrimitiveForthWords::ADD_ONE)
-							.compileCell(&PrimitiveForthWords::TO_RETURN_STACK)
-							.compileConstant(static_cast<ForthCell::INT_TYPE >(10))
-							.compileCell(&PrimitiveForthWords::DIVIDE)
-						.compileEndWhile()
-						.compileCell(&PrimitiveForthWords::DROP)
-					.compileEndIf()
-					.compileCell(&PrimitiveForthWords::ZERO)
-					.compileCell(&PrimitiveForthWords::FROM_RETURN_STACK)
-					.compileCell(&PrimitiveForthWords::CHAR_PUT)
-					.compileCell(&PrimitiveForthWords::FROM_RETURN_STACK)
-					.compileCell(&STRREVERSE)
+					.compileWord(&PrimitiveForthWords::ZERO())
+					.compileWord(&PrimitiveForthWords::AT_RETURN_STACK())
+					.compileWord(&PrimitiveForthWords::CHAR_PUT())
+					.compileWord(&PrimitiveForthWords::FROM_RETURN_STACK())
+					.compileWord(&PrimitiveForthWords::ADD_ONE())
+					.compileWord(&PrimitiveForthWords::TO_RETURN_STACK())
 				.compileElse()
-					.compileCell(&PrimitiveForthWords::SWAP)
-					.compileCell(&PrimitiveForthWords::DROP)
-					.compileConstant(static_cast<ForthCell::CHAR_TYPE>('0'))
-					.compileCell(&PrimitiveForthWords::OVER)
-					.compileCell(&PrimitiveForthWords::CHAR_PUT)
-					.compileCell(&PrimitiveForthWords::ADD_ONE)
-					.compileCell(&PrimitiveForthWords::ZERO)
-					.compileCell(&PrimitiveForthWords::OVER)
-					.compileCell(&PrimitiveForthWords::CHAR_PUT)
+					.compileWord(&PrimitiveForthWords::DUP())
+					.compileWord(&PrimitiveForthWords::ZERO())
+					.compileWord(&PrimitiveForthWords::LESS_THAN())
+					.compileIf()
+						.compileConstant(static_cast<ForthCell::CHAR_TYPE>('-'))
+						.compileWord(&PrimitiveForthWords::AT_RETURN_STACK())
+						.compileWord(&PrimitiveForthWords::CHAR_PUT())
+						.compileWord(&PrimitiveForthWords::FROM_RETURN_STACK())
+						.compileWord(&PrimitiveForthWords::ADD_ONE())
+						.compileWord(&PrimitiveForthWords::TO_RETURN_STACK())
+						.compileWord(&PrimitiveForthWords::NEGATIVE_ONE())
+						.compileWord(&PrimitiveForthWords::MULTIPLY())
+					.compileEndIf()
+					.compileWhile()
+						.compileWord(&PrimitiveForthWords::DUP())
+					.compileDo()
+						.compileWord(&PrimitiveForthWords::DUP())
+						.compileConstant(static_cast<ForthCell::INT_TYPE >(10))
+						.compileWord(&PrimitiveForthWords::MOD())
+						.compileConstant(static_cast<ForthCell::CHAR_TYPE>('0'))
+						.compileWord(&PrimitiveForthWords::ADD())
+						.compileWord(&PrimitiveForthWords::AT_RETURN_STACK())
+						.compileWord(&PrimitiveForthWords::CHAR_PUT())
+						.compileWord(&PrimitiveForthWords::FROM_RETURN_STACK())
+						.compileWord(&PrimitiveForthWords::ADD_ONE())
+						.compileWord(&PrimitiveForthWords::TO_RETURN_STACK())
+						.compileConstant(static_cast<ForthCell::INT_TYPE >(10))
+						.compileWord(&PrimitiveForthWords::DIVIDE())
+					.compileEndWhile()
+					.compileWord(&PrimitiveForthWords::DROP())
 				.compileEndIf()
-				.build());
-
+				.compileWord(&PrimitiveForthWords::ZERO())
+				.compileWord(&PrimitiveForthWords::FROM_RETURN_STACK())
+				.compileWord(&PrimitiveForthWords::CHAR_PUT())
+				.compileWord(&PrimitiveForthWords::FROM_RETURN_STACK())
+				.compileWord(&STRREVERSE())
+			.compileElse()
+				.compileWord(&PrimitiveForthWords::SWAP())
+				.compileWord(&PrimitiveForthWords::DROP())
+				.compileConstant(static_cast<ForthCell::CHAR_TYPE>('0'))
+				.compileWord(&PrimitiveForthWords::OVER())
+				.compileWord(&PrimitiveForthWords::CHAR_PUT())
+				.compileWord(&PrimitiveForthWords::ADD_ONE())
+				.compileWord(&PrimitiveForthWords::ZERO())
+				.compileWord(&PrimitiveForthWords::OVER())
+				.compileWord(&PrimitiveForthWords::CHAR_PUT())
+			.compileEndIf()
+		.build()
+	);
+	return word;
+}

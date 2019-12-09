@@ -6,6 +6,8 @@
 class CompilerImmediateVocab : public ForthVocab {
 public:
 	static ForthVocab& getInstance();
+
+	static ForthWord& SEMI_COLON();
 };
 
 

@@ -10,17 +10,17 @@ TEST_CASE("runtime/tests/ForthVocabTest", "[RuntimeTests]") {
 	ForthVocab v1(nullptr);
 	ForthVocab v2(&v1);
 
-	v1.add(&PrimitiveForthWords::NOP);
-	v2.add(&PrimitiveForthWords::TRUE);
+	v1.add(&PrimitiveForthWords::NOP());
+	v2.add(&PrimitiveForthWords::TRUE());
 
-	CHECK(v1.findWord(nopChars) == &PrimitiveForthWords::NOP);
-	CHECK(v1.findWord(nopStr) == &PrimitiveForthWords::NOP);
+	CHECK(v1.findWord(nopChars) == &PrimitiveForthWords::NOP());
+	CHECK(v1.findWord(nopStr) == &PrimitiveForthWords::NOP());
 	CHECK(v1.findWord(trueChars) == nullptr);
 	CHECK(v1.findWord(trueStr) == nullptr);
 
-	CHECK(v2.findWord(nopChars) == &PrimitiveForthWords::NOP);
-	CHECK(v2.findWord(nopStr) == &PrimitiveForthWords::NOP);
-	CHECK(v2.findWord(trueChars) == &PrimitiveForthWords::TRUE);
-	CHECK(v2.findWord(trueStr) == &PrimitiveForthWords::TRUE);
+	CHECK(v2.findWord(nopChars) == &PrimitiveForthWords::NOP());
+	CHECK(v2.findWord(nopStr) == &PrimitiveForthWords::NOP());
+	CHECK(v2.findWord(trueChars) == &PrimitiveForthWords::TRUE());
+	CHECK(v2.findWord(trueStr) == &PrimitiveForthWords::TRUE());
 }
 

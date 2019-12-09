@@ -23,7 +23,7 @@ CompositeForthWordBuilder& CompositeForthWordBuilder::compileCell(const ForthCel
 }
 
 CompositeForthWordBuilder& CompositeForthWordBuilder::compileConstant(const ForthCell& cell) {
-	word.push_back(&PrimitiveForthWords::PUSH_NEXT_CELL);
+	word.push_back(&PrimitiveForthWords::PUSH_NEXT_CELL());
 	word.push_back(cell);
 	return *this;
 }
@@ -34,26 +34,26 @@ CompositeForthWordBuilder &CompositeForthWordBuilder::compileWord(const ForthCel
 }
 
 CompositeForthWordBuilder &CompositeForthWordBuilder::compileInt(const ForthCell::INT_TYPE intIn) {
-	word.push_back(&PrimitiveForthWords::PUSH_NEXT_CELL);
+	word.push_back(&PrimitiveForthWords::PUSH_NEXT_CELL());
 	word.push_back(intIn);
 	return *this;
 }
 
 CompositeForthWordBuilder &CompositeForthWordBuilder::compilePtr(const ForthCell::PTR_TYPE ptrIn) {
-	word.push_back(&PrimitiveForthWords::PUSH_NEXT_CELL);
+	word.push_back(&PrimitiveForthWords::PUSH_NEXT_CELL());
 	word.push_back(ptrIn);
 	return *this;
 }
 
 CompositeForthWordBuilder& CompositeForthWordBuilder::compileIf() {
-	word.push_back(&PrimitiveForthWords::JUMP_IF_FALSE);
+	word.push_back(&PrimitiveForthWords::JUMP_IF_FALSE());
 	ifStack.push(word.size());
 	word.push_back(static_cast<ForthCell::INT_TYPE>(0));
 	return *this;
 }
 
 CompositeForthWordBuilder& CompositeForthWordBuilder::compileElse() {
-	word.push_back(&PrimitiveForthWords::JUMP);
+	word.push_back(&PrimitiveForthWords::JUMP());
 	int nextPatch = word.size();
 	word.push_back(static_cast<ForthCell::INT_TYPE>(0));
 	int ifNdx = ifStack.top();
@@ -76,7 +76,7 @@ CompositeForthWordBuilder& CompositeForthWordBuilder::compileWhile() {
 }
 
 CompositeForthWordBuilder& CompositeForthWordBuilder::compileDo() {
-	word.push_back(&PrimitiveForthWords::JUMP_IF_FALSE);
+	word.push_back(&PrimitiveForthWords::JUMP_IF_FALSE());
 	ifStack.push(word.size());
 	word.push_back(static_cast<ForthCell::INT_TYPE>(0));
 	return *this;
@@ -88,7 +88,7 @@ CompositeForthWordBuilder& CompositeForthWordBuilder::compileEndWhile() {
 	int whileNdx = ifStack.top();
 	ifStack.pop();
 
-	word.push_back(&PrimitiveForthWords::JUMP);
+	word.push_back(&PrimitiveForthWords::JUMP());
 	word.push_back(static_cast<ForthCell::INT_TYPE>(whileNdx));
 	word[doNdx] = static_cast<ForthCell::INT_TYPE>(word.size());
 	return *this;
@@ -100,21 +100,21 @@ CompositeForthWordBuilder& CompositeForthWordBuilder::compileRepeat() {
 }
 
 CompositeForthWordBuilder& CompositeForthWordBuilder::compileForever() {
-	word.push_back(&PrimitiveForthWords::JUMP);
+	word.push_back(&PrimitiveForthWords::JUMP());
 	word.push_back(static_cast<ForthCell::INT_TYPE>(ifStack.top()));
 	ifStack.pop();
 	return *this;
 }
 
 CompositeForthWordBuilder& CompositeForthWordBuilder::compileUntil() {
-	word.push_back(&PrimitiveForthWords::JUMP_IF_FALSE);
+	word.push_back(&PrimitiveForthWords::JUMP_IF_FALSE());
 	word.push_back(static_cast<ForthCell::INT_TYPE>(ifStack.top()));
 	ifStack.pop();
 	return *this;
 }
 
 CompositeForthWord CompositeForthWordBuilder::build() {
-	compileCell(&PrimitiveForthWords::RETURN);
+	compileCell(&PrimitiveForthWords::RETURN());
 	return CompositeForthWord(name, word);
 }
 CompositeForthWordBuilder &CompositeForthWordBuilder::forwardMark() {

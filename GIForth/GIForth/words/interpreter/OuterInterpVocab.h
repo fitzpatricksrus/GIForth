@@ -8,5 +8,4 @@ public:
 	static ForthVocab& getInstance();
 };
 
-
 #endif //GIFORTH_OUTERINTERPVOCAB_H
