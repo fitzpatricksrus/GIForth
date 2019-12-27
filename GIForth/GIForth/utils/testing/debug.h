@@ -18,7 +18,12 @@ public:
 	std::string msg;
 };
 
-#define checkTrue(x) if (!(x)) throw CheckException(__FILE__, __LINE__, #x)
+inline void checkTrue(bool x) {
+	if (!(x)) {
+		throw CheckException(__FILE__, __LINE__, "false");
+	}
+}
+//#define checkTrue(x) if (!(x)) throw CheckException(__FILE__, __LINE__, #x)
 
 #ifdef NDEBUG
 #define assertTrue(x)

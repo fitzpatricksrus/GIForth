@@ -93,6 +93,7 @@ ForthWord& CompositeForthWordWords::BACKWARD_RESOLVE() {
 static void F_COMPILE_IF(ForthThread &thread) {
 	checkTrue(PrimitiveForthWords::registers[PrimitiveForthWords::COMPILE_STATE].pointer != nullptr);
 	builder()->compileIf();
+	thread.pushDataStack(static_cast<ForthCell::BOOL_TYPE>(true));
 }
 ForthWord &CompositeForthWordWords::COMPILE_IF() {
 	static PrimitiveForthWordFunction word(&F_COMPILE_IF, "CompilerWords::COMPILE_IF", "if");
@@ -102,6 +103,7 @@ ForthWord &CompositeForthWordWords::COMPILE_IF() {
 static void F_COMPILE_ELSE(ForthThread &thread) {
 	checkTrue(PrimitiveForthWords::registers[PrimitiveForthWords::COMPILE_STATE].pointer != nullptr);
 	builder()->compileElse();
+	thread.pushDataStack(static_cast<ForthCell::BOOL_TYPE>(true));
 }
 ForthWord &CompositeForthWordWords::COMPILE_ELSE() {
 	static PrimitiveForthWordFunction word(&F_COMPILE_ELSE, "CompilerWords::COMPILE_ELSE", "else");
@@ -111,6 +113,7 @@ ForthWord &CompositeForthWordWords::COMPILE_ELSE() {
 static void F_COMPILE_ENDIF(ForthThread &thread) {
 	checkTrue(PrimitiveForthWords::registers[PrimitiveForthWords::COMPILE_STATE].pointer != nullptr);
 	builder()->compileEndIf();
+	thread.pushDataStack(static_cast<ForthCell::BOOL_TYPE>(true));
 }
 ForthWord &CompositeForthWordWords::COMPILE_ENDIF() {
 	static PrimitiveForthWordFunction word(&F_COMPILE_ENDIF, "CompilerWords::COMPILE_ENDIF", "endif");
@@ -120,6 +123,7 @@ ForthWord &CompositeForthWordWords::COMPILE_ENDIF() {
 static void F_COMPILE_WHILE(ForthThread &thread) {
 	checkTrue(PrimitiveForthWords::registers[PrimitiveForthWords::COMPILE_STATE].pointer != nullptr);
 	builder()->compileWhile();
+	thread.pushDataStack(static_cast<ForthCell::BOOL_TYPE>(true));
 }
 ForthWord &CompositeForthWordWords::COMPILE_WHILE() {
 	static PrimitiveForthWordFunction word(&F_COMPILE_WHILE, "CompilerWords::COMPILE_WHILE", "while");
@@ -129,6 +133,7 @@ ForthWord &CompositeForthWordWords::COMPILE_WHILE() {
 static void F_COMPILE_DO(ForthThread &thread) {
 	checkTrue(PrimitiveForthWords::registers[PrimitiveForthWords::COMPILE_STATE].pointer != nullptr);
 	builder()->compileDo();
+	thread.pushDataStack(static_cast<ForthCell::BOOL_TYPE>(true));
 }
 ForthWord &CompositeForthWordWords::COMPILE_DO() {
 	static PrimitiveForthWordFunction word(&F_COMPILE_DO, "CompilerWords::COMPILE_DO", "do");
@@ -138,6 +143,7 @@ ForthWord &CompositeForthWordWords::COMPILE_DO() {
 static void F_COMPILE_ENDWHILE(ForthThread &thread) {
 	checkTrue(PrimitiveForthWords::registers[PrimitiveForthWords::COMPILE_STATE].pointer != nullptr);
 	builder()->compileEndWhile();
+	thread.pushDataStack(static_cast<ForthCell::BOOL_TYPE>(true));
 }
 ForthWord &CompositeForthWordWords::COMPILE_ENDWHILE() {
 	static PrimitiveForthWordFunction word(&F_COMPILE_ENDWHILE, "CompilerWords::COMPILE_ENDWHILE", "endwhile");
@@ -147,6 +153,7 @@ ForthWord &CompositeForthWordWords::COMPILE_ENDWHILE() {
 static void F_COMPILE_REPEAT(ForthThread &thread) {
 	checkTrue(PrimitiveForthWords::registers[PrimitiveForthWords::COMPILE_STATE].pointer != nullptr);
 	builder()->compileRepeat();
+	thread.pushDataStack(static_cast<ForthCell::BOOL_TYPE>(true));
 }
 ForthWord &CompositeForthWordWords::COMPILE_REPEAT() {
 	static PrimitiveForthWordFunction word(&F_COMPILE_REPEAT, "CompilerWords::COMPILE_REPEAT", "repeat");
@@ -156,6 +163,7 @@ ForthWord &CompositeForthWordWords::COMPILE_REPEAT() {
 static void F_COMPILE_FOREVER(ForthThread &thread) {
 	checkTrue(PrimitiveForthWords::registers[PrimitiveForthWords::COMPILE_STATE].pointer != nullptr);
 	builder()->compileForever();
+	thread.pushDataStack(static_cast<ForthCell::BOOL_TYPE>(true));
 }
 ForthWord &CompositeForthWordWords::COMPILE_FOREVER() {
 	static PrimitiveForthWordFunction word(&F_COMPILE_FOREVER, "CompilerWords::COMPILE_FOREVER", "forever");
@@ -165,6 +173,7 @@ ForthWord &CompositeForthWordWords::COMPILE_FOREVER() {
 static void F_COMPILE_UNTIL(ForthThread &thread) {
 	checkTrue(PrimitiveForthWords::registers[PrimitiveForthWords::COMPILE_STATE].pointer != nullptr);
 	builder()->compileUntil();
+	thread.pushDataStack(static_cast<ForthCell::BOOL_TYPE>(true));
 }
 ForthWord &CompositeForthWordWords::COMPILE_UNTIL() {
 	static PrimitiveForthWordFunction word(&F_COMPILE_UNTIL, "CompilerWords::COMPILE_UNTIL", "until");

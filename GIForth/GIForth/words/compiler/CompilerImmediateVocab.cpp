@@ -1,11 +1,6 @@
-//
-// Created by stuff on 12/8/2019.
-//
-
 #include <runtime/utils/CompositeForthWordBuilder.h>
 #include <runtime/CompositeForthWordWords.h>
 #include <runtime/PrimitiveForthWords.h>
-#include <utils/testing/debug.h>
 #include "CompilerImmediateVocab.h"
 #include "runtime/CompositeForthWord.h"
 

@@ -39,6 +39,7 @@ char NativeOSFunctions::peekNextChar() {
 char NativeOSFunctions::nextChar() {
     if (inputPos > inputBuffer.size()) {
         do {
+			currentOutputStream() << "  ok " << std::endl;
 			currentOutputStream().flush();
 			if (!std::getline(currentInputStream(), inputBuffer)) {
 				flushInput();
